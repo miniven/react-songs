@@ -1,0 +1,6 @@
+:root {
+  --font-main: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+  
+  --color-light-blue: #eaedf0;
+  --color-main: var(--color-light-blue);
+}

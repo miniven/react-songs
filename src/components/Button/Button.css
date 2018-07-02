@@ -1,0 +1,23 @@
+@import '../../styles/_variables.css';
+
+.button {
+  padding: 15px 10px;
+  font-size: 1rem;
+  font-family: var(--font-main);
+  background-color: transparent;
+  border: none;
+  border-radius: 0.2em;
+  cursor: pointer;
+  transition: 0.15s ease;
+  appearance: none;
+
+  &:hover,
+  &:focus {
+    background-color: var(--color-main);
+    outline: none;
+  }
+
+  &--left {
+    text-align: left;
+  }
+}

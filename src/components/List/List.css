@@ -1,0 +1,15 @@
+@import '../../styles/_variables.css';
+
+.list {
+  font-size: 1rem;
+  font-family: var(--font-main);
+
+  &__item {
+    margin: 2px 0;
+    line-height: 1.4em;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}
