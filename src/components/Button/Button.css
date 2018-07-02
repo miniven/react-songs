@@ -1,23 +1,33 @@
 @import '../../styles/_variables.css';
 
 .button {
-  padding: 15px 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
   font-size: 1rem;
   font-family: var(--font-main);
-  background-color: transparent;
-  border: none;
+  background-color: #ffffff;
   border-radius: 0.2em;
-  cursor: pointer;
-  transition: 0.15s ease;
-  appearance: none;
 
-  &:hover,
-  &:focus {
-    background-color: var(--color-main);
-    outline: none;
-  }
+  &__close {
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    background-image: url('./close.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    opacity: 0.25;
+    transition: 0.15s ease;
+    appearance: none;
 
-  &--left {
-    text-align: left;
+    &:hover,
+    &:focus {
+      outline: none;
+      opacity: 0.6;
+    }
   }
 }

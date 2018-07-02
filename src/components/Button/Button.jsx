@@ -5,7 +5,10 @@ import React from 'react';
 import './Button.css';
 
 const Button = ({ className, text, ...restProps }) => (
-  <button className={`button ${className ? className : ''}`} {...restProps}>{text}</button>
+  <div className={`button ${className ? className : ''}`} {...restProps}>
+    {text}
+    <button className='button__close'></button>
+  </div>
 );
 
 export default Button;

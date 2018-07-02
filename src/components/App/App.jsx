@@ -9,7 +9,8 @@ const App = (props) => (
   <div className="app">
     <div className="container">
       <div className="row">
-        <div className="col-xs-12 col-md-3">
+        <div className="col-xs"></div>
+        <div className="col-xs-12 col-sm-4 col-md-3">
           <Sidebar className="app__sidebar">
             <List />
           </Sidebar>

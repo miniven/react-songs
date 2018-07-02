@@ -14,7 +14,7 @@ const List = ({ className, data }) => (
     {
       Object.keys(data).map(key => (
         <li className='list__item' key={key}>
-          <Button className='list__button button--left' text={data[key]}/>
+          <Button className='list__button' text={data[key]}/>
         </li>
       ))
     }
