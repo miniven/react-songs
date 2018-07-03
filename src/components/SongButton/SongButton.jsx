@@ -19,7 +19,7 @@ class SongButton extends Component {
   }
 
   render() {
-    const { className, data, setSongActivity, ...restProps } = this.props;
+    const { className, data, authors, setSongActivity, ...restProps } = this.props;
     const { title, author = 'Неизвестен' } = data;
 
     return (
@@ -28,10 +28,14 @@ class SongButton extends Component {
           {title}
           <button className='song-button__close' onClick={this.setSongActivity}></button>
         </div>
-        <InfoText mod='author' value={author} />
+        <InfoText mod='author' value={authors[author]} />
       </div>
     );
   }
 };
 
-export default connect(null, { setSongActivity })(SongButton);
+const mapStateToProps = state => ({
+  authors: state.authors,
+});
+
+export default connect(mapStateToProps, { setSongActivity })(SongButton);

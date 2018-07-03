@@ -10,7 +10,7 @@ class FilterForm extends Component {
       <form className='form'>
         <label className='form__field'>
           <p className='form__label'>Название</p>
-          <input className='form__input' type='text' name='title' />
+          <input className='form__input' type='text' name='title' autoComplete='off' />
         </label>
       </form>
     );

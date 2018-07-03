@@ -5,7 +5,7 @@ import React from 'react';
 import './InfoText.css';
 
 const InfoText = (props) => (
-  <p className={`info-text info-text--${props.mod}`}>{props.value}</p>
+  <p className={`info-text info-text--${props.mod}`}>{props.value || 'Неизвестен'}</p>
 );
 
 export default InfoText;

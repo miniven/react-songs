@@ -15,13 +15,19 @@ import App from '~/components/App/App';
 
 // Redux //
 
-import songs from '~/songs.json';
 import rootReducer from '~/reducers/';
+import songs from '~/songs.json';
+import genres from '~/genres.json';
+import authors from '~/authors.json';
 import { setSongs } from '~/actions/song';
+import { setGenres } from '~/actions/genre';
+import { setAuthors } from '~/actions/author';
 
 const store = createStore(rootReducer);
 
 store.dispatch(setSongs(songs));
+store.dispatch(setGenres(genres));
+store.dispatch(setAuthors(authors));
 
 ReactDOM.render(
   <Provider store={store}>

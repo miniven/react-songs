@@ -20,8 +20,8 @@ class SongItem extends Component {
   }
 
   render() {
-    const { className, data } = this.props;
-    const { title, author = 'Неизвестен', genre = 'Неизвестен' } = data;
+    const { className, data, genres, authors } = this.props;
+    const { title, author, genre } = data;
 
     return (
       <article className={`song-item ${className ? className : ''}`}>
@@ -31,10 +31,10 @@ class SongItem extends Component {
         <div className='song-item__info'>
           <div className="row">
             <div className="col-xs-12 col-md-3">
-              <InfoText mod='author' value={author} />
+              <InfoText mod='author' value={authors[author]} />
             </div>
             <div className="col-xs-12 col-md-3">
-              <InfoText mod='genre' value={genre} />
+              <InfoText mod='genre' value={genres[genre]} />
             </div>
           </div>
         </div>
@@ -44,4 +44,9 @@ class SongItem extends Component {
   }
 };
 
-export default connect(null, { setSongActivity })(SongItem);
+const mapStateToProps = state => ({
+  genres: state.genres,
+  authors: state.authors,
+});
+
+export default connect(mapStateToProps, { setSongActivity })(SongItem);
