@@ -1,0 +1,55 @@
+@import '../../styles/_variables.css';
+
+.song-item {
+  padding: 1em;
+  font-size: 1rem;
+  font-family: var(--font-main);
+  background-color: #ffffff;
+  border-radius: 0.2em;
+
+  &__title {
+    margin-bottom: 1em;
+    font-weight: 500;
+    font-size: 1.125em;
+  }
+
+  &__info {
+    margin-bottom: 1em;
+  }
+
+  &__text {
+    color: var(--color-light-text);
+    font-size: 0.8em;
+    line-height: 1.4em;
+
+    &--author,
+    &--genre {
+      position: relative;
+      padding-left: 27px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        display: block;
+        width: 19px;
+        height: 19px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+        transform: translateY(-50%);
+      }
+    }
+
+    &--author:before {
+      background-image: url('./author.svg');
+    }
+
+    &--genre:before {
+      padding: 1px;
+      background-image: url('./genre.svg');
+      background-origin: content-box;
+    }
+  }
+}

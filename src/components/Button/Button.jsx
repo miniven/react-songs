@@ -4,11 +4,12 @@ import React from 'react';
 
 import './Button.css';
 
-const Button = ({ className, text, ...restProps }) => (
-  <div className={`button ${className ? className : ''}`} {...restProps}>
-    {text}
-    <button className='button__close'></button>
-  </div>
-);
+const Button = ({ children, className, href, ...restProps }) => {
+  if (href) {
+    return <a className={`button ${className ? className : ''}`} href={href} {...restProps}>{children}</a>;
+  }
+ 
+  return <button className={`button ${className ? className : ''}`} {...restProps}>{children}</button>;
+};
 
 export default Button;

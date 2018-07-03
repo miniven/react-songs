@@ -1,1 +1,2 @@
 export const SET_SONGS = 'SET_SONGS';
+export const SET_SONG_ACTIVITY = 'SET_SONG_ACTIVITY';

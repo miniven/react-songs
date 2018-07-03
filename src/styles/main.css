@@ -1,3 +1,8 @@
 @import '_base.css';
 @import '_media.css';
 @import '_variables.css';
+
+/* Components */
+
+@import 'components/title.css';
+@import 'components/text.css';
