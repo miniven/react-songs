@@ -1,4 +1,5 @@
 import React from 'react';
+import StickyBox from "react-sticky-box";
 
 // Styles //
 
@@ -19,10 +20,12 @@ const App = (props) => (
           <SongList />
         </div>
         <div className='col-xs-12 col-sm-4 col-md-3'>
-          <Sidebar className='app__sidebar'>
-            <h2 className='title'>Добавлены</h2>
-            <List />
-          </Sidebar>
+          <StickyBox bottom={false}>
+            <Sidebar className='app__sidebar'>
+              <h2 className='sidebar__title title'>Добавлены</h2>
+              <List />
+            </Sidebar>
+          </StickyBox>
         </div>
       </div>
     </div>

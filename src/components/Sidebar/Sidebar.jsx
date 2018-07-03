@@ -5,7 +5,9 @@ import React from 'react';
 import './Sidebar.css';
 
 const Sidebar = ({ className, children }) => (
-  <aside className={`sidebar ${className ? className : ''}`}>{children}</aside>
+  <aside className={`sidebar ${className ? className : ''}`}>
+    {children}
+  </aside>
 );
 
 export default Sidebar;

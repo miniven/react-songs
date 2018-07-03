@@ -15,7 +15,7 @@ class SongButton extends Component {
   }
 
   render() {
-    const { className, data, ...restProps } = this.props;
+    const { className, data, setSongActivity, ...restProps } = this.props;
 
     return (
       <div className={`song-button ${className ? className : ''}`} {...restProps}>
