@@ -12,6 +12,7 @@ import { setSongActivity } from '~/actions/song';
 // Components //
 
 import Button from '~/components/Button/Button';
+import InfoText from '~/components/InfoText/InfoText';
 
 class SongItem extends Component {
   setSongActivity = () => {
@@ -30,10 +31,10 @@ class SongItem extends Component {
         <div className='song-item__info'>
           <div className="row">
             <div className="col-xs-12 col-md-3">
-              <p className='song-item__text song-item__text--author' title="Автор">{author}</p>
+              <InfoText mod='author' value={author} />
             </div>
             <div className="col-xs-12 col-md-3">
-              <p className='song-item__text song-item__text--genre' title="Жанр">{genre}</p>
+              <InfoText mod='genre' value={genre} />
             </div>
           </div>
         </div>

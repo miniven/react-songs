@@ -1,13 +1,17 @@
 @import '../../styles/_variables.css';
 
 .song-button {
-  display: flex;
-  justify-content: space-between;
   padding: 15px;
   font-size: 1rem;
   font-family: var(--font-main);
   background-color: #ffffff;
   border-radius: 0.2em;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4em;
+  }
 
   &__close {
     width: 25px;

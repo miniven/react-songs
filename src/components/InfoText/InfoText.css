@@ -1,0 +1,37 @@
+@import '../../styles/_variables.css';
+
+.info-text {
+  color: var(--color-light-text);
+  font-size: 0.8rem;
+  line-height: 1.4em;
+
+  &--author,
+  &--genre {
+    position: relative;
+    padding-left: 25px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -2px;
+      display: block;
+      width: 19px;
+      height: 19px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100%;
+      transform: translateY(-50%);
+    }
+  }
+
+  &--author:before {
+    background-image: url('./author.svg');
+  }
+
+  &--genre:before {
+    padding: 1px;
+    background-image: url('./genre.svg');
+    background-origin: content-box;
+  }
+}
