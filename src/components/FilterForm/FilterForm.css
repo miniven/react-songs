@@ -1,0 +1,46 @@
+@import '../../styles/_variables.css';
+
+.form {
+  font-size: 1rem;
+  font-family: var(--font-main);
+
+  &__field {
+    position: relative;
+  }
+
+  &__label {
+    /* position: absolute;
+    top: 50%;
+    left: 0; */
+    width: 100%;
+    color: var(--color-secondary);
+    font-weight: 500;
+    font-size: 0.8em;
+    /* transform: translateY(-50%); */
+    transition: 0.2s cubic-bezier(1, 0, 0, 1);
+    /* pointer-events: none; */
+
+    &--selected {
+      top: -0.8em;
+      transform: translateY(-100%);
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.8em 0;
+    color: var(--color-secondary);
+    font-weight: 600;
+    font-size: 1em;
+    font-family: inherit;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--color-secondary);
+    border-radius: 0;
+    appearance: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

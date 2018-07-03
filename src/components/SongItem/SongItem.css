@@ -9,6 +9,7 @@
 
   &__title {
     margin-bottom: 1em;
+    color: var(--color-secondary);
     font-weight: 500;
     font-size: 1.125em;
   }
