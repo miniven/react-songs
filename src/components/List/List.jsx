@@ -15,7 +15,7 @@ import SongButton from '~/components/SongButton/SongButton';
 
 const List = ({ className, data }) => {
   if (data.length === 0) {
-    return <p className='text text--light text--small'>Ни одной песни не добавлено</p>
+    return <p className='sidebar__message text text--light text--small'>Ни одной песни не добавлено</p>
   }
 
   return (

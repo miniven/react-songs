@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Styles //
@@ -11,8 +11,11 @@ import { getUnselectedSongs } from '~/reducers/songReducer';
 
 // Components //
 
+import StickyBox from 'react-sticky-box';
 import FilterForm from '~/components/FilterForm/FilterForm';
 import SongItem from '~/components/SongItem/SongItem';
+import Sidebar from '~/components/Sidebar/Sidebar';
+import List from '~/components/List/List';
 
 class SongList extends Component {
   state = {
@@ -43,19 +46,30 @@ class SongList extends Component {
       .map(item => <li key={item.id} className='song-list__item'><SongItem data={item} /></li>);
 
     return (
-      <Fragment>
-        <FilterForm handleInput={this.handleInput} values={this.state} />
-
-        <div className='song-list'>
-          {
-            filteredList.length > 0 ? (
-              <ul className='song-list__list'>{filteredList}</ul>
-            ) : (
-              <p>Ни одной песни не найдено</p>
-            )
-          }
+      <div className='row'>
+        <div className='col-xs-12 col-sm-8 col-md-9'>
+          <FilterForm handleInput={this.handleInput} values={this.state} />
         </div>
-      </Fragment>
+        <div className='col-xs-12 col-sm-8 col-md-9'>
+
+          <div className='song-list'>
+            {
+              filteredList.length > 0 ? (
+                <ul className='song-list__list'>{filteredList}</ul>
+              ) : (
+                <p>Ни одной песни не найдено</p>
+              )
+            }
+          </div>
+        </div>
+        <div className='col-xs'>
+          <StickyBox bottom={false}>
+            <Sidebar>
+              <List />
+            </Sidebar>
+          </StickyBox>
+        </div>
+      </div>
     );
   }
 };

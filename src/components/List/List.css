@@ -9,6 +9,14 @@
   &__item {
     margin: 1px 0;
     line-height: 1.4em;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__button {
