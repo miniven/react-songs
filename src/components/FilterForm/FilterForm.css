@@ -79,6 +79,35 @@
       padding-right: 0 !important;
       text-align: right;
     }
+
+    .Select-menu-outer {
+      margin-top: 10px;
+      overflow: hidden;
+      background-color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      box-shadow: 0 5px 45px -10px color(var(--color-secondary) a(35%));
+    }
+
+    .Select-menu {
+      max-height: 300px;
+    }
+
+    .Select-option {
+      padding: 15px;
+      color: var(--color-secondary);
+      font-weight: 500;
+      font-size: 1em;
+
+      &:hover,
+      &:focus {
+        background-color: var(--color-main);
+      }
+
+      &.is-selected {
+        background-color: var(--color-main);
+      }
+    }
   }
 
   &__input {
