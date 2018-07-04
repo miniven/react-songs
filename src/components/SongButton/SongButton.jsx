@@ -25,7 +25,7 @@ class SongButton extends Component {
     return (
       <div className={`song-button ${className ? className : ''}`} {...restProps}>
         <div className="song-button__top">
-          {title}
+          <h3 className="song-button__title">{title}</h3>
           <button className='song-button__close' onClick={this.setSongActivity}></button>
         </div>
         <InfoText mod='author' value={authors[author]} />

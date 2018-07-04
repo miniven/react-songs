@@ -5,7 +5,6 @@
   font-size: 1rem;
   font-family: var(--font-main);
   background-color: #ffffff;
-  border-radius: 0.2em;
 
   &__top {
     display: flex;
@@ -13,9 +12,14 @@
     margin-bottom: 0.4em;
   }
 
+  &__title {
+    color: var(--color-secondary);
+    font-weight: 500;
+  }
+
   &__close {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     margin-left: 10px;
     background-color: transparent;
     background-image: url('./close.svg');
