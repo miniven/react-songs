@@ -36,7 +36,7 @@ const List = ({ className, data }) => {
     return <Message className='sidebar__message' type='info' text='Ни одной песни не добавлено' />
   }
 
-  return <SortableList items={data} className={className ? className : ''} />;
+  return <SortableList items={data} className={className ? className : ''} helperClass='list__item--sortable' />;
 };
 
 const mapStateToProps = state => ({

@@ -18,6 +18,12 @@
     &:last-child {
       margin-bottom: 0;
     }
+
+    &--sortable {
+      overflow: hidden;
+      border-radius: 4px;
+      box-shadow: 0 10px 45px -10px color(var(--color-secondary) a(35%));
+    }
   }
 
   &__button {
