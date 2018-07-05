@@ -8,6 +8,7 @@ import './SongButton.css';
 // Actions //
 
 import { setSongActivity } from '~/actions/song';
+import { removeItem } from '~/actions/order';
 
 // Somponents //
 
@@ -15,11 +16,12 @@ import InfoText from '~/components/InfoText/InfoText';
 
 class SongButton extends Component {
   setSongActivity = () => {
+    this.props.removeItem(this.props.data.id);
     this.props.setSongActivity(this.props.data.id, false);
   }
 
   render() {
-    const { className, data, authors, setSongActivity, ...restProps } = this.props;
+    const { className, data, authors, setSongActivity, removeItem, ...restProps } = this.props;
     const { title, author = 'Неизвестен' } = data;
 
     return (
@@ -38,4 +40,4 @@ const mapStateToProps = state => ({
   authors: state.authors,
 });
 
-export default connect(mapStateToProps, { setSongActivity })(SongButton);
+export default connect(mapStateToProps, { setSongActivity, removeItem })(SongButton);

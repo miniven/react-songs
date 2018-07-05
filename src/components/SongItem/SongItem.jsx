@@ -8,6 +8,7 @@ import './SongItem.css';
 // Actions //
 
 import { setSongActivity } from '~/actions/song';
+import { addItem } from '~/actions/order';
 
 // Components //
 
@@ -17,6 +18,7 @@ import InfoText from '~/components/InfoText/InfoText';
 class SongItem extends Component {
   setSongActivity = () => {
     this.props.setSongActivity(this.props.data.id, true);
+    this.props.addItem(this.props.data.id);
   }
 
   render() {
@@ -49,4 +51,4 @@ const mapStateToProps = state => ({
   authors: state.authors,
 });
 
-export default connect(mapStateToProps, { setSongActivity })(SongItem);
+export default connect(mapStateToProps, { setSongActivity, addItem })(SongItem);

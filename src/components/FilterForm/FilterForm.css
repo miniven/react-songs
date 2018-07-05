@@ -125,7 +125,7 @@
     }
 
     &::placeholder {
-      color: color(var(--color-secondary) a(30%));
+      color: color(var(--color-secondary) alpha(30%));
     }
   }
 }

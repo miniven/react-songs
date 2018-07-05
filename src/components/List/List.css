@@ -20,13 +20,16 @@
     }
 
     &--sortable {
-      overflow: hidden;
-      border-radius: 4px;
-      box-shadow: 0 10px 45px -10px color(var(--color-secondary) a(35%));
+      .list__button {
+        border-radius: 4px;
+        box-shadow: 0 10px 45px -10px color(var(--color-secondary) a(35%));
+        transform: scale(1.015);
+      }
     }
   }
 
   &__button {
     width: 100%;
+    box-shadow: none;
   }
 }
