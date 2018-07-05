@@ -10,9 +10,14 @@
     margin: 1px 0;
     line-height: 1.4em;
     list-style: none;
+    perspective: 1000px;
 
     &:first-child {
       margin-top: 0;
+
+      .list__button {
+        animation: ShowScale 0.5s;
+      }
     }
 
     &:last-child {
@@ -24,6 +29,7 @@
         border-radius: 4px;
         box-shadow: 0 10px 45px -10px color(var(--color-secondary) a(35%));
         transform: scale(1.015);
+        animation: none;
       }
     }
   }
@@ -31,5 +37,31 @@
   &__button {
     width: 100%;
     box-shadow: none;
+    transform-origin: top;
+    animation: ShowRotate 0.5s;
+  }
+}
+
+@keyframes ShowRotate {
+  from {
+    transform: rotateX(-40deg);
+    opacity: 0;
+  }
+
+  to {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes ShowScale {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
