@@ -11,7 +11,7 @@ export const orderReducer = (state = [], { type, id, oldIndex, newIndex }) => {
         id,
       ];
     case REMOVE_ITEM:
-      return state.filter(item => String(item.id) !== String(id));
+      return state.filter(item => String(item) !== String(id));
     default:
       return state;
   }

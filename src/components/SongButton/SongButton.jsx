@@ -16,8 +16,8 @@ import InfoText from '~/components/InfoText/InfoText';
 
 class SongButton extends Component {
   setSongActivity = () => {
-    this.props.removeItem(this.props.data.id);
     this.props.setSongActivity(this.props.data.id, false);
+    this.props.removeItem(this.props.data.id);
   }
 
   render() {
