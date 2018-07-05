@@ -11,24 +11,32 @@ import { getSelectedSongs } from '~/reducers/songReducer';
 
 // Components //
 
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import SongButton from '~/components/SongButton/SongButton';
+import Message from '~/components/Message/Message';
+
+const SortableItem = SortableElement(({ item }) => (
+  <li className='list__item'>
+    <SongButton className='list__button' data={item} />
+  </li>
+));
+
+const SortableList = SortableContainer(({ items, className }) => (
+  <ul className={`list ${className}`}>
+    {
+      items.map((item, index) => (
+        <SortableItem key={item.id} index={index} item={item} />
+      ))
+    }
+  </ul>
+));
 
 const List = ({ className, data }) => {
   if (data.length === 0) {
-    return <p className='sidebar__message text text--light text--small'>Ни одной песни не добавлено</p>
+    return <Message className='sidebar__message' type='info' text='Ни одной песни не добавлено' />
   }
 
-  return (
-    <ul className={`list ${className ? className : ''}`}>
-      {
-        data.map(item => (
-          <li className='list__item' key={item.id}>
-            <SongButton className='list__button' data={item} />
-          </li>
-        ))
-      }
-    </ul>
-  );
+  return <SortableList items={data} className={className ? className : ''} />;
 };
 
 const mapStateToProps = state => ({

@@ -28,6 +28,7 @@ class FilterForm extends Component {
                 className='form__input'
                 type='text'
                 name='title'
+                placeholder='Someone Like You'
                 value={values.title}
                 autoComplete='off'
                 onChange={handleInput}

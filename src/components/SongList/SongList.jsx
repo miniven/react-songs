@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// Styles //
-
-import './SongList.css';
-
 // Selectors //
 
 import { getUnselectedSongs } from '~/reducers/songReducer';
@@ -14,8 +10,13 @@ import { getUnselectedSongs } from '~/reducers/songReducer';
 import StickyBox from 'react-sticky-box';
 import FilterForm from '~/components/FilterForm/FilterForm';
 import SongItem from '~/components/SongItem/SongItem';
-import Sidebar from '~/components/Sidebar/Sidebar';
 import List from '~/components/List/List';
+import Message from '~/components/Message/Message';
+import Sidebar from '~/components/Sidebar/Sidebar';
+
+// Styles //
+
+import './SongList.css';
 
 class SongList extends Component {
   state = {
@@ -57,7 +58,7 @@ class SongList extends Component {
               filteredList.length > 0 ? (
                 <ul className='song-list__list'>{filteredList}</ul>
               ) : (
-                <p>Ни одной песни не найдено</p>
+                <Message className='song-list__message' type='info' text='Ни одна песня не соответствует введенным параметрам' />
               )
             }
           </div>

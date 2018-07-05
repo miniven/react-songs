@@ -9,16 +9,12 @@
   }
 
   &__label {
-    /* position: absolute;
-    top: 50%;
-    left: 0; */
+    display: block;
     width: 100%;
     color: var(--color-secondary);
     font-weight: 500;
     font-size: 0.8em;
-    /* transform: translateY(-50%); */
     transition: 0.2s cubic-bezier(1, 0, 0, 1);
-    /* pointer-events: none; */
 
     &--selected {
       top: -0.8em;
@@ -126,6 +122,10 @@
 
     &:focus {
       outline: none;
+    }
+
+    &::placeholder {
+      color: color(var(--color-secondary) a(30%));
     }
   }
 }
