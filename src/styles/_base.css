@@ -8,9 +8,9 @@
 }
 
 body {
-  background-color: var(--color-main);
+  background-color: #ffffff;
   /* background-color: #F3F9FF; */
-  background-image: linear-gradient(45deg, var(--color-main) 0%, #f0f5fb 100%);
+  background-image: linear-gradient(45deg, var(--color-main) 0%, #f0f5fb 80%);
   background-attachment: fixed;
   background-size: 100%;
 }

@@ -9,6 +9,7 @@ import './List.css';
 // Selectors //
 
 import { getSelectedSongs } from '~/reducers/songReducer';
+import { getOrderedSongs } from '~/reducers/songReducer';
 import { changeOrder } from '~/actions/order';
 
 // Components //
@@ -22,11 +23,11 @@ const SortableItem = SortableElement(({ item }) => (
   </li>
 ));
 
-const SortableList = SortableContainer(({ order, items, className }) => (
+const SortableList = SortableContainer(({ items, className }) => (
   <ul className={`list ${className}`}>
     {
-      order.map((id, index) => (
-        <SortableItem key={index} index={index} item={items.find(item => String(item.id) === String(id))} />
+      items.map((item, index) => (
+        <SortableItem key={index} index={index} item={item} />
       ))
     }
   </ul>
@@ -38,19 +39,18 @@ class List extends Component {
   }
 
   render() {
-    const { className, data, order } = this.props;
+    const { className, orderedData } = this.props;
 
-    if (data.length === 0) {
+    if (orderedData.length === 0) {
       return <Message className='sidebar__message' type='info' text='Ни одной песни не добавлено' />
     }
 
-    return <SortableList order={order} items={data} className={className ? className : ''} helperClass='list__item--sortable' onSortEnd={this.onSortEnd} />;
+    return <SortableList items={orderedData} className={className ? className : ''} helperClass='list__item--sortable' onSortEnd={this.onSortEnd} />;
   }
 };
 
 const mapStateToProps = state => ({
-  data: getSelectedSongs(state.songs),
-  order: state.order,
+  orderedData: getOrderedSongs(getSelectedSongs(state.songs), state.order),
 });
 
 export default connect(mapStateToProps, { changeOrder })(List);

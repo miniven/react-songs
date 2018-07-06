@@ -26,10 +26,9 @@
 
     &--sortable {
       .list__button {
-        border-radius: 4px;
-        box-shadow: 0 10px 45px -10px color(var(--color-secondary) a(35%));
-        transform: scale(1.015);
-        animation: none;
+        transform-origin: center;
+        animation: ScaleButton 0.2s;
+        animation-fill-mode: forwards;
       }
     }
   }
@@ -38,7 +37,7 @@
     width: 100%;
     box-shadow: none;
     transform-origin: top;
-    animation: ShowRotate 0.5s;
+    animation: ShowRotate 0.2s;
   }
 }
 
@@ -63,5 +62,19 @@
   to {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes ScaleButton {
+  from {
+    border-radius: 0;
+    box-shadow: none;
+    transform: scale(1);
+  }
+
+  to {
+    border-radius: 4px;
+    box-shadow: 0 10px 45px -10px color(var(--color-secondary) a(35%));
+    transform: scale(1.02);
   }
 }

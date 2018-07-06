@@ -40,7 +40,7 @@ class SongItem extends Component {
             </div>
           </div>
         </div>
-        <Button className='button--add' onClick={this.setSongActivity}>Добавить</Button>
+        <Button className='song-item__button' mods={['add']} onClick={this.setSongActivity}>Добавить</Button>
       </article>
     );
   }

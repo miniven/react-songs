@@ -17,6 +17,10 @@ export const songReducer = (state = [], { type, data, id, isSelected }) => {
   }
 };
 
+export const getOrderedSongs = (state, order) => {
+  return order.map((id, index) => state.find(item => String(item.id) === String(id)));
+}
+
 export const getSelectedSongs = (state) => state.filter(item => item.isSelected);
 
 export const getUnselectedSongs = (state) => state.filter(item => !item.isSelected);

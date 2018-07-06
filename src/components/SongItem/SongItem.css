@@ -18,4 +18,10 @@
   &__info {
     margin-bottom: 1em;
   }
+
+  &__button {
+    @media print {
+      display: none;
+    }
+  }
 }
