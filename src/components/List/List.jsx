@@ -8,8 +8,10 @@ import './List.css';
 
 // Selectors //
 
-import { getSelectedSongs } from '~/reducers/songReducer';
 import { getOrderedSongs } from '~/reducers/songReducer';
+
+// Actions //
+
 import { changeOrder } from '~/actions/order';
 
 // Components //
@@ -45,12 +47,20 @@ class List extends Component {
       return <Message className='sidebar__message' type='info' text='Ни одной песни не добавлено' />
     }
 
-    return <SortableList items={orderedData} className={className ? className : ''} helperClass='list__item--sortable' onSortEnd={this.onSortEnd} />;
+    return (
+      <SortableList
+        items={orderedData}
+        lockAxis='y'
+        className={className ? className : ''}
+        helperClass='list__item--sortable'
+        onSortEnd={this.onSortEnd}
+      />
+    );
   }
 };
 
 const mapStateToProps = state => ({
-  orderedData: getOrderedSongs(getSelectedSongs(state.songs), state.order),
+  orderedData: getOrderedSongs(state.songs, state.order),
 });
 
 export default connect(mapStateToProps, { changeOrder })(List);

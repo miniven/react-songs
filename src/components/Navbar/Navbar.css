@@ -1,0 +1,25 @@
+@import '../../styles/_variables.css';
+
+.navbar {
+  background-color: #ffffff;
+
+  &__list {
+    display: flex;
+    margin: 0 -15px;
+    padding: 0;
+    font-size: 1rem;
+    list-style: none;
+  }
+
+  &__item {
+    padding: 15px;
+  }
+
+  &__link {
+    color: var(--color-secondary);
+    font-weight: 500;
+    font-size: 1em;
+    font-family: var(--font-main);
+    text-decoration: none;
+  }
+}
