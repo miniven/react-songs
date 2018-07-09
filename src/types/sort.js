@@ -1,0 +1,1 @@
+export const SET_SORTING = 'SET_SORTING';

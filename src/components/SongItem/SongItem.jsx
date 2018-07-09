@@ -23,7 +23,9 @@ class SongItem extends Component {
 
   render() {
     const { className, data, genres, authors } = this.props;
-    const { title, author, genre } = data;
+    const { title, author, genre, lastChosen } = data;
+
+    const lastDate = (new Date(+lastChosen)).toLocaleDateString();
 
     return (
       <article className={`song-item ${className ? className : ''}`}>
@@ -37,6 +39,9 @@ class SongItem extends Component {
             </div>
             <div className="col-xs-12 col-md-3">
               <InfoText mod='genre' value={genres[genre]} />
+            </div>
+            <div className="col-xs-12 col-md-3">
+              <InfoText mod='time' value={lastDate} />
             </div>
           </div>
         </div>

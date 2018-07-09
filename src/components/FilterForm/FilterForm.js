@@ -10,13 +10,24 @@ import 'react-select/dist/react-select.css';
 
 import Select from 'react-select';
 
+// Actions //
+
+import { setSorting } from '~/actions/sort';
+
 class FilterForm extends Component {
   handleSelect = (name, option) => {
-    this.props.handleInput({ target: { name, value: option ? option.value : 'all' } });
+    switch (name) {
+      case 'genre':
+        this.props.handleInput({ target: { name, value: option ? option.value : 'all' } });
+        break;
+      default:
+        this.props.setSorting(option ? option.value : 'TITLE');
+        break;
+    }
   }
 
   render() {
-    const { genres, handleInput, values } = this.props;
+    const { genres, handleInput, values, sorting } = this.props;
 
     return (
       <form className='form'>
@@ -36,6 +47,21 @@ class FilterForm extends Component {
             </label>
           </div>
           <div className='col-xs-12 col-sm-6 col-md-4'>
+            <label className='form__field'>
+              <p className='form__label'>Сортировать</p>
+              <Select
+                className='form__select'
+                name='sorting'
+                value={sorting}
+                onChange={(option) => this.handleSelect('sorting', option)}
+                options={[
+                  { value: 'TITLE', label: 'Название' },
+                  { value: 'DATE', label: 'Дата выбора' },
+                ]}
+              />
+            </label>
+          </div>
+          <div className='col-xs-12'>
             <label className='form__field'>
               <p className='form__label'>Жанр</p>
               <Select
@@ -58,6 +84,7 @@ class FilterForm extends Component {
 
 const mapStateToProps = state => ({
   genres: state.genres,
+  sorting: state.sorting,
 })
 
-export default connect(mapStateToProps)(FilterForm);
+export default connect(mapStateToProps, { setSorting })(FilterForm);

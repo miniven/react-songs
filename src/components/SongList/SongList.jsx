@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 // Selectors //
 
-import { getUnselectedSongs } from '~/reducers/songReducer';
+import { getUnselectedSongs, getSortedSongs } from '~/reducers/songReducer';
 
 // Components //
 
@@ -76,7 +76,7 @@ class SongList extends Component {
 };
 
 const mapStateToProps = state => ({
-  data: getUnselectedSongs(state.songs),
+  data: getSortedSongs(getUnselectedSongs(state.songs), state.sorting),
 });
 
 export default connect(mapStateToProps)(SongList);
