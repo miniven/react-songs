@@ -32,7 +32,7 @@ class FilterForm extends Component {
     return (
       <form className='form'>
         <div className='row'>
-          <div className='col-xs-12 col-sm-6 col-md-8'>
+          <div className='col-xs-12 col-sm-6 col-md-6'>
             <label className='form__field'>
               <p className='form__label'>Название</p>
               <input
@@ -46,7 +46,7 @@ class FilterForm extends Component {
               />
             </label>
           </div>
-          <div className='col-xs-12 col-sm-6 col-md-4'>
+          <div className='col-xs-12 col-sm-6 col-md-3'>
             <label className='form__field'>
               <p className='form__label'>Сортировать</p>
               <Select
@@ -61,7 +61,7 @@ class FilterForm extends Component {
               />
             </label>
           </div>
-          <div className='col-xs-12'>
+          <div className='col-xs-12 col-sm-6 col-md-3'>
             <label className='form__field'>
               <p className='form__label'>Жанр</p>
               <Select

@@ -48,7 +48,7 @@ class SongList extends Component {
 
     return (
       <div className='row'>
-        <div className='col-xs-12 col-sm-8'>
+        <div className='col-xs-12'>
           <FilterForm handleInput={this.handleInput} values={this.state} />
         </div>
         <div className='col-xs-12 col-sm-8'>
