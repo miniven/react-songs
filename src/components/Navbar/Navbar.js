@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom'
 
 // Styles //
 
@@ -11,10 +12,10 @@ class Navbar extends Component {
         <div className='container'>
           <ul className='navbar__list'>
             <li className='navbar__item'>
-              <a className='navbar__link' href='#d'>Главная</a>
+              <NavLink to='/' exact className='navbar__link' activeClassName='navbar__link--active'>Главная</NavLink>
             </li>
             <li className='navbar__item'>
-              <a className='navbar__link' href='#g'>Личный кабинет</a>
+              <NavLink to='/history' exact className='navbar__link' activeClassName='navbar__link--active'>История</NavLink>
             </li>
           </ul>
         </div>

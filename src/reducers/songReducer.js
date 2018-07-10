@@ -24,7 +24,7 @@ export const getOrderedSongs = (state, order) => {
   const songs = getSelectedSongs(state);
 
   return order.map((id, index) => songs.find(item => String(item.id) === String(id)));
-}
+};
 
 export const getSortedSongs = (state, sorting) => {
   const KEY = DB_SONG_KEYS[sorting];
@@ -39,7 +39,7 @@ export const getSortedSongs = (state, sorting) => {
       return prev[KEY] > current[KEY] ? 1 : -1;
     });
   }
-}
+};
 
 export const getSelectedSongs = (state) => state.filter(item => item.isSelected);
 

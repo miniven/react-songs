@@ -1,24 +1,30 @@
 import React from 'react';
-
-// Styles //
-
-// import './App.css';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom'
 
 // Components //
 
-import SongList from '~/components/SongList/SongList';
+import SongListPage from '~/pages/SongListPage';
+import NoMatchPage from '~/pages/NoMatchPage';
+import HistoryPage from '~/pages/HistoryPage';
 import Navbar from '~/components/Navbar/Navbar';
 
 const App = (props) => (
-  <div className='app'>
-    <header>
-      <Navbar />
-    </header>
-    <div className='container'>
-      <h2 className='title'>Список песен</h2>
-      <SongList />
+  <Router>
+    <div className='app'>
+      <header>
+        <Navbar />
+      </header>
+      <Switch>
+        <Route exact path='/' component={SongListPage} />
+        <Route exact path='/history' component={HistoryPage} />
+        <Route component={NoMatchPage} />
+      </Switch>
     </div>
-  </div>
+  </Router>
 );
 
 export default App;
