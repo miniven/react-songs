@@ -48,7 +48,7 @@ class FilterForm extends Component {
           </div>
           <div className='col-xs-12 col-sm-6 col-md-3'>
             <label className='form__field'>
-              <p className='form__label'>Сортировать</p>
+              <p className='form__label'>Сортировать по</p>
               <Select
                 className='form__select'
                 name='sorting'
@@ -56,7 +56,8 @@ class FilterForm extends Component {
                 onChange={(option) => this.handleSelect('sorting', option)}
                 options={[
                   { value: 'TITLE', label: 'Название' },
-                  { value: 'DATE', label: 'Дата выбора' },
+                  { value: 'CREATED', label: 'Дата создания' },
+                  { value: 'DATE', label: 'Дата исполнения' },
                 ]}
               />
             </label>

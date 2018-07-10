@@ -12,6 +12,12 @@
     margin-bottom: 0.4em;
   }
 
+  &__middle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__title {
     color: var(--color-secondary);
     font-weight: 500;

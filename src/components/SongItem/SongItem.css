@@ -8,8 +8,14 @@
   border-radius: 4px;
   box-shadow: 0 10px 25px -10px color(var(--color-secondary) a(15%));
 
-  &__title {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 1em;
+  }
+
+  &__title {
     color: var(--color-secondary);
     font-weight: 600;
     font-size: 1.125em;

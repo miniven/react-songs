@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 // Styles //
 
@@ -10,9 +11,14 @@ import './SongButton.css';
 import { setSongActivity } from '~/actions/song';
 import { removeItem } from '~/actions/order';
 
-// Somponents //
+// Constants //
+
+import { NEW_STATE_PERIOD } from '~/constants';
+
+// Components //
 
 import InfoText from '~/components/InfoText/InfoText';
+import Label from '~/components/Label/Label';
 
 class SongButton extends Component {
   setSongActivity = () => {
@@ -22,7 +28,9 @@ class SongButton extends Component {
 
   render() {
     const { className, data, authors, setSongActivity, removeItem, ...restProps } = this.props;
-    const { title, author = 'Неизвестен' } = data;
+    const { title, author = 'Неизвестен', created } = data;
+
+    const isNew = moment().dayOfYear() - moment(created).dayOfYear() <= NEW_STATE_PERIOD;
 
     return (
       <div className={`song-button ${className ? className : ''}`} {...restProps}>
@@ -30,7 +38,10 @@ class SongButton extends Component {
           <h3 className="song-button__title">{title}</h3>
           <button className='song-button__close' onClick={this.setSongActivity}></button>
         </div>
-        <InfoText mod='author' value={authors[author]} />
+        <div className="song-button__middle">
+          <InfoText mod='author' value={authors[author]} />
+          { isNew && <Label type='new' /> }
+        </div>
       </div>
     );
   }

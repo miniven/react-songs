@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 // Styles //
 
@@ -10,10 +11,15 @@ import './SongItem.css';
 import { setSongActivity } from '~/actions/song';
 import { addItem } from '~/actions/order';
 
+// Constants //
+
+import { NEW_STATE_PERIOD } from '~/constants';
+
 // Components //
 
 import Button from '~/components/Button/Button';
 import InfoText from '~/components/InfoText/InfoText';
+import Label from '~/components/Label/Label';
 
 class SongItem extends Component {
   setSongActivity = () => {
@@ -23,14 +29,16 @@ class SongItem extends Component {
 
   render() {
     const { className, data, genres, authors } = this.props;
-    const { title, author, genre, lastChosen } = data;
+    const { title, author, genre, lastChosen, created } = data;
 
-    const lastDate = (new Date(+lastChosen)).toLocaleDateString();
+    const lastDate = moment(lastChosen).format('DD.MM.YYYY');
+    const isNew = moment().dayOfYear() - moment(created).dayOfYear() <= NEW_STATE_PERIOD;
 
     return (
       <article className={`song-item ${className ? className : ''}`}>
         <header className='song-item__header'>
           <h3 className='song-item__title'>{title}</h3>
+          { isNew && <Label type='new' /> }
         </header>
         <div className='song-item__info'>
           <div className="row">

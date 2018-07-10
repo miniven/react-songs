@@ -1,0 +1,1 @@
+export const NEW_STATE_PERIOD = 14;

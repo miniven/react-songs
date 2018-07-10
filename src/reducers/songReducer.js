@@ -27,13 +27,21 @@ export const getSortedSongs = (state, sorting) => {
   const DB_KEYS = {
     'DATE': 'lastChosen',
     'TITLE': 'title',
+    'CREATED': 'created',
   };
 
   const KEY = DB_KEYS[sorting];
 
-  return [...state].sort((prev, current) => {
-    return prev[KEY] > current[KEY] ? 1 : -1;
-  });
+  switch (sorting) {
+    case 'CREATED':
+      return [...state].sort((prev, current) => {
+        return prev[KEY] < current[KEY] ? 1 : -1;
+      });
+    default:
+      return [...state].sort((prev, current) => {
+      return prev[KEY] > current[KEY] ? 1 : -1;
+    });
+  }
 }
 
 export const getSelectedSongs = (state) => state.filter(item => item.isSelected);

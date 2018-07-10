@@ -1,0 +1,15 @@
+@import '../../styles/_variables.css';
+
+.label {
+  padding: 0.2rem 1.2rem;
+  font-weight: 600;
+  font-size: 0.7rem;
+  line-height: 1.4rem;
+  border-radius: 5rem;
+
+  &--new {
+    color: #ffffff;
+    background-color: var(--color-purple-bright);
+    box-shadow: 0 0.6rem 2.5rem -0.6rem color(var(--color-purple-bright) alpha(85%));
+  }
+}
