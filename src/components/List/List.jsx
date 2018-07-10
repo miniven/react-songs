@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import moment from 'moment';
 
 // Styles //
 
@@ -12,12 +13,14 @@ import { getOrderedSongs } from '~/reducers/songReducer';
 
 // Actions //
 
-import { changeOrder } from '~/actions/order';
+import { changeOrder, addOrderToList } from '~/actions/order';
+import { resetSongsActivity } from '~/actions/song';
 
 // Components //
 
 import SongButton from '~/components/SongButton/SongButton';
 import Message from '~/components/Message/Message';
+import Button from '~/components/Button/Button';
 
 const SortableItem = SortableElement(({ item }) => (
   <li className='list__item'>
@@ -40,6 +43,11 @@ class List extends Component {
     this.props.changeOrder(oldIndex, newIndex);
   }
 
+  saveList = () => {
+    this.props.addOrderToList(moment().toISOString(), this.props.order);
+    this.props.resetSongsActivity();
+  }
+
   render() {
     const { className, orderedData } = this.props;
 
@@ -48,19 +56,23 @@ class List extends Component {
     }
 
     return (
-      <SortableList
-        items={orderedData}
-        lockAxis='y'
-        className={className ? className : ''}
-        helperClass='list__item--sortable'
-        onSortEnd={this.onSortEnd}
-      />
+      <Fragment>
+        <SortableList
+          items={orderedData}
+          lockAxis='y'
+          className={className ? className : ''}
+          helperClass='list__item--sortable'
+          onSortEnd={this.onSortEnd}
+        />
+        <Button className='sidebar__button' mods={['save', 'big']} onClick={this.saveList}>Сохранить</Button>
+      </Fragment>
     );
   }
 };
 
 const mapStateToProps = state => ({
-  orderedData: getOrderedSongs(state.songs, state.order),
+  orderedData: getOrderedSongs(state.songs, state.order.current),
+  order: state.order.current,
 });
 
-export default connect(mapStateToProps, { changeOrder })(List);
+export default connect(mapStateToProps, { changeOrder, addOrderToList, resetSongsActivity })(List);

@@ -18,6 +18,21 @@
     outline: none;
   }
 
+  &--big {
+    padding: 0.7rem 2rem;
+    font-size: 1rem;
+  }
+
+  &--save {
+    color: var(--color-green);
+    border-color: var(--color-green);
+
+    &:hover,
+    &:focus {
+      border-color: color(var(--color-green) blackness(35%));
+    }
+  }
+
   &--add {
     position: relative;
     color: var(--color-green);

@@ -1,6 +1,7 @@
 .sidebar {
   padding: 15px 0;
   font-size: 1rem;
+  text-align: center;
   border-radius: 0.2em;
 
   &__title {
@@ -9,5 +10,9 @@
 
   &__message {
     margin-top: 0;
+  }
+
+  &__button {
+    margin: 15px auto;
   }
 }

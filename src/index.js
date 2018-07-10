@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 // Styles //
 
@@ -23,7 +24,7 @@ import { setSongs } from '~/actions/song';
 import { setGenres } from '~/actions/genre';
 import { setAuthors } from '~/actions/author';
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, composeWithDevTools());
 
 store.dispatch(setSongs(songs));
 store.dispatch(setGenres(genres));

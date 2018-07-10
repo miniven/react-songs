@@ -35,8 +35,6 @@ class SongItem extends Component {
     const isNew = moment().dayOfYear() - moment(created).dayOfYear() <= NEW_STATE_PERIOD;
     const isRecent = moment().dayOfYear() - moment(lastChosen).dayOfYear() <= NEW_STATE_PERIOD;
 
-    console.log(moment().day(-15).toISOString());
-
     return (
       <article className={`song-item ${className ? className : ''}`}>
         <header className='song-item__header'>

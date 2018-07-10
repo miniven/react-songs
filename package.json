@@ -104,6 +104,7 @@
     "postcss-cssnext": "3.1.0",
     "postcss-import": "11.1.0",
     "postcss-nested": "3.0.0",
+    "redux-devtools-extension": "2.13.5",
     "stylelint": "9.3.0",
     "stylelint-config-htmlacademy": "0.1.1",
     "stylelint-config-rational-order": "0.0.2"

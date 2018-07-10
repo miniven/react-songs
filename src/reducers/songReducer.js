@@ -1,4 +1,5 @@
-import { SET_SONGS, SET_SONG_ACTIVITY } from '~/types/song';
+import { SET_SONGS, SET_SONG_ACTIVITY, RESET_SONGS_ACTIVITY } from '~/types/song';
+import { DB_SONG_KEYS } from '~/constants';
 
 export const songReducer = (state = [], { type, data, id, isSelected }) => {
   switch (type) {
@@ -12,6 +13,8 @@ export const songReducer = (state = [], { type, data, id, isSelected }) => {
 
         return { ...item, isSelected };
       });
+    case RESET_SONGS_ACTIVITY:
+      return state.map(item => ({ ...item, isSelected: false }));
     default:
       return state;
   }
@@ -24,13 +27,7 @@ export const getOrderedSongs = (state, order) => {
 }
 
 export const getSortedSongs = (state, sorting) => {
-  const DB_KEYS = {
-    'DATE': 'lastChosen',
-    'TITLE': 'title',
-    'CREATED': 'created',
-  };
-
-  const KEY = DB_KEYS[sorting];
+  const KEY = DB_SONG_KEYS[sorting];
 
   switch (sorting) {
     case 'CREATED':
