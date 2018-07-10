@@ -10,6 +10,12 @@
   &--new {
     color: #ffffff;
     background-color: var(--color-purple-bright);
-    box-shadow: 0 0.6rem 2.5rem -0.6rem color(var(--color-purple-bright) alpha(85%));
+    box-shadow: 0 0.6rem 1.5rem -0.6rem var(--color-purple-bright);
+  }
+
+  &--recent {
+    color: #ffffff;
+    background-color: var(--color-orange);
+    box-shadow: 0 0.6rem 1.5rem -0.6rem var(--color-orange);
   }
 }

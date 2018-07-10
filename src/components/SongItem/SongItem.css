@@ -10,9 +10,22 @@
 
   &__header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     margin-bottom: 1em;
+  }
+
+  &__label-box {
+    display: flex;
+    margin-left: auto;
+  }
+
+  &__label {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 
   &__title {

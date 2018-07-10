@@ -4,12 +4,16 @@ import React from 'react';
 
 import './Label.css';
 
-const Label = ({ type }) => {
+const Label = ({ className, type }) => {
+  const parentClassName = className ? className : '';
+
   switch (type) {
     case 'new':
-      return <p className="label label--new">Новая</p>;
+      return <p className={`${parentClassName} label label--new`}>Новая</p>;
+    case 'recent':
+      return <p className={`${parentClassName} label label--recent`}>Исполнялась недавно</p>;
     default:
-      return <p className="label">Label</p>
+      return <p className={`${parentClassName} label`}>Label</p>
   }
 };
 

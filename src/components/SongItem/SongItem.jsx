@@ -33,23 +33,29 @@ class SongItem extends Component {
 
     const lastDate = moment(lastChosen).format('DD.MM.YYYY');
     const isNew = moment().dayOfYear() - moment(created).dayOfYear() <= NEW_STATE_PERIOD;
+    const isRecent = moment().dayOfYear() - moment(lastChosen).dayOfYear() <= NEW_STATE_PERIOD;
+
+    console.log(moment().day(-15).toISOString());
 
     return (
       <article className={`song-item ${className ? className : ''}`}>
         <header className='song-item__header'>
           <h3 className='song-item__title'>{title}</h3>
-          { isNew && <Label type='new' /> }
+          <div className='song-item__label-box'>
+            { isNew && <Label className='song-item__label' type='new' /> }
+            { isRecent && <Label className='song-item__label' type='recent' /> }
+          </div>
         </header>
         <div className='song-item__info'>
-          <div className="row">
-            <div className="col-xs-12 col-md-3">
+          <div className='row'>
+            <div className='col-xs-12 col-md-3'>
               <InfoText mod='author' value={authors[author]} />
             </div>
-            <div className="col-xs-12 col-md-3">
+            <div className='col-xs-12 col-md-3'>
               <InfoText mod='genre' value={genres[genre]} />
             </div>
-            <div className="col-xs-12 col-md-3">
-              <InfoText mod='time' value={lastDate} />
+            <div className='col-xs-12 col-md-3'>
+              <InfoText mod='date' value={lastDate} />
             </div>
           </div>
         </div>
