@@ -1,6 +1,7 @@
 @import '../../styles/_variables.css';
 
 .history {
+  margin-bottom: 15px;
   padding: 30px;
   font-size: 1rem;
   font-family: var(--font-main);
