@@ -22,6 +22,7 @@ class NewSongForm extends Component {
     title: '',
     author: '',
     genre: '1',
+    errors: {},
   }
 
   handleInput = (event) => {
@@ -35,15 +36,33 @@ class NewSongForm extends Component {
   handleSelect = (name, option) => {
     switch (name) {
       case 'genre':
-        this.handleInput({ target: { name, value: option ? option.value : 'all' } });
+        this.handleInput({ target: { name, value: option ? option.value : '1' } });
         break;
       default:
         break;
     }
   }
 
+  validateForm = () => {
+    const errors = {};
+
+    if (!this.state.title) {
+      errors.title = true;
+    }
+
+    this.setState({ errors });
+
+    return errors;
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
+
+    const errors = this.validateForm();
+
+    if (Object.keys(errors).length > 0) {
+      return false;
+    }
 
     const { authors, addSong, addAuthor, submitCallback } = this.props;
     const { author } = this.state;
@@ -60,13 +79,13 @@ class NewSongForm extends Component {
 
   render() {
     const { genres } = this.props;
-    const { title, author, genre } = this.state;
+    const { title, author, genre, errors } = this.state;
 
     return (
       <form className="form" onSubmit={this.handleSubmit}>
         <div className="row">
           <div className="col-xs-12">
-            <label className='form__field'>
+            <label className={`form__field ${errors.title && 'form__field--invalid'}`}>
               <p className='form__label'>Название</p>
               <input
                 className='form__input'

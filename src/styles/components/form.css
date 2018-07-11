@@ -6,6 +6,16 @@
     position: relative;
     display: block;
     margin-bottom: 15px;
+
+    &--invalid {
+      .form__label {
+        color: var(--color-red);
+      }
+
+      .form__input {
+        border-color: var(--color-red);
+      }
+    }
   }
 
   &__label {

@@ -7,6 +7,7 @@
   --color-purple: #48486b;
   --color-purple-bright: #4b5eb9;
   --color-orange: #ffc107;
+  --color-red: #f44336;
   --color-main: var(--color-light-blue);
   --color-secondary: var(--color-purple);
 }
