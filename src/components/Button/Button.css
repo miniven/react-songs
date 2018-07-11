@@ -23,25 +23,54 @@
     font-size: 1rem;
   }
 
-  &--save {
+  &--purple {
+    color: var(--color-secondary);
+    border-color: var(--color-secondary);
+
+    &:hover,
+    &:focus {
+      color: color(var(--color-secondary) blackness(35%));
+      border-color: color(var(--color-secondary) blackness(35%));
+    }
+  }
+
+  &--filled-purple {
+    color: #ffffff;
+    background-color: var(--color-purple-bright);
+    border-color: var(--color-purple-bright);
+    box-shadow: 0 0.6rem 1.5rem -0.6rem var(--color-purple-bright);
+
+    &:hover,
+    &:focus {
+      background-color: color(var(--color-purple-bright) blackness(40%));
+      border-color: color(var(--color-purple-bright) blackness(40%));
+    }
+  }
+
+  &--green {
     color: var(--color-green);
     border-color: var(--color-green);
 
     &:hover,
     &:focus {
+      color: color(var(--color-green) blackness(35%));
       border-color: color(var(--color-green) blackness(35%));
+    }
+  }
+
+  &--white {
+    color: #ffffff;
+    border-color: #ffffff;
+
+    &:hover,
+    &:focus {
+      color: color(#ffffff alpha(60%));
+      border-color: color(#ffffff alpha(60%));
     }
   }
 
   &--add {
     position: relative;
-    color: var(--color-green);
-    border-color: var(--color-green);
-
-    &:hover,
-    &:focus {
-      border-color: color(var(--color-green) blackness(35%));
-    }
 
     &:before {
       content: '';

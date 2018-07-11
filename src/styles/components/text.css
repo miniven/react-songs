@@ -3,6 +3,7 @@
   font-weight: 400;
   font-size: 1rem;
   font-family: var(--font-main);
+  line-height: 1.4em;
 
   &--light {
     color: var(--color-light-text);
@@ -10,5 +11,13 @@
 
   &--small {
     font-size: 0.8rem;
+  }
+
+  &--white {
+    color: #fff;
+  }
+
+  &--semibold {
+    font-weight: 500;
   }
 }

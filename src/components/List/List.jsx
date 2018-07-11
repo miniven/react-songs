@@ -46,13 +46,14 @@ class List extends Component {
   saveList = () => {
     this.props.addOrderToList(moment().toISOString(), this.props.order);
     this.props.resetSongsActivity();
+    this.props.addButtonCallback();
   }
 
   render() {
     const { className, orderedData } = this.props;
 
     if (orderedData.length === 0) {
-      return <Message className='sidebar__message' type='info' text='Ни одной песни не добавлено' />
+      return <Message className='sidebar__message' type='info' text='Ни одной песни пока не добавлено' />
     }
 
     return (
@@ -64,7 +65,7 @@ class List extends Component {
           helperClass='list__item--sortable'
           onSortEnd={this.onSortEnd}
         />
-        <Button className='sidebar__button' mods={['save', 'big']} onClick={this.saveList}>Сохранить</Button>
+        <Button className='sidebar__button' mods={['green']} onClick={this.saveList}>Сохранить</Button>
       </Fragment>
     );
   }

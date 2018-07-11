@@ -4,8 +4,8 @@ import React from 'react';
 
 import './InfoText.css';
 
-const InfoText = (props) => (
-  <p className={`info-text info-text--${props.mod}`}>{props.value || 'Неизвестен'}</p>
+const InfoText = ({ className, mod, value }) => (
+  <p className={`${className ? className : ''} info-text info-text--${mod}`}>{value || 'Неизвестен'}</p>
 );
 
 export default InfoText;

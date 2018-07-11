@@ -1,4 +1,5 @@
 @import '../../styles/_variables.css';
+@import '../../styles/_media.css';
 
 .song-item {
   padding: 1em;
@@ -10,14 +11,24 @@
 
   &__header {
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     margin-bottom: 1em;
+
+    @media (--screen-md) {
+      flex-direction: row;
+    }
   }
 
   &__label-box {
     display: flex;
-    margin-left: auto;
+    margin-top: 15px;
+
+    @media (--screen-md) {
+      margin-top: 0;
+      margin-left: auto;
+    }
   }
 
   &__label {
@@ -42,5 +53,9 @@
     @media print {
       display: none;
     }
+  }
+
+  &__text {
+    margin: 5px 0;
   }
 }

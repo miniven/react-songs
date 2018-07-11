@@ -1,0 +1,30 @@
+@import '../../styles/_media.css';
+
+.top-line {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 1rem;
+
+  @media (--screen-md) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__title {
+    margin: 30px 0;
+
+    @media (--screen-md) {
+      margin: 1.2em 0;
+    }
+  }
+
+  &__button {
+    margin-bottom: 30px;
+
+    @media (--screen-md) {
+      margin-bottom: 0;
+    }
+  }
+}

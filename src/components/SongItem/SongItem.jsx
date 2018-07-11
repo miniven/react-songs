@@ -39,25 +39,29 @@ class SongItem extends Component {
       <article className={`song-item ${className ? className : ''}`}>
         <header className='song-item__header'>
           <h3 className='song-item__title'>{title}</h3>
-          <div className='song-item__label-box'>
-            { isNew && <Label className='song-item__label' type='new' /> }
-            { isRecent && <Label className='song-item__label' type='recent' /> }
-          </div>
+          {
+            (isNew || isRecent) && (
+              <div className='song-item__label-box'>
+                { isNew && <Label className='song-item__label' type='new' /> }
+                { isRecent && <Label className='song-item__label' type='recent' /> }
+              </div>
+            )
+          }
         </header>
         <div className='song-item__info'>
           <div className='row'>
             <div className='col-xs-12 col-md-3'>
-              <InfoText mod='author' value={authors[author]} />
+              <InfoText className='song-item__text' mod='author' value={authors[author]} />
             </div>
             <div className='col-xs-12 col-md-3'>
-              <InfoText mod='genre' value={genres[genre]} />
+              <InfoText className='song-item__text' mod='genre' value={genres[genre]} />
             </div>
             <div className='col-xs-12 col-md-3'>
-              <InfoText mod='date' value={lastDate} />
+              <InfoText className='song-item__text' mod='date' value={lastDate} />
             </div>
           </div>
         </div>
-        <Button className='song-item__button' mods={['add']} onClick={this.setSongActivity}>Добавить</Button>
+        <Button className='song-item__button' mods={['add', 'green']} onClick={this.setSongActivity}>Добавить</Button>
       </article>
     );
   }
