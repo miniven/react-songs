@@ -44,8 +44,10 @@ class List extends Component {
   }
 
   saveList = () => {
-    this.props.addOrderToList(moment().toISOString(), this.props.order);
-    this.props.resetSongsActivity();
+    const curDate = moment().toISOString();
+
+    this.props.addOrderToList(curDate, this.props.order);
+    this.props.resetSongsActivity(curDate, this.props.order);
     this.props.addButtonCallback();
   }
 

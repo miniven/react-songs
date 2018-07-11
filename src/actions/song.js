@@ -11,8 +11,10 @@ export const setSongActivity = (id, isSelected) => ({
   isSelected,
 });
 
-export const resetSongsActivity = () => ({
-  type: RESET_SONGS_ACTIVITY
+export const resetSongsActivity = (lastChosen, chosenList) => ({
+  type: RESET_SONGS_ACTIVITY,
+  lastChosen,
+  chosenList,
 });
 
 export const addSong = (data) => ({
