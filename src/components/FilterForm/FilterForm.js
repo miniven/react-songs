@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 // Styles //
 
-import './FilterForm.css';
 import 'react-select/dist/react-select.css';
 
 // Components //

@@ -31,9 +31,9 @@ class SongItem extends Component {
     const { className, data, genres, authors } = this.props;
     const { title, author, genre, lastChosen, created } = data;
 
-    const lastDate = moment(lastChosen).format('DD.MM.YYYY');
+    const lastDate = lastChosen && moment(lastChosen).format('DD.MM.YYYY');
     const isNew = moment().dayOfYear() - moment(created).dayOfYear() <= NEW_STATE_PERIOD;
-    const isRecent = moment().dayOfYear() - moment(lastChosen).dayOfYear() <= NEW_STATE_PERIOD;
+    const isRecent = lastChosen && moment().dayOfYear() - moment(lastChosen).dayOfYear() <= NEW_STATE_PERIOD;
 
     return (
       <article className={`song-item ${className ? className : ''}`}>
@@ -56,9 +56,13 @@ class SongItem extends Component {
             <div className='col-xs-12 col-md-3'>
               <InfoText className='song-item__text' mod='genre' value={genres[genre]} />
             </div>
-            <div className='col-xs-12 col-md-3'>
-              <InfoText className='song-item__text' mod='date' value={lastDate} />
-            </div>
+            {
+              lastDate && (
+                <div className='col-xs-12 col-md-3'>
+                  <InfoText className='song-item__text' mod='date' value={lastDate} />
+                </div>
+              )
+            }
           </div>
         </div>
         <Button className='song-item__button' mods={['add', 'green']} onClick={this.setSongActivity}>Добавить</Button>

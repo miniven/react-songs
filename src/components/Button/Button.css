@@ -24,13 +24,13 @@
   }
 
   &--purple {
-    color: var(--color-secondary);
-    border-color: var(--color-secondary);
+    color: var(--color-purple);
+    border-color: var(--color-purple);
 
     &:hover,
     &:focus {
-      color: color(var(--color-secondary) blackness(35%));
-      border-color: color(var(--color-secondary) blackness(35%));
+      color: color(var(--color-purple) blackness(35%));
+      border-color: color(var(--color-purple) blackness(35%));
     }
   }
 

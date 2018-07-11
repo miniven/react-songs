@@ -1,5 +1,3 @@
-@import '../../styles/_variables.css';
-
 .form {
   font-size: 1rem;
   font-family: var(--font-main);
@@ -46,6 +44,10 @@
         padding-right: 0 !important;
         padding-left: 0 !important;
       }
+    }
+
+    .Select-placeholder {
+      line-height: 2.9em;
     }
 
     .Select-value {
@@ -129,5 +131,10 @@
     &::placeholder {
       color: color(var(--color-secondary) alpha(30%));
     }
+  }
+
+  &__footer {
+    margin-top: 15px;
+    text-align: center;
   }
 }

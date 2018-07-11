@@ -2,9 +2,26 @@
   background-color: color(#010721 alpha(75%));
 
   &__box {
-    background-color: var(--color-green);
     box-shadow: 0 15px 35px -15px color(#000000 alpha(20%));
     text-align: center;
+
+    &--green {
+      background-color: var(--color-green);
+    }
+
+    &--left {
+      text-align: left;
+    }
+
+    &--wide {
+      @media (--screen-md) {
+        width: 70%;
+      }
+
+      @media (--screen-primary) {
+        width: 50%;
+      }
+    }
   }
 
   &__content {
@@ -25,6 +42,12 @@
   }
 
   &__close-icon {
-    fill: #ffffff;
+    &--white {
+      fill: #ffffff;
+    }
+
+    &--secondary {
+      fill: var(--color-secondary);
+    }
   }
 }

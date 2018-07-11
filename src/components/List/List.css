@@ -4,6 +4,7 @@
   overflow: hidden;
   font-size: 1rem;
   font-family: var(--font-main);
+  text-align: left;
   border-radius: 4px;
 
   &__item {

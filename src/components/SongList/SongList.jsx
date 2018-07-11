@@ -40,11 +40,11 @@ class SongList extends Component {
 
   openModal = () => {
     this.setState({ isModalOpen: true });
-  };
+  }
 
   closeModal = () => {
     this.setState({ isModalOpen: false });
-  };
+  }
 
   filterByTitle = (item) => {
     const currentTitle = item.title.toLowerCase();
@@ -89,7 +89,12 @@ class SongList extends Component {
             </div>
           </div>
         </div>
-        <Modal classNames={{ overlay: 'modal', modal: 'modal__box', closeButton: 'modal__close', closeIcon: 'modal__close-icon' }} open={isModalOpen} onClose={this.closeModal} center>
+        <Modal
+          classNames={{ overlay: 'modal', modal: 'modal__box modal__box--green', closeButton: 'modal__close', closeIcon: 'modal__close-icon modal__close-icon--white' }}
+          open={isModalOpen}
+          onClose={this.closeModal}
+          center
+        >
           <div className='modal__content'>
             <p className='text text--white text--semibold'>Выбранные песни добавлены в историю</p>
             <Button mods={['white']} onClick={this.closeModal}>Понятно</Button>
