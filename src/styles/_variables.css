@@ -1,6 +1,7 @@
 :root {
   --font-main: 'Montserrat', 'Helvetica', 'Arial', sans-serif;
   
+  --color-semi-dark: color(#000000 a(25%));
   --color-light-blue: #cbd6e9;
   --color-light-text: color(#000000 a(50%));
   --color-green: #1ac791;

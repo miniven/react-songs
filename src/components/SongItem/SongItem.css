@@ -50,8 +50,14 @@
   }
 
   &__button {
+    margin-right: 10px;
+
     @media print {
       display: none;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
     }
   }
 

@@ -27,6 +27,10 @@ class SongItem extends Component {
     this.props.addItem(this.props.data.id);
   }
 
+  setEditingSong = () => {
+    this.props.setEditingSong(this.props.data.id);
+  }
+
   render() {
     const { className, data, genres, authors } = this.props;
     const { title, author, genre, lastChosen, created } = data;
@@ -66,6 +70,7 @@ class SongItem extends Component {
           </div>
         </div>
         <Button className='song-item__button' mods={['add', 'green']} onClick={this.setSongActivity}>Добавить</Button>
+        <Button className='song-item__button' mods={['gray']} onClick={this.setEditingSong}>Редактировать</Button>
       </article>
     );
   }

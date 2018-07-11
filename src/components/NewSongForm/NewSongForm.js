@@ -25,6 +25,18 @@ class NewSongForm extends Component {
     errors: {},
   }
 
+  static getDerivedStateFromProps = (props, state) => {
+    const { edit, songs } = props;
+    const song = edit ? songs.find(song => song.id === edit) : { title: '', author: '', genre: '1' };
+
+    return {
+      ...this.state,
+      title: song.title,
+      author: song.author,
+      genre: song.genre,
+    };
+  }
+
   handleInput = (event) => {
     const { name, value } = event.target;
 
@@ -136,6 +148,7 @@ class NewSongForm extends Component {
 };
 
 const mapStateToProps = state => ({
+  songs: state.songs,
   genres: state.genres,
   authors: state.authors,
 })

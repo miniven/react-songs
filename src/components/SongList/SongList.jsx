@@ -61,7 +61,7 @@ class SongList extends Component {
     const filteredList = data
       .filter(this.filterByTitle)
       .filter(this.filterByGenre)
-      .map(item => <li key={item.id} className='song-list__item'><SongItem data={item} /></li>);
+      .map(item => <li key={item.id} className='song-list__item'><SongItem data={item} setEditingSong={this.props.setEditingSong}/></li>);
 
     return (
       <Fragment>

@@ -69,6 +69,11 @@
     }
   }
 
+  &--gray {
+    color: var(--color-semi-dark);
+    border-color: var(--color-semi-dark);
+  }
+
   &--add {
     position: relative;
 

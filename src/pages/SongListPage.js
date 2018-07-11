@@ -11,6 +11,7 @@ import NewSongForm from '~/components/NewSongForm/NewSongForm';
 class SongListPage extends Component {
   state = {
     isModalOpen: false,
+    editingSong: null,
   }
 
   openModal = () => {
@@ -18,7 +19,11 @@ class SongListPage extends Component {
   }
 
   closeModal = () => {
-    this.setState({ isModalOpen: false });
+    this.setState({ isModalOpen: false, editingSong: null });
+  }
+
+  setEditingSong = (id) => {
+    this.setState({ isModalOpen: true, editingSong: id });
   }
 
   render() {
@@ -30,7 +35,7 @@ class SongListPage extends Component {
           <h2 className='top-line__title title'>Список песен</h2>
           <Button className='top-line__button' mods={['filled-purple']} onClick={this.openModal}>Добавить песню</Button>
         </TopLine>
-        <SongList />
+        <SongList setEditingSong={this.setEditingSong} />
         <Modal
           classNames={{ overlay: 'modal', modal: 'modal__box modal__box--wide modal__box--left', closeButton: 'modal__close', closeIcon: 'modal__close-icon--secondary' }}
           open={isModalOpen}
@@ -38,7 +43,7 @@ class SongListPage extends Component {
           center
         >
           <div className='modal__content'>
-            <NewSongForm submitCallback={this.closeModal} />
+            <NewSongForm submitCallback={this.closeModal} edit={this.state.editingSong}/>
           </div>
         </Modal>
       </div>
