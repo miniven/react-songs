@@ -7,9 +7,15 @@ import 'moment/locale/ru';
 
 import './History.css';
 
-moment().locale('ru');
+// Components //
+
+import Message from '~/components/Message/Message';
 
 class History extends Component {
+  componentWillMount = () => {
+    moment().locale('ru');
+  }
+
   isEmptyObject = (obj) => {
     return Object.keys(obj).length === 0;
   }
@@ -22,7 +28,7 @@ class History extends Component {
     const { history } = this.props;
 
     if (this.isEmptyObject(history)) {
-      return <p>Пусто</p>;
+      return <Message className='song-list__message' type='info' text='Вы пока не добавили ни одного списка песен' />;
     }
 
     const renderSongList = (key) => this.props.history[key].map((id) => (
