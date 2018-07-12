@@ -7,6 +7,7 @@ import SongList from '~/components/SongList/SongList';
 import TopLine from '~/components/TopLine/TopLine';
 import Button from '~/components/Button/Button';
 import NewSongForm from '~/components/NewSongForm/NewSongForm';
+import EditSongForm from '~/components/EditSongForm/EditSongForm';
 
 class SongListPage extends Component {
   state = {
@@ -43,7 +44,13 @@ class SongListPage extends Component {
           center
         >
           <div className='modal__content'>
-            <NewSongForm submitCallback={this.closeModal} edit={this.state.editingSong}/>
+            {
+              this.state.editingSong ? (
+                <EditSongForm submitCallback={this.closeModal} songID={this.state.editingSong} />
+              ) : (
+                <NewSongForm submitCallback={this.closeModal} />
+              )
+            }
           </div>
         </Modal>
       </div>
