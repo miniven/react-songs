@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import UUID from 'uuid-js';
 // import moment from 'moment';
 
+// Styles //
+
+import 'react-select/dist/react-select.css';
+
 // Components //
 
+import Select from 'react-select';
 import Button from '~/components/Button/Button';
 
 // Actions //
@@ -19,6 +24,7 @@ class EditSongForm extends Component {
 
   title  = React.createRef();
   author = React.createRef();
+  genre  = React.createRef();
 
   validateForm = () => {
     const errors = {};
@@ -30,6 +36,10 @@ class EditSongForm extends Component {
     this.setState({ errors });
 
     return errors;
+  }
+
+  handleSelect = (name, option) => {
+    console.log(name, option);
   }
 
   handleSubmit = (event) => {
@@ -57,13 +67,12 @@ class EditSongForm extends Component {
     });
 
     this.props.submitCallback();
-
   };
 
   render() {
     const { errors } = this.state;
-    const { songs, authors, songID } = this.props;
-    const { title, author: authorID } = songs.find(song => song.id === songID);
+    const { songs, authors, genres, songID } = this.props;
+    const { title, author: authorID, genre: genreID } = songs.find(song => song.id === songID);
 
     return (
       <form className="form" onSubmit={this.handleSubmit}>
@@ -93,6 +102,22 @@ class EditSongForm extends Component {
                 defaultValue={authors[authorID]}
                 ref={this.author}
                 autoComplete='off'
+              />
+            </label>
+          </div>
+          <div className="col-xs-12 col-sm-6">
+            <label className='form__field'>
+              <p className='form__label'>Жанр</p>
+              <Select
+                className='form__select'
+                name='genre'
+                ref={this.genre}
+                value={genreID}
+                focusedOption={{ value: '1', label: 'Pop' }}
+                onChange={(option) => this.handleSelect('genre', option)}
+                options={[
+                  ...Object.keys(genres).map(key => ({ value: key, label: genres[key] }))
+                ]}
               />
             </label>
           </div>
