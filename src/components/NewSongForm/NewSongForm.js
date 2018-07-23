@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import UUID from 'uuid-js';
+import { withFormik  } from 'formik';
+import short from 'short-uuid';
 import moment from 'moment';
 
 // Styles //
@@ -17,117 +18,95 @@ import Button from '~/components/Button/Button';
 import { addSong } from '~/actions/song';
 import { addAuthor } from '~/actions/author';
 
-class NewSongForm extends Component {
-  state = {
-    title: '',
-    author: '',
-    genre: '1',
-    errors: {},
-  }
+//   validateForm = () => {
+//     const errors = {};
 
-  handleInput = (event) => {
-    const { name, value } = event.target;
+//     if (!this.state.title) {
+//       errors.title = true;
+//     }
 
-    this.setState({
-      [name]: value,
-    });
-  }
+//     this.setState({ errors });
 
+//     return errors;
+//   }
+
+//   handleSubmit = (event) => {
+//     event.preventDefault();
+
+//     const errors = this.validateForm();
+
+//     if (Object.keys(errors).length > 0) {
+//       return false;
+//     }
+
+//     const { authors, addSong, addAuthor, submitCallback } = this.props;
+//     const { author } = this.state;
+//     const authorID = Object.keys(authors).find(key => authors[key] === author);
+//     const authorIDToSend = authorID || translator.new();
+
+//     if (!authorID) {
+//       addAuthor(authorIDToSend, author);
+//     }
+
+//     addSong({ ...this.state, id: translator.new(), created: moment().toISOString(), author: authorIDToSend });
+//     submitCallback();
+//   };
+
+class FormLayout extends Component {
   handleSelect = (name, option) => {
-    switch (name) {
-      case 'genre':
-        this.handleInput({ target: { name, value: option ? option.value : '1' } });
-        break;
-      default:
-        break;
-    }
+    this.props.handleChange({ target: { name, value: option.value || '1' } });
   }
-
-  validateForm = () => {
-    const errors = {};
-
-    if (!this.state.title) {
-      errors.title = true;
-    }
-
-    this.setState({ errors });
-
-    return errors;
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-
-    const errors = this.validateForm();
-
-    if (Object.keys(errors).length > 0) {
-      return false;
-    }
-
-    const { authors, addSong, addAuthor, submitCallback } = this.props;
-    const { author } = this.state;
-    const authorID = Object.keys(authors).find(key => authors[key] === author);
-    const authorIDToSend = authorID || UUID.create().toString();
-
-    if (!authorID) {
-      addAuthor(authorIDToSend, author);
-    }
-
-    addSong({ ...this.state, id: UUID.create().toString(), created: moment().toISOString(), author: authorIDToSend });
-    submitCallback();
-  };
 
   render() {
-    const { genres } = this.props;
-    const { title, author, genre, errors } = this.state;
+    const { values, errors, handleChange, handleSubmit } = this.props;
 
     return (
-      <form className="form" onSubmit={this.handleSubmit}>
-        <div className="row">
-          <div className="col-xs-12">
+      <form className='form' onSubmit={handleSubmit}>
+        <div className='row'>
+          <div className='col-xs-12'>
             <label className={`form__field ${errors.title && 'form__field--invalid'}`}>
               <p className='form__label'>Название</p>
               <input
                 className='form__input'
                 type='text'
                 name='title'
+                value={values.title}
                 placeholder='Someone Like You'
-                value={title}
-                onChange={this.handleInput}
+                onChange={handleChange}
                 autoComplete='off'
               />
             </label>
           </div>
-          <div className="col-xs-12 col-sm-6">
+          <div className='col-xs-12 col-sm-6'>
             <label className='form__field'>
               <p className='form__label'>Автор</p>
               <input
                 className='form__input'
                 type='text'
                 name='author'
+                value={values.author}
                 placeholder='Benjamin'
-                value={author}
-                onChange={this.handleInput}
+                onChange={handleChange}
                 autoComplete='off'
               />
             </label>
           </div>
-          <div className="col-xs-12 col-sm-6">
+          <div className='col-xs-12 col-sm-6'>
             <label className='form__field'>
               <p className='form__label'>Жанр</p>
               <Select
                 className='form__select'
                 name='genre'
-                value={genre}
-                onChange={(option) => this.handleSelect('genre', option)}
+                value={values.genre}
+                onChange={option => this.handleSelect('genre', option)}
                 options={[
-                  ...Object.keys(genres).map(key => ({ value: key, label: genres[key] }))
+                  ...Object.keys(values.genres).map(key => ({ value: key, label: values.genres[key] }))
                 ]}
               />
             </label>
           </div>
         </div>
-        <div className="form__footer">
+        <div className='form__footer'>
           <Button type='submit' mods={['purple']}>Добавить</Button>
         </div>
       </form>
@@ -135,10 +114,28 @@ class NewSongForm extends Component {
   }
 };
 
+const NewSongForm = withFormik({
+  handleSubmit: (values, { props }) => {
+    const translator = short();
+    const { author } = values;
+    const { authors, addSong, addAuthor, submitCallback } = props;
+
+    const authorID = Object.keys(authors).find(key => authors[key] === author);
+    const authorIDToSend = authorID || translator.new();
+
+    if (!authorID) {
+      addAuthor(authorIDToSend, author);
+    }
+
+    addSong({ ...values, id: translator.new(), created: moment().toISOString(), author: authorIDToSend });
+    submitCallback();
+  },
+})(FormLayout);
+
 const mapStateToProps = state => ({
   songs: state.songs,
   genres: state.genres,
   authors: state.authors,
-})
+});
 
 export default connect(mapStateToProps, { addSong, addAuthor })(NewSongForm);

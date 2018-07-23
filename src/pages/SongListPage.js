@@ -24,6 +24,7 @@ class SongListPage extends Component {
   }
 
   setEditingSong = (id) => {
+    // Нужно будет для редактирования песни //
     this.setState({ isModalOpen: true, editingSong: id });
   }
 
@@ -44,13 +45,9 @@ class SongListPage extends Component {
           center
         >
           <div className='modal__content'>
-            {
-              this.state.editingSong ? (
-                <EditSongForm submitCallback={this.closeModal} songID={this.state.editingSong} />
-              ) : (
-                <NewSongForm submitCallback={this.closeModal} />
-              )
-            }
+          {
+            this.state.editingSong ? <EditSongForm songID={this.state.editingSong} submitCallback={this.closeModal} /> : <NewSongForm submitCallback={this.closeModal} />
+          }
           </div>
         </Modal>
       </div>

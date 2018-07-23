@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import UUID from 'uuid-js';
+import { withFormik  } from 'formik';
+import short from 'short-uuid';
 // import moment from 'moment';
 
 // Styles //
@@ -17,65 +18,29 @@ import Button from '~/components/Button/Button';
 import { addSong, updateSong } from '~/actions/song';
 import { addAuthor } from '~/actions/author';
 
-class EditSongForm extends Component {
-  state = {
-    errors: {},
-  }
+class FormLayout extends Component {
+  // validateForm = () => {
+  //   const errors = {};
 
-  title  = React.createRef();
-  author = React.createRef();
-  genre  = React.createRef();
+  //   if (!this.title.current.value) {
+  //     errors.title = true;
+  //   }
 
-  validateForm = () => {
-    const errors = {};
+  //   this.setState({ errors });
 
-    if (!this.title.current.value) {
-      errors.title = true;
-    }
-
-    this.setState({ errors });
-
-    return errors;
-  }
+  //   return errors;
+  // }
 
   handleSelect = (name, option) => {
     console.log(name, option);
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    
-    const errors = this.validateForm();
-    const { songID, authors } = this.props;
-    
-    const currentAuthor = this.author.current.value;
-    const currentTitle = this.title.current.value;
-    const currentAuthorID = Object.keys(authors).find(key => authors[key] === currentAuthor);
-    const authorIDToSend = currentAuthorID || UUID.create().toString();
-
-    if (Object.keys(errors).length > 0) {
-      return false;
-    }
-
-    if (!currentAuthorID && currentAuthor !== '') {
-      this.props.addAuthor(authorIDToSend, currentAuthor);
-    }
-
-    this.props.updateSong(songID, {
-      title: currentTitle,
-      author: (currentAuthor === '' ? null : authorIDToSend),
-    });
-
-    this.props.submitCallback();
-  };
-
   render() {
-    const { errors } = this.state;
-    const { songs, authors, genres, songID } = this.props;
-    const { title, author: authorID, genre: genreID } = songs.find(song => song.id === songID);
+    const { values, errors, handleChange, handleSubmit } = this.props;
+    const { title, author: authorID, genre: genreID } = values.songs.find(song => song.id === values.songID);
 
     return (
-      <form className="form" onSubmit={this.handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-xs-12">
             <label className={`form__field ${errors.title && 'form__field--invalid'}`}>
@@ -84,9 +49,9 @@ class EditSongForm extends Component {
                 className='form__input'
                 type='text'
                 name='title'
+                value={values.title || title}
+                onChange={handleChange}
                 placeholder='Someone Like You'
-                defaultValue={title}
-                ref={this.title}
                 autoComplete='off'
               />
             </label>
@@ -98,9 +63,9 @@ class EditSongForm extends Component {
                 className='form__input'
                 type='text'
                 name='author'
+                value={values.author || values.authors[authorID]}
+                onChange={handleChange}
                 placeholder='Benjamin'
-                defaultValue={authors[authorID]}
-                ref={this.author}
                 autoComplete='off'
               />
             </label>
@@ -111,12 +76,10 @@ class EditSongForm extends Component {
               <Select
                 className='form__select'
                 name='genre'
-                ref={this.genre}
-                value={genreID}
-                focusedOption={{ value: '1', label: 'Pop' }}
+                value={values.genre || genreID}
                 onChange={(option) => this.handleSelect('genre', option)}
                 options={[
-                  ...Object.keys(genres).map(key => ({ value: key, label: genres[key] }))
+                  ...Object.keys(values.genres).map(key => ({ value: key, label: values.genres[key] }))
                 ]}
               />
             </label>
@@ -129,6 +92,35 @@ class EditSongForm extends Component {
     );
   }
 };
+
+const EditSongForm = withFormik({
+  handleSubmit: (values, { props }) => {
+    const translator = short();
+    // const errors = this.validateForm();
+    const { songID, authors } = props;
+    const { title, author: authorID } = props.songs.find(song => song.id === props.songID);
+    
+    const currentAuthor = values.author || authors[authorID];
+    const currentTitle = values.title || title;
+    const currentAuthorID = Object.keys(authors).find(key => authors[key] === currentAuthor);
+    const authorIDToSend = currentAuthorID || translator.new();
+
+    // // if (Object.keys(errors).length > 0) {
+    // //   return false;
+    // // }
+
+    if (!currentAuthorID && currentAuthor !== '') {
+      props.addAuthor(authorIDToSend, currentAuthor);
+    }
+
+    props.updateSong(songID, {
+      title: currentTitle,
+      author: (currentAuthor === '' ? null : authorIDToSend),
+    });
+
+    props.submitCallback();
+  },
+})(FormLayout);
 
 const mapStateToProps = state => ({
   songs: state.songs,

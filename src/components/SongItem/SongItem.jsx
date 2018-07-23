@@ -28,6 +28,7 @@ class SongItem extends Component {
   }
 
   setEditingSong = () => {
+    // Нужно будет для редактирования песни //
     this.props.setEditingSong(this.props.data.id);
   }
 
