@@ -44,7 +44,7 @@ class History extends Component {
             const momentDate = moment(date);
 
             return (
-              <div className='col-xs col-md-3'>
+              <div key={momentDate} className='col-xs col-md-3'>
                 <div className='history' key={date}>
                   <div className="history__header">
                     <p className='history__date'>{ momentDate.format('DD.MM.YYYY') }</p>

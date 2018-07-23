@@ -5,6 +5,8 @@
   font-weight: 600;
   font-size: 0.8rem;
   font-family: var(--font-main);
+  line-height: 1.4em;
+  text-decoration: none;
   background-color: transparent;
   border: 2px solid #e2e2e2;
   border-radius: 5rem;
@@ -14,6 +16,7 @@
 
   &:hover,
   &:focus {
+    text-decoration: none;
     border-color: #cfcfcf;
     outline: none;
   }

@@ -97,7 +97,10 @@ class SongList extends Component {
         >
           <div className='modal__content'>
             <p className='text text--white text--semibold'>Выбранные песни добавлены в историю</p>
-            <Button mods={['white']} onClick={this.closeModal}>Понятно</Button>
+          </div>
+          <div className="modal__footer">
+            <Button className='modal__button' mods={['white']} onClick={this.closeModal}>Понятно</Button>
+            <Button className='modal__button' mods={['white']} to='/history'>Перейти к истории</Button>
           </div>
         </Modal>
       </Fragment>

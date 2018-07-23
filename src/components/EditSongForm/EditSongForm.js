@@ -86,7 +86,7 @@ class FormLayout extends Component {
           </div>
         </div>
         <div className="form__footer">
-          <Button type='submit' mods={['purple']}>Добавить</Button>
+          <Button type='submit' mods={['purple']}>Сохранить</Button>
         </div>
       </form>
     );

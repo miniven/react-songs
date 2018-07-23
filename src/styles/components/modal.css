@@ -41,6 +41,19 @@
     }
   }
 
+  &__button {
+    margin-right: 15px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+  }
+
   &__close-icon {
     &--white {
       fill: #ffffff;
