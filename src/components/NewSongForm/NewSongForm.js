@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withFormik  } from 'formik';
+import { Formik  } from 'formik';
 import short from 'short-uuid';
 import moment from 'moment';
 
@@ -18,107 +18,15 @@ import Button from '~/components/Button/Button';
 import { addSong } from '~/actions/song';
 import { addAuthor } from '~/actions/author';
 
-//   validateForm = () => {
-//     const errors = {};
-
-//     if (!this.state.title) {
-//       errors.title = true;
-//     }
-
-//     this.setState({ errors });
-
-//     return errors;
-//   }
-
-//   handleSubmit = (event) => {
-//     event.preventDefault();
-
-//     const errors = this.validateForm();
-
-//     if (Object.keys(errors).length > 0) {
-//       return false;
-//     }
-
-//     const { authors, addSong, addAuthor, submitCallback } = this.props;
-//     const { author } = this.state;
-//     const authorID = Object.keys(authors).find(key => authors[key] === author);
-//     const authorIDToSend = authorID || translator.new();
-
-//     if (!authorID) {
-//       addAuthor(authorIDToSend, author);
-//     }
-
-//     addSong({ ...this.state, id: translator.new(), created: moment().toISOString(), author: authorIDToSend });
-//     submitCallback();
-//   };
-
-class FormLayout extends Component {
-  handleSelect = (name, option) => {
-    this.props.handleChange({ target: { name, value: option.value || '1' } });
+class NewSongForm extends Component {
+  handleSelect = (name, option, handler) => {
+    handler({ target: { name, value: option.value || '1' } });
   }
 
-  render() {
-    const { values, errors, handleChange, handleSubmit } = this.props;
-
-    return (
-      <form className='form' onSubmit={handleSubmit}>
-        <div className='row'>
-          <div className='col-xs-12'>
-            <label className={`form__field ${errors.title && 'form__field--invalid'}`}>
-              <p className='form__label'>Название</p>
-              <input
-                className='form__input'
-                type='text'
-                name='title'
-                value={values.title}
-                placeholder='Someone Like You'
-                onChange={handleChange}
-                autoComplete='off'
-              />
-            </label>
-          </div>
-          <div className='col-xs-12 col-sm-6'>
-            <label className='form__field'>
-              <p className='form__label'>Автор</p>
-              <input
-                className='form__input'
-                type='text'
-                name='author'
-                value={values.author}
-                placeholder='Benjamin'
-                onChange={handleChange}
-                autoComplete='off'
-              />
-            </label>
-          </div>
-          <div className='col-xs-12 col-sm-6'>
-            <label className='form__field'>
-              <p className='form__label'>Жанр</p>
-              <Select
-                className='form__select'
-                name='genre'
-                value={values.genre}
-                onChange={option => this.handleSelect('genre', option)}
-                options={[
-                  ...Object.keys(values.genres).map(key => ({ value: key, label: values.genres[key] }))
-                ]}
-              />
-            </label>
-          </div>
-        </div>
-        <div className='form__footer'>
-          <Button type='submit' mods={['purple']}>Добавить</Button>
-        </div>
-      </form>
-    );
-  }
-};
-
-const NewSongForm = withFormik({
-  handleSubmit: (values, { props }) => {
+  handleSubmit = (values) => {
     const translator = short();
     const { author } = values;
-    const { authors, addSong, addAuthor, submitCallback } = props;
+    const { authors, addSong, addAuthor, submitCallback } = this.props;
 
     const authorID = Object.keys(authors).find(key => authors[key] === author);
     const authorIDToSend = authorID || translator.new();
@@ -129,8 +37,80 @@ const NewSongForm = withFormik({
 
     addSong({ ...values, id: translator.new(), created: moment().toISOString(), author: authorIDToSend });
     submitCallback();
-  },
-})(FormLayout);
+  }
+
+  validate = (values, props) => {
+    let errors = {};
+
+    if (!values.title) {
+      errors.title = 'required';
+    }
+
+    return errors;
+  }
+
+  render() {
+    return (
+      <Formik
+        initialValues={{ title: '', author: '', genre: null }}
+        onSubmit={this.handleSubmit}
+        validate={this.validate}
+        validateOnBlur={true}
+        render={({ handleSubmit, handleChange, values, errors }) => (
+          <form className='form' onSubmit={handleSubmit}>
+            <div className='row'>
+              <div className='col-xs-12'>
+                <label className={`form__field ${errors.title && 'form__field--invalid'}`}>
+                  <p className='form__label'>Название</p>
+                  <input
+                    className='form__input'
+                    type='text'
+                    name='title'
+                    value={values.title}
+                    placeholder='Someone Like You'
+                    onChange={handleChange}
+                    autoComplete='off'
+                  />
+                </label>
+              </div>
+              <div className='col-xs-12 col-sm-6'>
+                <label className='form__field'>
+                  <p className='form__label'>Автор</p>
+                  <input
+                    className='form__input'
+                    type='text'
+                    name='author'
+                    value={values.author}
+                    placeholder='Benjamin'
+                    onChange={handleChange}
+                    autoComplete='off'
+                  />
+                </label>
+              </div>
+              <div className='col-xs-12 col-sm-6'>
+                <label className='form__field'>
+                  <p className='form__label'>Жанр</p>
+                  <Select
+                    className='form__select'
+                    name='genre'
+                    value={values.genre}
+                    onChange={option => this.handleSelect('genre', option, handleChange)}
+                    options={[
+                      ...Object.keys(this.props.genres).map(key => ({ value: key, label: this.props.genres[key] }))
+                    ]}
+                  />
+                </label>
+              </div>
+            </div>
+            <div className='form__footer'>
+              <Button type='submit' mods={['purple']}>Добавить</Button>
+            </div>
+          </form>
+        )}
+      />
+    );
+  }
+};
 
 const mapStateToProps = state => ({
   songs: state.songs,
