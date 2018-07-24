@@ -63,14 +63,14 @@ class FilterForm extends Component {
           </div>
           <div className='col-xs-12 col-sm-6 col-md-3'>
             <label className='form__field'>
-              <p className='form__label'>Жанр</p>
+              <p className='form__label'>Настроение</p>
               <Select
                 className='form__select'
                 name='genre'
                 value={values.genre}
                 onChange={(option) => this.handleSelect('genre', option)}
                 options={[
-                  { value: 'all', label: 'Все жанры' },
+                  { value: 'all', label: 'Любое' },
                   ...Object.keys(genres).map(key => ({ value: key, label: genres[key] }))
                 ]}
               />
