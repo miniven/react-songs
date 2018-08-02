@@ -26,6 +26,11 @@
     font-size: 1rem;
   }
 
+  &--small {
+    padding: 0.2rem 1rem;
+    font-size: 0.7rem;
+  }
+
   &--purple {
     color: var(--color-purple);
     border-color: var(--color-purple);
