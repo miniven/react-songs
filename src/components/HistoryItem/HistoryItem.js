@@ -7,10 +7,6 @@ import 'moment/locale/ru';
 
 import './HistoryItem.css';
 
-// Components //
-
-import Button from '~/components/Button/Button';
-
 class HistoryItem extends Component {
   componentWillMount = () => {
     moment().locale('ru');
@@ -33,7 +29,8 @@ class HistoryItem extends Component {
     return (
       <div className='history-item'>
         <div className="history-item__box">
-          <Button mods={['gray', 'small']} onClick={() => console.log('hello')}>Редактировать</Button>
+          <button className='history-item__button history-item__button--edit' aria-label='Изменить'></button>
+          <button className='history-item__button history-item__button--close' aria-label='Удалить'></button>
         </div>
         <div className='history-item__header'>
           <p className='history-item__date'>{ momentDate.format('DD.MM.YYYY') }</p>

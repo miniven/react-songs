@@ -4,6 +4,7 @@
   position: relative;
   margin-bottom: 15px;
   padding: 20px;
+  overflow: hidden;
   font-size: 1rem;
   font-family: var(--font-main);
   background-color: #ffffff;
@@ -14,16 +15,56 @@
     .history-item__box {
       opacity: 1;
     }
+
+    .history-item__day {
+      opacity: 0;
+    }
   }
 
   &__box {
     position: absolute;
     top: 0;
     right: 0;
-    padding: 15px 15px 0 0;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+    padding-left: 25px;
     background-color: #ffffff;
     opacity: 0;
     transition: 0.15s ease;
+  }
+
+  &__button {
+    margin-right: 10px;
+    padding: 12px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.15s ease;
+    appearance: none;
+
+    &:hover,
+    &:focus {
+      outline: none;
+      opacity: 1;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &--edit {
+      background-image: url('./edit.svg');
+    }
+
+    &--close {
+      background-image: url('./close.svg');
+    }
   }
 
   &__header {
@@ -40,6 +81,7 @@
   &__day {
     color: var(--color-secondary);
     font-weight: 400;
+    transition: 0.15s ease;
 
     &:first-letter {
       text-transform: uppercase;
