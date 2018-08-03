@@ -3,7 +3,6 @@
 .history-item {
   position: relative;
   margin-bottom: 15px;
-  padding: 20px;
   overflow: hidden;
   font-size: 1rem;
   font-family: var(--font-main);
@@ -28,7 +27,7 @@
     z-index: 10;
     display: flex;
     justify-content: flex-end;
-    padding: 15px;
+    padding: 10px 15px;
     padding-left: 25px;
     background-color: #ffffff;
     opacity: 0;
@@ -70,7 +69,7 @@
   &__header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 30px;
+    padding: 15px;
   }
 
   &__date {
@@ -91,32 +90,12 @@
   &__list {
     margin: 0;
     padding: 0;
+    overflow: hidden;
     list-style: none;
-    counter-reset: section;
+    border-radius: 3px;
   }
 
   &__list-item {
-    position: relative;
-    margin: 15px 0;
-    padding-left: 20px;
-    color: var(--color-secondary);
-    line-height: 1.4em;
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    &:before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      font-weight: 600;
-      counter-increment: section;
-      content: counter(section);
-    }
+    margin-bottom: 1px;
   }
 }

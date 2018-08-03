@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import moment from 'moment';
 
 // Styles //
@@ -18,25 +17,9 @@ import { resetSongsActivity } from '~/actions/song';
 
 // Components //
 
-import SongButton from '~/components/SongButton/SongButton';
 import Message from '~/components/Message/Message';
 import Button from '~/components/Button/Button';
-
-const SortableItem = SortableElement(({ item }) => (
-  <li className='list__item'>
-    <SongButton className='list__button' data={item} />
-  </li>
-));
-
-const SortableList = SortableContainer(({ items, className }) => (
-  <ul className={`list ${className}`}>
-    {
-      items.map((item, index) => (
-        <SortableItem key={index} index={index} item={item} />
-      ))
-    }
-  </ul>
-));
+import SortableSongList from '~/components/SortableSongList/SortableSongList';
 
 class List extends Component {
   onSortEnd = ({ oldIndex, newIndex }) => {
@@ -60,13 +43,7 @@ class List extends Component {
 
     return (
       <Fragment>
-        <SortableList
-          items={orderedData}
-          lockAxis='y'
-          className={className ? className : ''}
-          helperClass='list__item--sortable'
-          onSortEnd={this.onSortEnd}
-        />
+        <SortableSongList list={orderedData} onSortEnd={this.onSortEnd} className={className ? className : ''} />
         <Button className='sidebar__button' mods={['green']} onClick={this.saveList}>Сохранить</Button>
       </Fragment>
     );

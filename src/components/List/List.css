@@ -26,6 +26,8 @@
     }
 
     &--sortable {
+      z-index: 100;
+
       .list__button {
         transform-origin: center;
         animation: ScaleButton 0.2s;

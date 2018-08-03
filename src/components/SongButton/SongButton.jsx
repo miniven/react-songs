@@ -27,7 +27,7 @@ class SongButton extends Component {
   }
 
   render() {
-    const { className, data, authors, setSongActivity, removeItem, ...restProps } = this.props;
+    const { className, data, authors, setSongActivity, removeItem, editable, ...restProps } = this.props;
     const { title, author = 'Неизвестен', created } = data;
 
     const isNew = moment().dayOfYear() - moment(created).dayOfYear() <= NEW_STATE_PERIOD;
@@ -36,7 +36,7 @@ class SongButton extends Component {
       <div className={`song-button ${className ? className : ''}`} {...restProps}>
         <div className="song-button__top">
           <h3 className="song-button__title">{title}</h3>
-          <button className='song-button__close' onClick={this.setSongActivity}></button>
+          { editable && <button className='song-button__close' onClick={this.setSongActivity}></button> }
         </div>
         <div className="song-button__middle">
           <InfoText mod='author' value={authors[author]} />

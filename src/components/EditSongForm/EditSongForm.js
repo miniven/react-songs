@@ -99,7 +99,7 @@ class EditSongForm extends Component {
               </div>
               <div className="col-xs-12 col-sm-6">
                 <label className='form__field'>
-                  <p className='form__label'>Жанр</p>
+                  <p className='form__label'>Настроение</p>
                   <Select
                     className='form__select'
                     name='genre'
