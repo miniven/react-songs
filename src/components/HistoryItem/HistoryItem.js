@@ -7,6 +7,10 @@ import 'moment/locale/ru';
 
 import './HistoryItem.css';
 
+// Actions //
+
+import { removeOrderFromList } from '~/actions/order';
+
 class HistoryItem extends Component {
   componentWillMount = () => {
     moment().locale('ru');
@@ -30,7 +34,7 @@ class HistoryItem extends Component {
       <div className='history-item'>
         <div className="history-item__box">
           <button className='history-item__button history-item__button--edit' aria-label='Изменить'></button>
-          <button className='history-item__button history-item__button--close' aria-label='Удалить'></button>
+          <button className='history-item__button history-item__button--close' aria-label='Удалить' onClick={() => this.props.removeOrderFromList(date)}></button>
         </div>
         <div className='history-item__header'>
           <p className='history-item__date'>{ momentDate.format('DD.MM.YYYY') }</p>
@@ -47,4 +51,4 @@ const mapStateToProps = state => ({
   history: state.order.previous,
 })
 
-export default connect(mapStateToProps)(HistoryItem);
+export default connect(mapStateToProps, { removeOrderFromList })(HistoryItem);

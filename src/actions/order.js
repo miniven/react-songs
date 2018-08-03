@@ -1,4 +1,4 @@
-import { CHANGE_ORDER, ADD_ITEM, REMOVE_ITEM, ADD_ORDER_TO_LIST } from '~/types/order';
+import { CHANGE_ORDER, ADD_ITEM, REMOVE_ITEM, ADD_ORDER_TO_LIST, REMOVE_ORDER_FROM_LIST } from '~/types/order';
 
 export const changeOrder = (oldIndex, newIndex) => ({
   type: CHANGE_ORDER,
@@ -21,3 +21,8 @@ export const addOrderToList = (id, data) => ({
   id,
   data,
 })
+
+export const removeOrderFromList = (id) => ({
+  type: REMOVE_ORDER_FROM_LIST,
+  id,
+});
