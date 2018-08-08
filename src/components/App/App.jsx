@@ -12,10 +12,14 @@ import NoMatchPage from '~/pages/NoMatchPage';
 import HistoryPage from '~/pages/HistoryPage';
 import Navbar from '~/components/Navbar/Navbar';
 
+// Styles //
+
+import './App.css';
+
 const App = (props) => (
   <Router>
     <div className='app'>
-      <header>
+      <header className='app__header'>
         <Navbar />
       </header>
       <Switch>
