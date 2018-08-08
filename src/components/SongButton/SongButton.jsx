@@ -19,6 +19,7 @@ import { NEW_STATE_PERIOD } from '~/constants';
 
 import InfoText from '~/components/InfoText/InfoText';
 import Label from '~/components/Label/Label';
+import IconButton from '~/components/IconButton/IconButton';
 
 class SongButton extends Component {
   setSongActivity = () => {
@@ -36,7 +37,7 @@ class SongButton extends Component {
       <div className={`song-button ${className ? className : ''}`} {...restProps}>
         <div className="song-button__top">
           <h3 className="song-button__title">{title}</h3>
-          { editable && <button className='song-button__close' onClick={this.setSongActivity}></button> }
+          { editable && <IconButton className='song-button__close' onClick={this.setSongActivity} type='close' /> }
         </div>
         <div className="song-button__middle">
           <InfoText mod='author' value={authors[author]} />

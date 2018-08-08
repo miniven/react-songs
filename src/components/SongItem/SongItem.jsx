@@ -20,6 +20,7 @@ import { NEW_STATE_PERIOD } from '~/constants';
 import Button from '~/components/Button/Button';
 import InfoText from '~/components/InfoText/InfoText';
 import Label from '~/components/Label/Label';
+import IconButton from '~/components/IconButton/IconButton';
 
 class SongItem extends Component {
   setSongActivity = () => {
@@ -44,6 +45,26 @@ class SongItem extends Component {
       <article className={`song-item ${className ? className : ''}`}>
         <header className='song-item__header'>
           <h3 className='song-item__title'>{title}</h3>
+          <IconButton className='song-item__edit' onClick={this.setEditingSong} type='edit' />
+        </header>
+        <div className='song-item__content'>
+          <div className='song-item__info'>
+            <div className='row'>
+              <div className='col-xs-12 col-md-3'>
+                <InfoText className='song-item__text' mod='author' value={authors[author]} />
+              </div>
+              <div className='col-xs-12 col-md-3'>
+                <InfoText className='song-item__text' mod='genre' value={genres[genre]} />
+              </div>
+              {
+                lastDate && (
+                  <div className='col-xs-12 col-md-3'>
+                    <InfoText className='song-item__text' mod='date' value={lastDate} />
+                  </div>
+                )
+              }
+            </div>
+          </div>
           {
             (isNew || isRecent) && (
               <div className='song-item__label-box'>
@@ -52,26 +73,10 @@ class SongItem extends Component {
               </div>
             )
           }
-        </header>
-        <div className='song-item__info'>
-          <div className='row'>
-            <div className='col-xs-12 col-md-3'>
-              <InfoText className='song-item__text' mod='author' value={authors[author]} />
-            </div>
-            <div className='col-xs-12 col-md-3'>
-              <InfoText className='song-item__text' mod='genre' value={genres[genre]} />
-            </div>
-            {
-              lastDate && (
-                <div className='col-xs-12 col-md-3'>
-                  <InfoText className='song-item__text' mod='date' value={lastDate} />
-                </div>
-              )
-            }
-          </div>
         </div>
-        <Button className='song-item__button' mods={['add', 'green']} onClick={this.setSongActivity}>Добавить</Button>
-        <Button className='song-item__button' mods={['gray']} onClick={this.setEditingSong}>Редактировать</Button>
+        <footer className='song-item__footer'>
+          <Button className='song-item__button' mods={['add', 'green']} onClick={this.setSongActivity}>Добавить</Button>
+        </footer>
       </article>
     );
   }

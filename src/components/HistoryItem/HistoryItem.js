@@ -14,6 +14,7 @@ import { removeOrderFromList } from '~/actions/order';
 // Components //
 
 import SongButton from '~/components/SongButton/SongButton';
+import IconButton from '~/components/IconButton/IconButton';
 import SortableSongList from '~/components/SortableSongList/SortableSongList';
 
 class HistoryItem extends Component {
@@ -43,8 +44,8 @@ class HistoryItem extends Component {
     return (
       <div className='history-item'>
         <div className="history-item__box">
-          <button className='history-item__button history-item__button--edit' aria-label='Изменить' onClick={this.toggleEdit}></button>
-          <button className='history-item__button history-item__button--close' aria-label='Удалить' onClick={() => this.props.removeOrderFromList(date)}></button>
+          <IconButton className='history-item__button' onClick={this.toggleEdit} type='edit' />
+          <IconButton className='history-item__button' onClick={() => this.props.removeOrderFromList(date)} type='close' />
         </div>
         <div className='history-item__header'>
           <p className='history-item__date'>{ momentDate.format('DD.MM.YYYY') }</p>

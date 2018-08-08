@@ -2,6 +2,12 @@
 @import '../../styles/_variables.css';
 
 .app {
+  padding-bottom: 50px;
+
+  @media (--screen-md) {
+    padding-bottom: 0;
+  }
+
   &__header {
     position: fixed;
     bottom: 0;

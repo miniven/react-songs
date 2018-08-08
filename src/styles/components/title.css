@@ -2,6 +2,10 @@
   margin: 1.2em 0;
   color: var(--color-secondary);
   font-weight: 400;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-family: var(--font-main);
+
+  @media (--screen-md) {
+    font-size: 2.5rem;
+  }
 }
