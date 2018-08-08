@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// Styles //
-
-import 'react-select/dist/react-select.css';
-
 // Components //
 
 import Select from 'react-select';
@@ -51,6 +47,7 @@ class FilterForm extends Component {
               <Select
                 className='form__select'
                 name='sorting'
+                searchable={false}
                 value={sorting}
                 onChange={(option) => this.handleSelect('sorting', option)}
                 options={[
@@ -67,6 +64,7 @@ class FilterForm extends Component {
               <Select
                 className='form__select'
                 name='genre'
+                searchable={false}
                 value={values.genre}
                 onChange={(option) => this.handleSelect('genre', option)}
                 options={[

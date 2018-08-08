@@ -4,10 +4,6 @@ import { Formik  } from 'formik';
 import short from 'short-uuid';
 import moment from 'moment';
 
-// Styles //
-
-import 'react-select/dist/react-select.css';
-
 // Components //
 
 import Select from 'react-select';
@@ -93,6 +89,7 @@ class NewSongForm extends Component {
                   <Select
                     className='form__select'
                     name='genre'
+                    searchable={false}
                     value={values.genre}
                     onChange={option => this.handleSelect('genre', option, handleChange)}
                     options={[

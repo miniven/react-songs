@@ -2,6 +2,10 @@
 @import '_media.css';
 @import '_variables.css';
 
+/* Styles */
+
+@import 'react-select/dist/react-select.css';
+
 /* Components */
 
 @import 'components/title.css';

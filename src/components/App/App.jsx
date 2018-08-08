@@ -22,7 +22,6 @@ const App = (props) => (
       <header className='app__header'>
         <Navbar />
       </header>
-      {window.location.pathname}
       <Switch>
         <Route exact path='/' component={SongListPage} />
         <Route exact path='/history' component={HistoryPage} />
