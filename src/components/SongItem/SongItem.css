@@ -10,14 +10,9 @@
 
   &__header {
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     padding: 1em;
-
-    @media (--screen-md) {
-      flex-direction: row;
-    }
   }
 
   &__content {
@@ -43,6 +38,7 @@
   }
 
   &__title {
+    margin-right: 10px;
     color: var(--color-secondary);
     font-weight: 600;
     font-size: 1.125em;
