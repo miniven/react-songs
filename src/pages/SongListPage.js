@@ -22,9 +22,9 @@ class SongListPage extends Component {
   }
 
   closeModal = () => {
-    this.setState({ isModalOpen: false, selectedSong: null });
+    this.setState({ isModalOpen: false });
 
-    setTimeout(() => this.setState({ actionType: null }), 500); // Чтобы контент менялся после закрытия модального окна, а не во время
+    setTimeout(() => this.setState({ selectedSong: null, actionType: null }), 500); // Чтобы контент менялся после закрытия модального окна, а не во время
   }
 
   setActionType = (actionType, id) => {
