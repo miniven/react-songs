@@ -10,6 +10,7 @@ import './SongItem.css';
 
 import { setSongActivity } from '~/actions/song';
 import { addItem } from '~/actions/order';
+import { setActionType } from '~/actions/ui';
 
 // Constants //
 
@@ -28,10 +29,6 @@ class SongItem extends Component {
     this.props.addItem(this.props.data.id);
   }
 
-  setActionType = (actionType, id) => {
-    this.props.setActionType(actionType, id);
-  }
-
   render() {
     const { className, data, genres, authors } = this.props;
     const { title, author, genre, lastChosen, created, id } = data;
@@ -45,8 +42,8 @@ class SongItem extends Component {
         <header className='song-item__header'>
           <h3 className='song-item__title'>{title}</h3>
           <div className='song-item__controls'>
-            <IconButton className='song-item__control' onClick={() => this.setActionType('edit', id)} type='edit' />
-            <IconButton className='song-item__control' onClick={() => this.setActionType('delete', id)} type='delete' />
+            <IconButton className='song-item__control' onClick={() => this.props.setActionType('edit', id)} type='edit' />
+            <IconButton className='song-item__control' onClick={() => this.props.setActionType('delete', id)} type='delete' />
           </div>
         </header>
         <div className='song-item__content'>
@@ -89,4 +86,4 @@ const mapStateToProps = state => ({
   authors: state.authors,
 });
 
-export default connect(mapStateToProps, { setSongActivity, addItem })(SongItem);
+export default connect(mapStateToProps, { setSongActivity, addItem, setActionType })(SongItem);

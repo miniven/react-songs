@@ -1,4 +1,9 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+
+// Actions //
+
+import { openModal, closeModal, setActionType } from '~/actions/ui';
 
 // Components //
 
@@ -11,47 +16,25 @@ import EditSongForm from '~/components/EditSongForm/EditSongForm';
 import ConfirmSongDelete from '~/components/ConfirmSongDelete/ConfirmSongDelete';
 
 class SongListPage extends Component {
-  state = {
-    isModalOpen: false,
-    actionType: null,
-    selectedSong: null,
-  }
-
-  openModal = () => {
-    this.setState({ isModalOpen: true });
-  }
-
-  closeModal = () => {
-    this.setState({ isModalOpen: false });
-
-    setTimeout(() => this.setState({ selectedSong: null, actionType: null }), 500); // Чтобы контент менялся после закрытия модального окна, а не во время
-  }
-
-  setActionType = (actionType, id) => {
-    this.setState({ isModalOpen: true, selectedSong: id, actionType });
-  }
-
   render() {
-    const { isModalOpen } = this.state;
-
     const renderModalContent = () => {
-      switch (this.state.actionType) {
+      switch (this.props.modal.actionType) {
         case 'edit':
-          return <EditSongForm songID={this.state.selectedSong} submitCallback={this.closeModal} />;
+          return <EditSongForm songID={this.props.modal.selectedSong} />;
         case 'showSuccess':
           return (
             <Fragment>
               <p className='text text--white text--center text--semibold'>Выбранные песни добавлены в историю</p>
               <div className="modal__footer">
-                <Button className='modal__button' mods={['white']} onClick={this.closeModal}>Понятно</Button>
+                <Button className='modal__button' mods={['white']} onClick={this.props.closeModal}>Понятно</Button>
                 <Button className='modal__button' mods={['white']} to='/history'>Перейти к истории</Button>
               </div>
             </Fragment>
           );
         case 'delete':
-          return <ConfirmSongDelete songID={this.state.selectedSong} submitCallback={this.closeModal} />;
+          return <ConfirmSongDelete songID={this.props.modal.selectedSong} />;
         default:
-          return <NewSongForm submitCallback={this.closeModal} />;
+          return <NewSongForm />;
       }
     };
 
@@ -59,18 +42,18 @@ class SongListPage extends Component {
       <div className='container'>
         <TopLine>
           <h2 className='top-line__title title'>Список песен</h2>
-          <Button className='top-line__button' mods={['filled-purple']} onClick={this.openModal}>Добавить песню</Button>
+          <Button className='top-line__button' mods={['filled-purple']} onClick={this.props.openModal}>Добавить песню</Button>
         </TopLine>
-        <SongList setActionType={this.setActionType} />
+        <SongList />
         <Modal
           classNames={{
             overlay: 'modal',
-            modal: `modal__box modal__box--wide modal__box--left ${this.state.actionType === 'delete' ? 'modal__box--orange' : ''} ${this.state.actionType === 'showSuccess' ? 'modal__box--green' : ''}`,
+            modal: `modal__box modal__box--wide modal__box--left ${this.props.modal.actionType === 'delete' ? 'modal__box--orange' : ''} ${this.props.modal.actionType === 'showSuccess' ? 'modal__box--green' : ''}`,
             closeButton: 'modal__close',
             closeIcon: 'modal__close-icon--secondary'
           }}
-          open={isModalOpen}
-          onClose={this.closeModal}
+          open={this.props.modal.isModalOpen}
+          onClose={this.props.closeModal}
           center
         >
           <div className='modal__content'>
@@ -82,4 +65,8 @@ class SongListPage extends Component {
   }
 };
 
-export default SongListPage;
+const mapStateToProps = state => ({
+  modal: state.ui.modal,
+});
+
+export default connect(mapStateToProps, { openModal, closeModal, setActionType })(SongListPage);

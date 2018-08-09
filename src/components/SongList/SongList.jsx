@@ -9,6 +9,11 @@ import { MEDIA_MD } from '~/constants';
 
 import { getUnselectedSongs, getSortedSongs } from '~/reducers/songReducer';
 
+
+// Actions //
+
+import { setActionType } from '~/actions/ui';
+
 // Components //
 
 import StickyBox from 'react-sticky-box';
@@ -56,7 +61,7 @@ class SongList extends Component {
       .filter(this.filterByGenre)
       .map(item => (
         <li key={item.id} className='song-list__item'>
-          <SongItem data={item} setActionType={this.props.setActionType}/>
+          <SongItem data={item} />
         </li>
       ));
 
@@ -101,4 +106,4 @@ const mapStateToProps = state => ({
   data: getSortedSongs(getUnselectedSongs(state.songs), state.sorting),
 });
 
-export default connect(mapStateToProps)(SongList);
+export default connect(mapStateToProps, { setActionType })(SongList);
