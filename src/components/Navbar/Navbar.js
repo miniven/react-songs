@@ -9,7 +9,7 @@ import { MEDIA_MD } from '~/constants';
 
 // Selectors //
 
-import { getSelectedSongs } from '~/reducers/songReducer';
+import { getSelectedAmount } from '~/reducers/songReducer';
 
 // Styles //
 
@@ -36,7 +36,7 @@ class Navbar extends Component {
                 matches => !matches && (
                   <li className='navbar__item'>
                     <NavLink to='/selected' exact className='navbar__link navbar__link--music' activeClassName='navbar__link--active'>
-                      { this.props.selectedSongs.length > 0 && <p className='navbar__counter'>{this.props.selectedSongs.length}</p> }
+                      { this.props.selectedAmount > 0 && <p className='navbar__counter'>{this.props.selectedAmount}</p> }
                       <p className='navbar__text'>Выбранные песни</p>
                     </NavLink>
                   </li>
@@ -51,7 +51,7 @@ class Navbar extends Component {
 };
 
 const mapStateToProps = state => ({
-  selectedSongs: getSelectedSongs(state.songs),
+  selectedAmount: getSelectedAmount(state.songs),
 });
 
 export default withRouter(connect(mapStateToProps)(Navbar));

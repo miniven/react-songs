@@ -66,3 +66,5 @@ export const getSortedSongs = (state, sorting) => {
 export const getSelectedSongs = (state) => state.filter(item => item.isSelected);
 
 export const getUnselectedSongs = (state) => state.filter(item => !item.isSelected);
+
+export const getSelectedAmount = (state) => getSelectedSongs(state).length;

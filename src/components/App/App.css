@@ -2,10 +2,10 @@
 @import '../../styles/_variables.css';
 
 .app {
-  padding-bottom: 50px;
+  padding: 15px 0 65px;
 
   @media (--screen-md) {
-    padding-bottom: 0;
+    padding: 0 0 15px;
   }
 
   &__header {

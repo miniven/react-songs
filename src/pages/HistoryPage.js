@@ -10,7 +10,7 @@ class HistoryPage extends Component {
     return (
       <div className='container'>
         <TopLine>
-          <h2 className='title'>История выбранных песен</h2>
+          <h2 className='top-line__title title'>История выбранных песен</h2>
         </TopLine>
         <History />
       </div>
