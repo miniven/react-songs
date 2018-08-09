@@ -24,7 +24,6 @@ class ModalDialog extends Component {
             <Fragment>
               <p className='text text--white text--center text--semibold'>Выбранные песни добавлены в историю</p>
               <div className="modal__footer">
-                <Button className='modal__button' mods={['white']} onClick={this.props.closeModal}>Понятно</Button>
                 <Button className='modal__button' mods={['white']} onClick={this.props.closeModal} to='/history'>Перейти к истории</Button>
               </div>
             </Fragment>
