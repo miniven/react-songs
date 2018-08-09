@@ -9,7 +9,7 @@ import './HistoryItem.css';
 
 // Actions //
 
-import { removeOrderFromList } from '~/actions/order';
+import { removeOrderFromList, changeHistoryOrder } from '~/actions/order';
 
 // Components //
 
@@ -30,6 +30,11 @@ class HistoryItem extends Component {
     this.setState({
       isEditing: !this.state.isEditing,
     });
+  }
+
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    this.props.changeHistoryOrder(this.props.date, oldIndex, newIndex);
+    // this.props.changeOrder(oldIndex, newIndex);
   }
 
   findSong = (id) => {
@@ -53,7 +58,7 @@ class HistoryItem extends Component {
         </div>
         {
           isEditing ? (
-            <SortableSongList list={history[date].map(id => this.findSong(id))} onSortEnd={() => console.log('hello')} />
+            <SortableSongList list={history[date].map(id => this.findSong(id))} onSortEnd={this.onSortEnd} />
           ) : (
             <ul className='history-item__list'>
               {
@@ -76,4 +81,4 @@ const mapStateToProps = state => ({
   history: state.order.previous,
 })
 
-export default connect(mapStateToProps, { removeOrderFromList })(HistoryItem);
+export default connect(mapStateToProps, { removeOrderFromList, changeHistoryOrder })(HistoryItem);

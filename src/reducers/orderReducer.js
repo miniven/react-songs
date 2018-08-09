@@ -1,10 +1,18 @@
-import { CHANGE_ORDER, ADD_ITEM, REMOVE_ITEM, ADD_ORDER_TO_LIST, REMOVE_ORDER_FROM_LIST } from '~/types/order';
+import { CHANGE_ORDER, ADD_ITEM, REMOVE_ITEM, ADD_ORDER_TO_LIST, REMOVE_ORDER_FROM_LIST, CHANGE_HISTORY_ORDER } from '~/types/order';
 import { arrayMove } from 'react-sortable-hoc';
 
 export const orderReducer = (state = { previous: {}, current: [] }, { type, id, oldIndex, newIndex, data }) => {
   switch (type) {
     case CHANGE_ORDER:
       return { ...state, current: arrayMove(state.current, oldIndex, newIndex) };
+    case CHANGE_HISTORY_ORDER:
+      return {
+        ...state,
+        previous: {
+          ...state.previous,
+          [id]: arrayMove(state.previous[id], oldIndex, newIndex),
+        },
+      };
     case ADD_ITEM:
       return {
         ...state,
