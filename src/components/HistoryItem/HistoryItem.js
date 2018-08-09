@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -13,6 +13,7 @@ import { removeOrderFromList, changeHistoryOrder } from '~/actions/order';
 
 // Components //
 
+import Button from '~/components/Button/Button';
 import SongButton from '~/components/SongButton/SongButton';
 import IconButton from '~/components/IconButton/IconButton';
 import SortableSongList from '~/components/SortableSongList/SortableSongList';
@@ -48,8 +49,8 @@ class HistoryItem extends Component {
 
     return (
       <div className='history-item'>
-        <div className="history-item__box">
-          <IconButton className='history-item__button' onClick={this.toggleEdit} type='edit' />
+        <div className='history-item__box'>
+          { !isEditing && <IconButton className='history-item__button' onClick={this.toggleEdit} type='edit' /> }
           <IconButton className='history-item__button' onClick={() => this.props.removeOrderFromList(date)} type='delete' />
         </div>
         <div className='history-item__header'>
@@ -58,7 +59,12 @@ class HistoryItem extends Component {
         </div>
         {
           isEditing ? (
-            <SortableSongList list={history[date].map(id => this.findSong(id))} onSortEnd={this.onSortEnd} />
+            <Fragment>
+              <SortableSongList list={history[date].map(id => this.findSong(id))} onSortEnd={this.onSortEnd} />
+              <div className='history-item__footer'>
+                <Button mods={['green']} onClick={this.toggleEdit}>Сохранить</Button>
+              </div>
+            </Fragment>
           ) : (
             <ul className='history-item__list'>
               {

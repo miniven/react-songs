@@ -29,4 +29,8 @@
   &--delete {
     background-image: url('./delete.svg');
   }
+
+  &--save {
+    background-image: url('./save.svg');
+  }
 }

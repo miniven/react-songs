@@ -88,4 +88,9 @@
   &__list-item {
     margin-bottom: 1px;
   }
+
+  &__footer {
+    padding: 15px;
+    text-align: center;
+  }
 }
