@@ -38,6 +38,7 @@
     "react": "^16.4.1",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.4.1",
+    "react-media": "1.8.0",
     "react-redux": "5.0.7",
     "react-responsive-modal": "3.1.0",
     "react-router-dom": "4.3.1",

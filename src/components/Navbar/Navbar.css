@@ -23,24 +23,27 @@
   }
 
   &__link {
+    position: relative;
     display: block;
     width: 100%;
     height: 100%;
-    margin: 0 15px;
     padding: 15px 0;
     color: var(--color-secondary);
     font-weight: 500;
     font-size: 1em;
     font-family: var(--font-main);
     text-decoration: none;
+    background-color: transparent;
     background-repeat: no-repeat;
     background-position: center;
     background-size: auto 60%;
+    border: none;
     border-bottom: 2px solid transparent;
 
     @media (--screen-md) {
       width: auto;
       height: auto;
+      margin: 0 15px;
     }
 
     &--active {
@@ -55,6 +58,14 @@
       }
     }
 
+    &--music {
+      background-image: url('./music.svg');
+
+      @media (--screen-md) {
+        background-image: none;
+      }
+    }
+
     &--history {
       background-image: url('./history.svg');
 
@@ -62,6 +73,23 @@
         background-image: none;
       }
     }
+  }
+
+  &__counter {
+    position: absolute;
+    right: 12px;
+    bottom: 5px;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.4em;
+    height: 1.4em;
+    color: #ffffff;
+    font-size: 0.85em;
+    text-align: center;
+    background-color: #f44336;
+    border-radius: 50%;
   }
 
   &__text {

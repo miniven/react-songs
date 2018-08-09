@@ -1,6 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
+// Constants //
+
+import { MEDIA_MD } from '~/constants';
+
 // Selectors //
 
 import { getUnselectedSongs, getSortedSongs } from '~/reducers/songReducer';
@@ -8,6 +12,7 @@ import { getUnselectedSongs, getSortedSongs } from '~/reducers/songReducer';
 // Components //
 
 import StickyBox from 'react-sticky-box';
+import Media from "react-media";
 import FilterForm from '~/components/FilterForm/FilterForm';
 import SongItem from '~/components/SongItem/SongItem';
 import List from '~/components/List/List';
@@ -61,13 +66,19 @@ class SongList extends Component {
           <div className='col-xs-12'>
             <FilterForm handleInput={this.handleInput} values={this.state.filter} />
           </div>
-          <div className='col-xs last-sm'>
-            <StickyBox bottom={false}>
-              <Sidebar>
-                <List addButtonCallback={() => this.props.setActionType('showSuccess')}/>
-              </Sidebar>
-            </StickyBox>
-          </div>
+          <Media query={MEDIA_MD}>
+            {
+              matches => matches && (
+                <div className='col-xs last-sm'>
+                  <StickyBox bottom={false}>
+                    <Sidebar>
+                      <List addButtonCallback={() => this.props.setActionType('showSuccess')}/>
+                    </Sidebar>
+                  </StickyBox>
+                </div>
+              )
+            }
+          </Media>
           <div className='col-xs-12 col-sm-8'>
 
             <div className='song-list'>

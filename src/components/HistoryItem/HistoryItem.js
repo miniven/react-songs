@@ -35,7 +35,6 @@ class HistoryItem extends Component {
 
   onSortEnd = ({ oldIndex, newIndex }) => {
     this.props.changeHistoryOrder(this.props.date, oldIndex, newIndex);
-    // this.props.changeOrder(oldIndex, newIndex);
   }
 
   findSong = (id) => {

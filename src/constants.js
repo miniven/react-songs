@@ -5,3 +5,5 @@ export const DB_SONG_KEYS = {
   'TITLE': 'title',
   'CREATED': 'created',
 };
+
+export const MEDIA_MD = '(min-width: 768px)';
