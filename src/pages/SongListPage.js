@@ -1,9 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-
-// Actions //
-
-import { deleteSong } from '~/actions/song';
 
 // Components //
 
@@ -13,6 +8,7 @@ import TopLine from '~/components/TopLine/TopLine';
 import Button from '~/components/Button/Button';
 import NewSongForm from '~/components/NewSongForm/NewSongForm';
 import EditSongForm from '~/components/EditSongForm/EditSongForm';
+import ConfirmSongDelete from '~/components/ConfirmSongDelete/ConfirmSongDelete';
 
 class SongListPage extends Component {
   state = {
@@ -26,17 +22,13 @@ class SongListPage extends Component {
   }
 
   closeModal = () => {
-    this.setState({ isModalOpen: false, selectedSong: null, actionType: null });
+    this.setState({ isModalOpen: false, selectedSong: null });
+
+    setTimeout(() => this.setState({ actionType: null }), 500); // Чтобы контент менялся после закрытия модального окна, а не во время
   }
 
   setActionType = (actionType, id) => {
-    console.log(actionType);
     this.setState({ isModalOpen: true, selectedSong: id, actionType });
-  }
-
-  deleteSong = () => {
-    this.props.deleteSong(this.state.selectedSong);
-    this.closeModal();
   }
 
   render() {
@@ -57,14 +49,7 @@ class SongListPage extends Component {
             </Fragment>
           );
         case 'delete':
-          return (
-            <Fragment>
-              <p className='text text--dark text--center text--semibold'>Вы уверены, что хотите удалить эту песню?</p>
-              <div className="modal__footer">
-                <Button className='modal__button' mods={['dark']} onClick={this.deleteSong}>Да, удалить песню</Button>
-              </div>
-            </Fragment>
-          );
+          return <ConfirmSongDelete songID={this.state.selectedSong} submitCallback={this.closeModal} />;
         default:
           return <NewSongForm submitCallback={this.closeModal} />;
       }
@@ -97,4 +82,4 @@ class SongListPage extends Component {
   }
 };
 
-export default connect(null, { deleteSong })(SongListPage);
+export default SongListPage;
