@@ -1,15 +1,11 @@
-import { OPEN_MODAL, CLOSE_MODAL, SET_ACTION_TYPE } from '~/types/ui';
+import { OPEN_MODAL, CLOSE_MODAL } from '~/types/ui';
 
-export const openModal = () => ({
+export const openModal = (action, id) => ({
   type: OPEN_MODAL,
+  action,
+  id,
 });
 
 export const closeModal = () => ({
   type: CLOSE_MODAL,
-});
-
-export const setActionType = (action, id) => ({
-  type: SET_ACTION_TYPE,
-  action,
-  id,
 });

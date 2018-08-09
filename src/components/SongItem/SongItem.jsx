@@ -10,7 +10,7 @@ import './SongItem.css';
 
 import { setSongActivity } from '~/actions/song';
 import { addItem } from '~/actions/order';
-import { setActionType } from '~/actions/ui';
+import { openModal } from '~/actions/ui';
 
 // Constants //
 
@@ -42,8 +42,8 @@ class SongItem extends Component {
         <header className='song-item__header'>
           <h3 className='song-item__title'>{title}</h3>
           <div className='song-item__controls'>
-            <IconButton className='song-item__control' onClick={() => this.props.setActionType('edit', id)} type='edit' />
-            <IconButton className='song-item__control' onClick={() => this.props.setActionType('delete', id)} type='delete' />
+            <IconButton className='song-item__control' onClick={() => this.props.openModal('edit', id)} type='edit' />
+            <IconButton className='song-item__control' onClick={() => this.props.openModal('delete', id)} type='delete' />
           </div>
         </header>
         <div className='song-item__content'>
@@ -86,4 +86,4 @@ const mapStateToProps = state => ({
   authors: state.authors,
 });
 
-export default connect(mapStateToProps, { setSongActivity, addItem, setActionType })(SongItem);
+export default connect(mapStateToProps, { setSongActivity, addItem, openModal })(SongItem);

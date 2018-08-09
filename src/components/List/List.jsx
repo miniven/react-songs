@@ -14,6 +14,7 @@ import { getOrderedSongs } from '~/reducers/songReducer';
 
 import { changeOrder, addOrderToList } from '~/actions/order';
 import { resetSongsActivity } from '~/actions/song';
+import { openModal } from '~/actions/ui';
 
 // Components //
 
@@ -31,7 +32,7 @@ class List extends Component {
 
     this.props.addOrderToList(curDate, this.props.order);
     this.props.resetSongsActivity(curDate, this.props.order);
-    this.props.addButtonCallback();
+    this.props.openModal('showSuccess');
   }
 
   render() {
@@ -55,4 +56,4 @@ const mapStateToProps = state => ({
   order: state.order.current,
 });
 
-export default connect(mapStateToProps, { changeOrder, addOrderToList, resetSongsActivity })(List);
+export default connect(mapStateToProps, { changeOrder, addOrderToList, resetSongsActivity, openModal })(List);

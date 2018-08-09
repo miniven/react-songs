@@ -12,7 +12,7 @@ import { getUnselectedSongs, getSortedSongs } from '~/reducers/songReducer';
 
 // Actions //
 
-import { setActionType } from '~/actions/ui';
+import { openModal } from '~/actions/ui';
 
 // Components //
 
@@ -77,7 +77,7 @@ class SongList extends Component {
                 <div className='col-xs last-sm'>
                   <StickyBox bottom={false}>
                     <Sidebar>
-                      <List addButtonCallback={() => this.props.setActionType('showSuccess')}/>
+                      <List />
                     </Sidebar>
                   </StickyBox>
                 </div>
@@ -106,4 +106,4 @@ const mapStateToProps = state => ({
   data: getSortedSongs(getUnselectedSongs(state.songs), state.sorting),
 });
 
-export default connect(mapStateToProps, { setActionType })(SongList);
+export default connect(mapStateToProps, { openModal })(SongList);

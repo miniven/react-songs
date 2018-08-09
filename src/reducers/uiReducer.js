@@ -1,4 +1,4 @@
-import { OPEN_MODAL, CLOSE_MODAL, SET_ACTION_TYPE } from '~/types/ui';
+import { OPEN_MODAL, CLOSE_MODAL } from '~/types/ui';
 
 export const uiReducer = (state = { modal: { isModalOpen: false } }, { type, action, id }) => {
   switch (type) {
@@ -8,6 +8,8 @@ export const uiReducer = (state = { modal: { isModalOpen: false } }, { type, act
         modal: {
           ...state.modal,
           isModalOpen: true,
+          actionType: action,
+          selectedSong: id,
         }
       };
     case CLOSE_MODAL:
@@ -16,15 +18,6 @@ export const uiReducer = (state = { modal: { isModalOpen: false } }, { type, act
         modal: {
           ...state.modal,
           isModalOpen: false,
-        }
-      };
-    case SET_ACTION_TYPE:
-      return {
-        ...state,
-        modal: {
-          isModalOpen: true,
-          actionType: action,
-          selectedSong: id,
         }
       };
     default:
