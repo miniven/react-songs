@@ -1,4 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+
+// Actions //
+
+import { deleteSong } from '~/actions/song';
 
 // Components //
 
@@ -12,7 +17,8 @@ import EditSongForm from '~/components/EditSongForm/EditSongForm';
 class SongListPage extends Component {
   state = {
     isModalOpen: false,
-    editingSong: null,
+    actionType: null,
+    selectedSong: null,
   }
 
   openModal = () => {
@@ -20,16 +26,49 @@ class SongListPage extends Component {
   }
 
   closeModal = () => {
-    this.setState({ isModalOpen: false, editingSong: null });
+    this.setState({ isModalOpen: false, selectedSong: null, actionType: null });
   }
 
-  setEditingSong = (id) => {
-    // Нужно будет для редактирования песни //
-    this.setState({ isModalOpen: true, editingSong: id });
+  setActionType = (actionType, id) => {
+    console.log(actionType);
+    this.setState({ isModalOpen: true, selectedSong: id, actionType });
+  }
+
+  deleteSong = () => {
+    this.props.deleteSong(this.state.selectedSong);
+    this.closeModal();
   }
 
   render() {
     const { isModalOpen } = this.state;
+
+    const renderModalContent = () => {
+      switch (this.state.actionType) {
+        case 'edit':
+          return <EditSongForm songID={this.state.selectedSong} submitCallback={this.closeModal} />;
+        case 'showSuccess':
+          return (
+            <Fragment>
+              <p className='text text--white text--center text--semibold'>Выбранные песни добавлены в историю</p>
+              <div className="modal__footer">
+                <Button className='modal__button' mods={['white']} onClick={this.closeModal}>Понятно</Button>
+                <Button className='modal__button' mods={['white']} to='/history'>Перейти к истории</Button>
+              </div>
+            </Fragment>
+          );
+        case 'delete':
+          return (
+            <Fragment>
+              <p className='text text--dark text--center text--semibold'>Вы уверены, что хотите удалить эту песню?</p>
+              <div className="modal__footer">
+                <Button className='modal__button' mods={['dark']} onClick={this.deleteSong}>Да, удалить песню</Button>
+              </div>
+            </Fragment>
+          );
+        default:
+          return <NewSongForm submitCallback={this.closeModal} />;
+      }
+    };
 
     return (
       <div className='container'>
@@ -37,17 +76,20 @@ class SongListPage extends Component {
           <h2 className='top-line__title title'>Список песен</h2>
           <Button className='top-line__button' mods={['filled-purple']} onClick={this.openModal}>Добавить песню</Button>
         </TopLine>
-        <SongList setEditingSong={this.setEditingSong} />
+        <SongList setActionType={this.setActionType} />
         <Modal
-          classNames={{ overlay: 'modal', modal: 'modal__box modal__box--wide modal__box--left', closeButton: 'modal__close', closeIcon: 'modal__close-icon--secondary' }}
+          classNames={{
+            overlay: 'modal',
+            modal: `modal__box modal__box--wide modal__box--left ${this.state.actionType === 'delete' ? 'modal__box--orange' : ''} ${this.state.actionType === 'showSuccess' ? 'modal__box--green' : ''}`,
+            closeButton: 'modal__close',
+            closeIcon: 'modal__close-icon--secondary'
+          }}
           open={isModalOpen}
           onClose={this.closeModal}
           center
         >
           <div className='modal__content'>
-          {
-            this.state.editingSong ? <EditSongForm songID={this.state.editingSong} submitCallback={this.closeModal} /> : <NewSongForm submitCallback={this.closeModal} />
-          }
+            { renderModalContent() }
           </div>
         </Modal>
       </div>
@@ -55,4 +97,4 @@ class SongListPage extends Component {
   }
 };
 
-export default SongListPage;
+export default connect(null, { deleteSong })(SongListPage);

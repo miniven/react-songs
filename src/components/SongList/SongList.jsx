@@ -8,13 +8,11 @@ import { getUnselectedSongs, getSortedSongs } from '~/reducers/songReducer';
 // Components //
 
 import StickyBox from 'react-sticky-box';
-import Modal from 'react-responsive-modal';
 import FilterForm from '~/components/FilterForm/FilterForm';
 import SongItem from '~/components/SongItem/SongItem';
 import List from '~/components/List/List';
 import Message from '~/components/Message/Message';
 import Sidebar from '~/components/Sidebar/Sidebar';
-import Button from '~/components/Button/Button';
 
 // Styles //
 
@@ -25,8 +23,7 @@ class SongList extends Component {
     filter: {
       title: '',
       genre: 'all',
-    },
-    isModalOpen: false,
+    }
   }
 
   handleInput = ({ target }) => {
@@ -36,14 +33,6 @@ class SongList extends Component {
         [target.name]: target.value
       },
     });
-  }
-
-  openModal = () => {
-    this.setState({ isModalOpen: true });
-  }
-
-  closeModal = () => {
-    this.setState({ isModalOpen: false });
   }
 
   filterByTitle = (item) => {
@@ -57,11 +46,14 @@ class SongList extends Component {
 
   render() {
     const { data } = this.props;
-    const { isModalOpen } = this.state;
     const filteredList = data
       .filter(this.filterByTitle)
       .filter(this.filterByGenre)
-      .map(item => <li key={item.id} className='song-list__item'><SongItem data={item} setEditingSong={this.props.setEditingSong}/></li>);
+      .map(item => (
+        <li key={item.id} className='song-list__item'>
+          <SongItem data={item} setActionType={this.props.setActionType}/>
+        </li>
+      ));
 
     return (
       <Fragment>
@@ -72,7 +64,7 @@ class SongList extends Component {
           <div className='col-xs last-sm'>
             <StickyBox bottom={false}>
               <Sidebar>
-                <List addButtonCallback={this.openModal}/>
+                <List addButtonCallback={() => this.props.setActionType('showSuccess')}/>
               </Sidebar>
             </StickyBox>
           </div>
@@ -89,20 +81,6 @@ class SongList extends Component {
             </div>
           </div>
         </div>
-        <Modal
-          classNames={{ overlay: 'modal', modal: 'modal__box modal__box--green', closeButton: 'modal__close', closeIcon: 'modal__close-icon modal__close-icon--white' }}
-          open={isModalOpen}
-          onClose={this.closeModal}
-          center
-        >
-          <div className='modal__content'>
-            <p className='text text--white text--semibold'>Выбранные песни добавлены в историю</p>
-          </div>
-          <div className="modal__footer">
-            <Button className='modal__button' mods={['white']} onClick={this.closeModal}>Понятно</Button>
-            <Button className='modal__button' mods={['white']} to='/history'>Перейти к истории</Button>
-          </div>
-        </Modal>
       </Fragment>
     );
   }

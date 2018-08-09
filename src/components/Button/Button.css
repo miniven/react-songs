@@ -82,6 +82,16 @@
     border-color: var(--color-semi-dark);
   }
 
+  &--dark {
+    color: var(--color-dark);
+    border-color: var(--color-dark);
+
+    &:hover,
+    &:focus {
+      border-color: color(var(--color-dark) alpha(70%));
+    }
+  }
+
   &--add {
     position: relative;
 

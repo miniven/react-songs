@@ -9,6 +9,10 @@
       background-color: var(--color-green);
     }
 
+    &--orange {
+      background-color: var(--color-orange);
+    }
+
     &--left {
       text-align: left;
     }

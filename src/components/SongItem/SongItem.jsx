@@ -28,14 +28,13 @@ class SongItem extends Component {
     this.props.addItem(this.props.data.id);
   }
 
-  setEditingSong = () => {
-    // Нужно будет для редактирования песни //
-    this.props.setEditingSong(this.props.data.id);
+  setActionType = (actionType, id) => {
+    this.props.setActionType(actionType, id);
   }
 
   render() {
     const { className, data, genres, authors } = this.props;
-    const { title, author, genre, lastChosen, created } = data;
+    const { title, author, genre, lastChosen, created, id } = data;
 
     const lastDate = lastChosen && moment(lastChosen).format('DD.MM.YYYY');
     const isNew = moment().dayOfYear() - moment(created).dayOfYear() <= NEW_STATE_PERIOD;
@@ -45,7 +44,10 @@ class SongItem extends Component {
       <article className={`song-item ${className ? className : ''}`}>
         <header className='song-item__header'>
           <h3 className='song-item__title'>{title}</h3>
-          <IconButton className='song-item__edit' onClick={this.setEditingSong} type='edit' />
+          <div className='song-item__controls'>
+            <IconButton className='song-item__control' onClick={() => this.setActionType('edit', id)} type='edit' />
+            <IconButton className='song-item__control' onClick={() => this.setActionType('delete', id)} type='delete' />
+          </div>
         </header>
         <div className='song-item__content'>
           <div className='song-item__info'>

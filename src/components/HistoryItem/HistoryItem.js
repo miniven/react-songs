@@ -45,7 +45,7 @@ class HistoryItem extends Component {
       <div className='history-item'>
         <div className="history-item__box">
           <IconButton className='history-item__button' onClick={this.toggleEdit} type='edit' />
-          <IconButton className='history-item__button' onClick={() => this.props.removeOrderFromList(date)} type='close' />
+          <IconButton className='history-item__button' onClick={() => this.props.removeOrderFromList(date)} type='delete' />
         </div>
         <div className='history-item__header'>
           <p className='history-item__date'>{ momentDate.format('DD.MM.YYYY') }</p>

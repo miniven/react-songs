@@ -10,7 +10,7 @@
 
   &__header {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: flex-start;
     padding: 1em;
   }
@@ -44,8 +44,16 @@
     font-size: 1.125em;
   }
 
-  &__edit {
-    margin-left: auto;
+  &__controls {
+    white-space: nowrap;
+  }
+
+  &__control {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 
   &__info {
