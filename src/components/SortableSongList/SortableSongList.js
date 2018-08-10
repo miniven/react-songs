@@ -5,17 +5,17 @@ import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 
 import SongButton from '~/components/SongButton/SongButton';
 
-const SortableItem = SortableElement(({ item }) => (
+const SortableItem = SortableElement(({ item, historyID }) => (
   <li className='list__item'>
-    <SongButton className='list__button' data={item} editable={true} />
+    <SongButton className='list__button' data={item} historyID={historyID} editable={true} />
   </li>
 ));
 
-const SortableList = SortableContainer(({ items, className }) => (
+const SortableList = SortableContainer(({ items, className, historyID }) => (
   <ul className={`list ${className}`}>
     {
       items.map((item, index) => (
-        <SortableItem key={index} index={index} item={item} />
+        <SortableItem key={index} index={index} item={item} historyID={historyID} />
       ))
     }
   </ul>

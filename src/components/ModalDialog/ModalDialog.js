@@ -12,13 +12,14 @@ import Button from '~/components/Button/Button';
 import NewSongForm from '~/components/NewSongForm/NewSongForm';
 import EditSongForm from '~/components/EditSongForm/EditSongForm';
 import ConfirmSongDelete from '~/components/ConfirmSongDelete/ConfirmSongDelete';
+import ConfirmOrderDelete from '~/components/ConfirmOrderDelete/ConfirmOrderDelete';
 
 class ModalDialog extends Component {
   render() {
     const renderModalContent = () => {
       switch (this.props.modal.actionType) {
         case 'edit':
-          return <EditSongForm songID={this.props.modal.selectedSong} />;
+          return <EditSongForm songID={this.props.modal.targetID} />;
         case 'showSuccess':
           return (
             <Fragment>
@@ -29,7 +30,9 @@ class ModalDialog extends Component {
             </Fragment>
           );
         case 'delete':
-          return <ConfirmSongDelete songID={this.props.modal.selectedSong} />;
+          return <ConfirmSongDelete songID={this.props.modal.targetID} />;
+        case 'deleteOrder':
+          return <ConfirmOrderDelete orderID={this.props.modal.targetID} />;
         default:
           return <NewSongForm />;
       }
@@ -40,6 +43,7 @@ class ModalDialog extends Component {
         case 'showSuccess':
           return 'modal__box--green';
         case 'delete':
+        case 'deleteOrder':
           return 'modal__box--orange';
         default:
           return '';

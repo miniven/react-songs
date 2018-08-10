@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 
 import History from '~/components/History/History';
 import TopLine from '~/components/TopLine/TopLine';
+import ModalDialog from '~/components/ModalDialog/ModalDialog';
 
 class HistoryPage extends Component {
   render() {
@@ -13,6 +14,7 @@ class HistoryPage extends Component {
           <h2 className='top-line__title title'>История выбранных песен</h2>
         </TopLine>
         <History />
+        <ModalDialog />
       </div>
     );
   }

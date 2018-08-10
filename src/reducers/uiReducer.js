@@ -9,7 +9,7 @@ export const uiReducer = (state = { modal: { isModalOpen: false } }, { type, act
           ...state.modal,
           isModalOpen: true,
           actionType: action,
-          selectedSong: id,
+          targetID: id,
         }
       };
     case CLOSE_MODAL:

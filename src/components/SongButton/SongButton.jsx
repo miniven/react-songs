@@ -9,7 +9,7 @@ import './SongButton.css';
 // Actions //
 
 import { setSongActivity } from '~/actions/song';
-import { removeItem } from '~/actions/order';
+import { removeItem, removeItemFromOrder } from '~/actions/order';
 
 // Constants //
 
@@ -27,8 +27,23 @@ class SongButton extends Component {
     this.props.removeItem(this.props.data.id);
   }
 
+  removeItemFromOrder = () => {
+    this.props.removeItemFromOrder(this.props.historyID, this.props.data.id);
+  }
+
   render() {
-    const { className, data, authors, setSongActivity, removeItem, editable, ...restProps } = this.props;
+    const {
+      className,
+      data,
+      authors,
+      setSongActivity,
+      removeItem,
+      removeItemFromOrder,
+      editable,
+      historyID,
+      ...restProps
+    } = this.props;
+
     const { title, author = 'Неизвестен', created } = data;
 
     const isNew = moment().dayOfYear() - moment(created).dayOfYear() <= NEW_STATE_PERIOD;
@@ -37,7 +52,7 @@ class SongButton extends Component {
       <div className={`song-button ${className ? className : ''}`} {...restProps}>
         <div className="song-button__top">
           <h3 className="song-button__title">{title}</h3>
-          { editable && <IconButton className='song-button__close' onClick={this.setSongActivity} type='close' /> }
+          { editable && <IconButton className='song-button__close' onClick={historyID ? this.removeItemFromOrder : this.setSongActivity} type='close' /> }
         </div>
         <div className="song-button__middle">
           <InfoText mod='author' value={authors[author]} />
@@ -52,4 +67,4 @@ const mapStateToProps = state => ({
   authors: state.authors,
 });
 
-export default connect(mapStateToProps, { setSongActivity, removeItem })(SongButton);
+export default connect(mapStateToProps, { setSongActivity, removeItem, removeItemFromOrder })(SongButton);

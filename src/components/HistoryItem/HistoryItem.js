@@ -10,6 +10,7 @@ import './HistoryItem.css';
 // Actions //
 
 import { removeOrderFromList, changeHistoryOrder } from '~/actions/order';
+import { openModal } from '~/actions/ui';
 
 // Components //
 
@@ -41,6 +42,10 @@ class HistoryItem extends Component {
     return this.props.songs.find(song => song.id === id);
   }
 
+  showDeleteConfirm = () => {
+    this.props.openModal('deleteOrder', this.props.date);
+  }
+
   render() {
     const { date, history } = this.props;
     const { isEditing } = this.state;
@@ -50,7 +55,7 @@ class HistoryItem extends Component {
       <div className='history-item'>
         <div className='history-item__box'>
           { !isEditing && <IconButton className='history-item__button' onClick={this.toggleEdit} type='edit' /> }
-          <IconButton className='history-item__button' onClick={() => this.props.removeOrderFromList(date)} type='delete' />
+          <IconButton className='history-item__button' onClick={this.showDeleteConfirm} type='delete' />
         </div>
         <div className='history-item__header'>
           <p className='history-item__date'>{ momentDate.format('DD.MM.YYYY') }</p>
@@ -59,7 +64,7 @@ class HistoryItem extends Component {
         {
           isEditing ? (
             <Fragment>
-              <SortableSongList list={history[date].map(id => this.findSong(id))} onSortEnd={this.onSortEnd} />
+              <SortableSongList list={history[date].map(id => this.findSong(id))} onSortEnd={this.onSortEnd} historyID={date} />
               <div className='history-item__footer'>
                 <Button mods={['green']} onClick={this.toggleEdit}>Сохранить</Button>
               </div>
@@ -86,4 +91,4 @@ const mapStateToProps = state => ({
   history: state.order.previous,
 })
 
-export default connect(mapStateToProps, { removeOrderFromList, changeHistoryOrder })(HistoryItem);
+export default connect(mapStateToProps, { removeOrderFromList, changeHistoryOrder, openModal })(HistoryItem);
