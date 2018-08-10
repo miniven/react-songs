@@ -31,8 +31,8 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
       return {
         ...state,
         previous: {
-          ...state.previous,
           [id]: data,
+          ...state.previous,
         },
         current: [],
       };
@@ -47,8 +47,8 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
       return {
         ...state,
         previous: {
-          ...state.previous,
           [date]: arrayMove(state.previous[date], oldIndex, newIndex),
+          ...state.previous,
         },
       };
     case REMOVE_ITEM_FROM_ORDER:
@@ -58,8 +58,8 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
       return {
         ...state,
         previous: changingPrev.length > 1 ? {
-          ...state.previous,
           [date]: changingPrev.filter(item => String(item) !== String(id)),
+          ...state.previous,
         } : state.previous,
       };
     case DELETE_SONG:
@@ -69,8 +69,8 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
         .filter(key => state.previous[key].includes(id) ? state.previous[key].length > 1 : true)
         .reduce((result, key) => {
           return {
-            ...result,
             [key]: state.previous[key].filter(val => val !== id),
+            ...result,
           };
         }, {});
 

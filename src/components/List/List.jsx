@@ -45,7 +45,7 @@ class List extends Component {
     return (
       <Fragment>
         <SortableSongList list={orderedData} onSortEnd={this.onSortEnd} className={className ? className : ''} />
-        <Button className='sidebar__button' mods={['green']} onClick={this.saveList}>Сохранить</Button>
+        <Button className='sidebar__button' mods={['green', 'block']} onClick={this.saveList}>Сохранить</Button>
       </Fragment>
     );
   }

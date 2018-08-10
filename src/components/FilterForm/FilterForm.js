@@ -43,6 +43,22 @@ class FilterForm extends Component {
           </div>
           <div className='col-xs-12 col-sm-6 col-md-3'>
             <label className='form__field'>
+              <p className='form__label'>Настроение</p>
+              <Select
+                className='form__select'
+                name='genre'
+                searchable={false}
+                value={values.genre}
+                onChange={(option) => this.handleSelect('genre', option)}
+                options={[
+                  { value: 'all', label: 'Любое' },
+                  ...Object.keys(genres).map(key => ({ value: key, label: genres[key] }))
+                ]}
+              />
+            </label>
+          </div>
+          <div className='col-xs-12 col-sm-6 col-md-3'>
+            <label className='form__field'>
               <p className='form__label'>Сортировать по</p>
               <Select
                 className='form__select'
@@ -54,22 +70,6 @@ class FilterForm extends Component {
                   { value: 'TITLE', label: 'Название' },
                   { value: 'CREATED', label: 'Дата создания' },
                   { value: 'DATE', label: 'Дата исполнения' },
-                ]}
-              />
-            </label>
-          </div>
-          <div className='col-xs-12 col-sm-6 col-md-3'>
-            <label className='form__field'>
-              <p className='form__label'>Настроение</p>
-              <Select
-                className='form__select'
-                name='genre'
-                searchable={false}
-                value={values.genre}
-                onChange={(option) => this.handleSelect('genre', option)}
-                options={[
-                  { value: 'all', label: 'Любое' },
-                  ...Object.keys(genres).map(key => ({ value: key, label: genres[key] }))
                 ]}
               />
             </label>

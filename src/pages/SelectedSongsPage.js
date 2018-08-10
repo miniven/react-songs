@@ -13,7 +13,7 @@ class SelectedSongsPage extends Component {
         <TopLine>
           <h2 className='top-line__title title'>Выбранные песни</h2>
         </TopLine>
-        <List addButtonCallback={() => console.log('showSuccess')}/>
+        <List />
         <ModalDialog />
       </div>
     );

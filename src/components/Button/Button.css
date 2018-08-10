@@ -21,6 +21,10 @@
     outline: none;
   }
 
+  &--block {
+    display: block;
+  }
+
   &--big {
     padding: 0.7rem 2rem;
     font-size: 1rem;

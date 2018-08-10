@@ -55,7 +55,7 @@ class SongButton extends Component {
           <div className="song-button__content">
             <h3 className="song-button__title">{title}</h3>
             <InfoText mod='author' value={authors[author]} />
-            { isNew && <Label type='new' /> }
+            { isNew && <Label className='song-button__label' type='new' /> }
           </div>
           { editable && <IconButton className='song-button__close' onClick={historyID ? this.removeItemFromOrder : this.setSongActivity} type='close' /> }
         </div>
