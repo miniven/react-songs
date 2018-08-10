@@ -58,8 +58,8 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
       return {
         ...state,
         previous: changingPrev.length > 1 ? {
-          [date]: changingPrev.filter(item => String(item) !== String(id)),
           ...state.previous,
+          [date]: changingPrev.filter(item => String(item) !== String(id)),
         } : state.previous,
       };
     case DELETE_SONG:
