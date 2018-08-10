@@ -74,7 +74,7 @@ class SongItem extends Component {
           }
         </div>
         <footer className='song-item__footer'>
-          <Button className='song-item__button' mods={['add', 'green']} onClick={this.setSongActivity}>Добавить</Button>
+          <Button className='song-item__button' mods={['add', 'green']} onClick={this.setSongActivity}>Выбрать</Button>
         </footer>
       </article>
     );
