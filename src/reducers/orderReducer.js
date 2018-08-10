@@ -47,8 +47,8 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
       return {
         ...state,
         previous: {
-          [date]: arrayMove(state.previous[date], oldIndex, newIndex),
           ...state.previous,
+          [date]: arrayMove(state.previous[date], oldIndex, newIndex),
         },
       };
     case REMOVE_ITEM_FROM_ORDER:
