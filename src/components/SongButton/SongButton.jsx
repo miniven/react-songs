@@ -51,7 +51,6 @@ class SongButton extends Component {
 
     return (
       <div className={`song-button ${className ? className : ''}`} {...restProps}>
-        { editable && <DragHandle className='song-button__handle' /> }
         <div className='song-button__inner'>
           <div className="song-button__top">
             <h3 className="song-button__title">{title}</h3>
@@ -62,6 +61,7 @@ class SongButton extends Component {
             { isNew && <Label type='new' /> }
           </div>
         </div>
+        { editable && <DragHandle className='song-button__handle' /> }
       </div>
     );
   }
