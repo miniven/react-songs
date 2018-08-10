@@ -82,11 +82,22 @@
     padding: 0;
     overflow: hidden;
     list-style: none;
+    background-color: #f0f5fb;
     border-radius: 0;
+
+    .list__item {
+      &:first-child {
+        margin-top: 1px;
+      }
+
+      &:last-child {
+        margin-bottom: 1px;
+      }
+    }
   }
 
   &__list-item {
-    margin-bottom: 1px;
+    margin-top: 1px;
   }
 
   &__footer {

@@ -52,20 +52,27 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
         },
       };
     case REMOVE_ITEM_FROM_ORDER:
+      // Удаляем элементы до тех пор, пока в списке не останется один элемент.
+      const { [date]: changingPrev } = state.previous;
+
       return {
         ...state,
-        previous: {
+        previous: changingPrev.length > 1 ? {
           ...state.previous,
-          [date]: state.previous[date].filter(item => String(item) !== String(id)),
-        }
+          [date]: changingPrev.filter(item => String(item) !== String(id)),
+        } : state.previous,
       };
     case DELETE_SONG:
-      const previous = Object.keys(state.previous).reduce((result, key) => {
-        return {
-          ...result,
-          [key]: state.previous[key].filter(val => val !== id),
-        };
-      }, {});
+      // Сначала удаляем те списки, которые содержат удаляемую песню и длина которых равна 1
+      // Затем проходим по всем спискам и удаляем песню
+      const previous = Object.keys(state.previous)
+        .filter(key => state.previous[key].includes(id) ? state.previous[key].length > 1 : true)
+        .reduce((result, key) => {
+          return {
+            ...result,
+            [key]: state.previous[key].filter(val => val !== id),
+          };
+        }, {});
 
       return {
         ...state,

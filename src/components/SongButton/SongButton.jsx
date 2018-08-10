@@ -52,14 +52,12 @@ class SongButton extends Component {
     return (
       <div className={`song-button ${className ? className : ''}`} {...restProps}>
         <div className='song-button__inner'>
-          <div className="song-button__top">
+          <div className="song-button__content">
             <h3 className="song-button__title">{title}</h3>
-            { editable && <IconButton className='song-button__close' onClick={historyID ? this.removeItemFromOrder : this.setSongActivity} type='close' /> }
-          </div>
-          <div className="song-button__middle">
             <InfoText mod='author' value={authors[author]} />
             { isNew && <Label type='new' /> }
           </div>
+          { editable && <IconButton className='song-button__close' onClick={historyID ? this.removeItemFromOrder : this.setSongActivity} type='close' /> }
         </div>
         { editable && <DragHandle className='song-button__handle' /> }
       </div>
