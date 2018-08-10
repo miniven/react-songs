@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { SortableHandle } from 'react-sortable-hoc';
 
 // Styles //
 
@@ -45,18 +46,21 @@ class SongButton extends Component {
     } = this.props;
 
     const { title, author = 'Неизвестен', created } = data;
-
+    const DragHandle = editable ? SortableHandle((props) => <div {...props}></div>) : false;
     const isNew = moment().dayOfYear() - moment(created).dayOfYear() <= NEW_STATE_PERIOD;
 
     return (
       <div className={`song-button ${className ? className : ''}`} {...restProps}>
-        <div className="song-button__top">
-          <h3 className="song-button__title">{title}</h3>
-          { editable && <IconButton className='song-button__close' onClick={historyID ? this.removeItemFromOrder : this.setSongActivity} type='close' /> }
-        </div>
-        <div className="song-button__middle">
-          <InfoText mod='author' value={authors[author]} />
-          { isNew && <Label type='new' /> }
+        { editable && <DragHandle className='song-button__handle' /> }
+        <div className='song-button__inner'>
+          <div className="song-button__top">
+            <h3 className="song-button__title">{title}</h3>
+            { editable && <IconButton className='song-button__close' onClick={historyID ? this.removeItemFromOrder : this.setSongActivity} type='close' /> }
+          </div>
+          <div className="song-button__middle">
+            <InfoText mod='author' value={authors[author]} />
+            { isNew && <Label type='new' /> }
+          </div>
         </div>
       </div>
     );

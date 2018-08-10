@@ -26,6 +26,7 @@ const SortableSongList = ({ list, ...rest }) => (
     items={list}
     lockAxis='y'
     helperClass='list__item--sortable'
+    useDragHandle={true}
     { ...rest }
   />
 );

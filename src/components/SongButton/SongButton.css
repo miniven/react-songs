@@ -1,10 +1,15 @@
 @import '../../styles/_variables.css';
 
 .song-button {
+  display: flex;
   padding: 15px;
   font-size: 1rem;
   font-family: var(--font-main);
   background-color: #ffffff;
+
+  &__inner {
+    flex: 1;
+  }
 
   &__top {
     display: flex;
@@ -25,5 +30,16 @@
 
   &__close {
     margin-left: 10px;
+  }
+
+  &__handle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    margin-right: 15px;
+    background: transparent url('./handler.svg') center no-repeat;
+    background-size: 100%;
+    opacity: 0.2;
   }
 }
