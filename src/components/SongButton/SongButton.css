@@ -2,13 +2,13 @@
 
 .song-button {
   display: flex;
-  padding: 15px;
   font-size: 1rem;
   font-family: var(--font-main);
   background-color: #ffffff;
 
   &__inner {
     flex: 1;
+    padding: 15px;
   }
 
   &__top {
@@ -36,10 +36,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20px;
-    margin-right: 15px;
-    background: transparent url('./handler.svg') center no-repeat;
+    width: 35px;
+    padding: 8px;
+    background: var(--color-main) url('./handler.svg') center no-repeat;
     background-size: 100%;
+    background-origin: content-box;
     opacity: 0.2;
   }
 }

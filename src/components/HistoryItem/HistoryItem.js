@@ -64,7 +64,7 @@ class HistoryItem extends Component {
         {
           isEditing ? (
             <Fragment>
-              <SortableSongList list={history[date].map(id => this.findSong(id))} onSortEnd={this.onSortEnd} historyID={date} />
+              <SortableSongList className='history-item__list' list={history[date].map(id => this.findSong(id))} onSortEnd={this.onSortEnd} historyID={date} />
               <div className='history-item__footer'>
                 <Button mods={['green']} onClick={this.toggleEdit}>Сохранить</Button>
               </div>

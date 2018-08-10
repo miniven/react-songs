@@ -7,6 +7,7 @@ import {
   CHANGE_HISTORY_ORDER,
   REMOVE_ITEM_FROM_ORDER
 } from '~/types/order';
+import { DELETE_SONG } from '~/types/song';
 import { arrayMove } from 'react-sortable-hoc';
 
 export const orderReducer = (state = { previous: {}, current: [] }, { type, id, oldIndex, newIndex, data, date }) => {
@@ -57,6 +58,18 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
           ...state.previous,
           [date]: state.previous[date].filter(item => String(item) !== String(id)),
         }
+      };
+    case DELETE_SONG:
+      const previous = Object.keys(state.previous).reduce((result, key) => {
+        return {
+          ...result,
+          [key]: state.previous[key].filter(val => val !== id),
+        };
+      }, {});
+
+      return {
+        ...state,
+        previous,
       };
     default:
       return state;
