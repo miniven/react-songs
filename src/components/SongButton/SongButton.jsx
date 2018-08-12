@@ -9,7 +9,7 @@ import './SongButton.css';
 
 // Actions //
 
-import { setSongActivity } from '~/actions/song';
+import { setSongActivity, updateSong } from '~/actions/song';
 import { removeItem, removeItemFromOrder } from '~/actions/order';
 
 // Constants //
@@ -29,7 +29,14 @@ class SongButton extends Component {
   }
 
   removeItemFromOrder = () => {
-    this.props.removeItemFromOrder(this.props.historyID, this.props.data.id);
+    // Убираем песню из списка и ищем, когда она исполнялась последний раз
+    const { [this.props.historyID]: current, ...restPrevOrders } = this.props.prevOrders; // Все списки, кроме текущего
+    const lastChosen = Object.keys(restPrevOrders).find(key => restPrevOrders[key].includes(this.props.data.id)); // Когда последний раз был выбран
+
+    if (this.props.prevOrders[this.props.historyID].length > 1) {
+      this.props.removeItemFromOrder(this.props.historyID, this.props.data.id);
+      this.props.updateSong(this.props.data.id, { lastChosen });
+    }
   }
 
   render() {
@@ -38,10 +45,12 @@ class SongButton extends Component {
       data,
       authors,
       setSongActivity,
+      updateSong,
       removeItem,
       removeItemFromOrder,
       editable,
       historyID,
+      prevOrders,
       ...restProps
     } = this.props;
 
@@ -67,6 +76,7 @@ class SongButton extends Component {
 
 const mapStateToProps = state => ({
   authors: state.authors,
+  prevOrders: state.order.previous,
 });
 
-export default connect(mapStateToProps, { setSongActivity, removeItem, removeItemFromOrder })(SongButton);
+export default connect(mapStateToProps, { setSongActivity, updateSong, removeItem, removeItemFromOrder })(SongButton);

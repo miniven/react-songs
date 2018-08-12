@@ -57,10 +57,10 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
 
       return {
         ...state,
-        previous: changingPrev.length > 1 ? {
+        previous: {
           ...state.previous,
           [date]: changingPrev.filter(item => String(item) !== String(id)),
-        } : state.previous,
+        },
       };
     case DELETE_SONG:
       // Сначала удаляем те списки, которые содержат удаляемую песню и длина которых равна 1
