@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 // Actions //
 
-import { updateSong } from '~/actions/song';
+import { updateMultipleSongs } from '~/actions/song';
 import { removeOrderFromList } from '~/actions/order';
 import { closeModal } from '~/actions/ui';
 
@@ -16,12 +16,12 @@ export class ConfirmOrderDelete extends Component {
     // Изменяем дату последнего исполнения песен списка и потом удаляем список
     const { [this.props.orderID]: current, ...restPrevOrders } = this.props.prevOrders;
 
-    current.forEach(songID => {
-      const lastChosen = Object.keys(restPrevOrders).find(key => restPrevOrders[key].includes(songID));
+    const dataToUpdate = current.reduce((result, songID) => ({
+      ...result,
+      [songID]: { lastChosen: Object.keys(restPrevOrders).find(key => restPrevOrders[key].includes(songID)) },
+    }), {});
 
-      this.props.updateSong(songID, { lastChosen });
-    });
-
+    this.props.updateMultipleSongs(dataToUpdate);
     this.props.removeOrderFromList(this.props.orderID);
     this.props.closeModal();
   }
@@ -42,4 +42,4 @@ const mapStateToProps = state => ({
   prevOrders: state.order.previous,
 });
 
-export default connect(mapStateToProps, { updateSong, removeOrderFromList, closeModal })(ConfirmOrderDelete);
+export default connect(mapStateToProps, { updateMultipleSongs, removeOrderFromList, closeModal })(ConfirmOrderDelete);

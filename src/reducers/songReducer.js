@@ -1,4 +1,4 @@
-import { SET_SONGS, SET_SONG_ACTIVITY, RESET_SONGS_ACTIVITY, ADD_SONG, UPDATE_SONG, DELETE_SONG } from '~/types/song';
+import { SET_SONGS, SET_SONG_ACTIVITY, RESET_SONGS_ACTIVITY, ADD_SONG, UPDATE_SONG, UPDATE_MULTIPLE_SONGS, DELETE_SONG } from '~/types/song';
 import { DB_SONG_KEYS } from '~/constants';
 
 export const songReducer = (state = [], { type, data, id, isSelected, lastChosen, chosenList }) => {
@@ -28,6 +28,10 @@ export const songReducer = (state = [], { type, data, id, isSelected, lastChosen
         { ...state[currentSongIndex], ...data },
         ...state.slice(currentSongIndex + 1),
       ];
+    case UPDATE_MULTIPLE_SONGS:
+      return state.map((song) => (
+        data[song.id] ? { ...song, ...data[song.id] } : song
+      ));
     case DELETE_SONG:
       currentSongIndex = state.findIndex(song => song.id === id);
 
