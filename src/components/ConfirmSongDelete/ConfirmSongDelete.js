@@ -19,9 +19,9 @@ export class ConfirmSongDelete extends Component {
   render() {
     return (
       <Fragment>
-        <p className='text text--dark text--center text--semibold'>Вы уверены, что хотите удалить эту песню?</p>
+        <p className='text text--white text--center text--semibold'>Вы уверены, что хотите удалить эту песню?</p>
         <div className="modal__footer">
-          <Button className='modal__button' mods={['dark']} onClick={this.deleteSong}>Да, удалить песню</Button>
+          <Button className='modal__button' mods={['white']} onClick={this.deleteSong}>Да, удалить песню</Button>
         </div>
       </Fragment>
     );

@@ -26,6 +26,13 @@
         width: 50%;
       }
     }
+
+    &--orange,
+    &--green {
+      .modal__close-icon--secondary {
+        fill: #ffffff;
+      }
+    }
   }
 
   &__content {
@@ -35,6 +42,8 @@
   }
 
   &__close {
+    top: 6px;
+    right: 6px;
     transition: 0.15s ease;
     cursor: pointer;
 

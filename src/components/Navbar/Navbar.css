@@ -38,12 +38,13 @@
     background-position: center;
     background-size: auto 60%;
     border: none;
-    border-bottom: 2px solid transparent;
+    border-bottom: 3px solid transparent;
 
     @media (--screen-md) {
       width: auto;
       height: auto;
       margin: 0 15px;
+      border-width: 2px;
     }
 
     &--active {
