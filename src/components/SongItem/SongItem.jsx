@@ -8,8 +8,8 @@ import './SongItem.css';
 
 // Actions //
 
-import { setSongActivity } from '~/actions/song';
-import { addItem } from '~/actions/order';
+import { updateSong } from '~/actions/song';
+import { addItemToSelected } from '~/actions/order';
 import { openModal } from '~/actions/ui';
 
 // Constants //
@@ -24,9 +24,9 @@ import Label from '~/components/Label/Label';
 import IconButton from '~/components/IconButton/IconButton';
 
 class SongItem extends Component {
-  setSongActivity = () => {
-    this.props.setSongActivity(this.props.data.id, true);
-    this.props.addItem(this.props.data.id);
+  updateSong = () => {
+    this.props.updateSong(this.props.data.id, { isSelected: true });
+    this.props.addItemToSelected(this.props.data.id);
   }
 
   render() {
@@ -74,7 +74,7 @@ class SongItem extends Component {
           }
         </div>
         <footer className='song-item__footer'>
-          <Button className='song-item__button' mods={['add', 'green']} onClick={this.setSongActivity}>Выбрать</Button>
+          <Button className='song-item__button' mods={['add', 'green']} onClick={this.updateSong}>Выбрать</Button>
         </footer>
       </article>
     );
@@ -86,4 +86,4 @@ const mapStateToProps = state => ({
   authors: state.authors,
 });
 
-export default connect(mapStateToProps, { setSongActivity, addItem, openModal })(SongItem);
+export default connect(mapStateToProps, { updateSong, addItemToSelected, openModal })(SongItem);

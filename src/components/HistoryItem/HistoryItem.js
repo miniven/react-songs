@@ -11,7 +11,7 @@ import './HistoryItem.css';
 // Actions //
 
 import { updateMultipleSongs } from '~/actions/song';
-import { removeOrderFromList, changeHistoryOrder } from '~/actions/order';
+import { removeListFromHistory, changeHistoryItem } from '~/actions/order';
 import { openModal } from '~/actions/ui';
 
 // Components //
@@ -43,13 +43,13 @@ class HistoryItem extends Component {
 
   saveChanges = () => {
     const { list, removedFromList } = this.state;
-    const { changeHistoryOrder, removeOrderFromList, updateMultipleSongs, date } = this.props;
+    const { changeHistoryItem, removeListFromHistory, updateMultipleSongs, date } = this.props;
     const { [date]: current, ...restHistory } = this.props.history; // Все списки, кроме текущего
 
     if (list.length > 0) {
-      changeHistoryOrder(date, list);
+      changeHistoryItem(date, list);
     } else {
-      removeOrderFromList(date);
+      removeListFromHistory(date);
     }
 
     const dataToUpdate = removedFromList.reduce((result, songID) => ({
@@ -137,4 +137,4 @@ const mapStateToProps = state => ({
   history: state.order.previous,
 })
 
-export default connect(mapStateToProps, { updateMultipleSongs, removeOrderFromList, changeHistoryOrder, openModal })(HistoryItem);
+export default connect(mapStateToProps, { updateMultipleSongs, removeListFromHistory, changeHistoryItem, openModal })(HistoryItem);

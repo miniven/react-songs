@@ -1,16 +1,24 @@
 import {
-  ADD_ITEM,
-  REMOVE_ITEM,
-  ADD_ORDER_TO_LIST,
-  REMOVE_ORDER_FROM_LIST,
-  CHANGE_HISTORY_ORDER,
-  REMOVE_ITEM_FROM_ORDER,
+  CHANGE_HISTORY_ITEM,
+  ADD_ITEM_TO_SELECTED,
+  REMOVE_ITEM_FROM_SELECTED,
+  ADD_LIST_TO_HISTORY,
+  REMOVE_LIST_FROM_HISTORY,
 } from '~/types/order';
+
 import { DELETE_SONG } from '~/types/song';
 
 export const orderReducer = (state = { previous: {}, current: [] }, { type, id, oldIndex, newIndex, data, date }) => {
   switch (type) {
-    case ADD_ITEM:
+    case CHANGE_HISTORY_ITEM:
+      return {
+        ...state,
+        previous: {
+          ...state.previous,
+          [id]: data,
+        },
+      };
+    case ADD_ITEM_TO_SELECTED:
       return {
         ...state,
         current: [
@@ -18,12 +26,12 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
           id,
         ],
       };
-    case REMOVE_ITEM:
+    case REMOVE_ITEM_FROM_SELECTED:
       return {
         ...state,
         current: state.current.filter(item => String(item) !== String(id)),
       };
-    case ADD_ORDER_TO_LIST:
+    case ADD_LIST_TO_HISTORY:
       return {
         ...state,
         previous: {
@@ -32,31 +40,12 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
         },
         current: [],
       };
-    case REMOVE_ORDER_FROM_LIST:
+    case REMOVE_LIST_FROM_HISTORY:
       const { [id]: removedPrevious, ...restPrevious } = state.previous;
 
       return {
         ...state,
         previous: restPrevious,
-      };
-    case CHANGE_HISTORY_ORDER:
-      return {
-        ...state,
-        previous: {
-          ...state.previous,
-          [date]: data,
-        },
-      };
-    case REMOVE_ITEM_FROM_ORDER:
-      // Удаляем элементы до тех пор, пока в списке не останется один элемент.
-      const { [date]: changingPrev } = state.previous;
-
-      return {
-        ...state,
-        previous: {
-          ...state.previous,
-          [date]: changingPrev.filter(item => String(item) !== String(id)),
-        },
       };
     case DELETE_SONG:
       // Сначала удаляем те списки, которые содержат удаляемую песню и длина которых равна 1

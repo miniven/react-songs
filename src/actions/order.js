@@ -1,48 +1,34 @@
 import {
-  CHANGE_ORDER,
-  ADD_ITEM,
-  REMOVE_ITEM,
-  ADD_ORDER_TO_LIST,
-  REMOVE_ORDER_FROM_LIST,
-  CHANGE_HISTORY_ORDER,
-  REMOVE_ITEM_FROM_ORDER,
+  CHANGE_HISTORY_ITEM,
+  ADD_ITEM_TO_SELECTED,
+  REMOVE_ITEM_FROM_SELECTED,
+  ADD_LIST_TO_HISTORY,
+  REMOVE_LIST_FROM_HISTORY,
 } from '~/types/order';
 
-export const changeOrder = (oldIndex, newIndex) => ({
-  type: CHANGE_ORDER,
-  oldIndex,
-  newIndex,
-});
-
-export const changeHistoryOrder = (date, data) => ({
-  type: CHANGE_HISTORY_ORDER,
-  date,
+export const changeHistoryItem = (id, data) => ({
+  type: CHANGE_HISTORY_ITEM,
+  id,
   data,
 });
 
-export const addItem = (id) => ({
-  type: ADD_ITEM,
+export const addItemToSelected = (id) => ({
+  type: ADD_ITEM_TO_SELECTED,
   id,
 });
 
-export const removeItem = (id) => ({
-  type: REMOVE_ITEM,
+export const removeItemFromSelected = (id) => ({
+  type: REMOVE_ITEM_FROM_SELECTED,
   id,
 });
 
-export const addOrderToList = (id, data) => ({
-  type: ADD_ORDER_TO_LIST,
+export const addListToHistory = (id, data) => ({
+  type: ADD_LIST_TO_HISTORY,
   id,
   data,
 })
 
-export const removeOrderFromList = (id) => ({
-  type: REMOVE_ORDER_FROM_LIST,
-  id,
-});
-
-export const removeItemFromOrder = (date, id) => ({
-  type: REMOVE_ITEM_FROM_ORDER,
-  date,
+export const removeListFromHistory = (id) => ({
+  type: REMOVE_LIST_FROM_HISTORY,
   id,
 });

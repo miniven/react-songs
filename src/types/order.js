@@ -1,7 +1,5 @@
-export const CHANGE_ORDER           = 'CHANGE_ORDER';
-export const ADD_ITEM               = 'ADD_ITEM';
-export const REMOVE_ITEM            = 'REMOVE_ITEM';
-export const ADD_ORDER_TO_LIST      = 'ADD_ORDER_TO_LIST';
-export const REMOVE_ORDER_FROM_LIST = 'REMOVE_ORDER_FROM_LIST';
-export const CHANGE_HISTORY_ORDER   = 'CHANGE_HISTORY_ORDER';
-export const REMOVE_ITEM_FROM_ORDER = 'REMOVE_ITEM_FROM_ORDER';
+export const CHANGE_HISTORY_ITEM       = 'CHANGE_HISTORY_ITEM';
+export const ADD_ITEM_TO_SELECTED      = 'ADD_ITEM_TO_SELECTED';
+export const REMOVE_ITEM_FROM_SELECTED = 'REMOVE_ITEM';
+export const ADD_LIST_TO_HISTORY       = 'ADD_LIST_TO_HISTORY';
+export const REMOVE_LIST_FROM_HISTORY  = 'REMOVE_LIST_FROM_HISTORY';

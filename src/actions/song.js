@@ -1,14 +1,8 @@
-import { SET_SONGS, SET_SONG_ACTIVITY, RESET_SONGS_ACTIVITY, ADD_SONG, UPDATE_SONG, UPDATE_MULTIPLE_SONGS, DELETE_SONG } from '~/types/song';
+import { SET_SONGS, RESET_SONGS_ACTIVITY, ADD_SONG, UPDATE_SONG, UPDATE_MULTIPLE_SONGS, DELETE_SONG } from '~/types/song';
 
 export const setSongs = data => ({
   type: SET_SONGS,
   data,
-});
-
-export const setSongActivity = (id, isSelected) => ({
-  type: SET_SONG_ACTIVITY,
-  id,
-  isSelected,
 });
 
 export const resetSongsActivity = (lastChosen, chosenList) => ({

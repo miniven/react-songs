@@ -13,8 +13,8 @@ import { getOrderedSongs } from '~/reducers/songReducer';
 
 // Actions //
 
-import { removeItem, addOrderToList } from '~/actions/order';
-import { setSongActivity, updateSong, resetSongsActivity } from '~/actions/song';
+import { removeItemFromSelected, addListToHistory } from '~/actions/order';
+import { updateSong, resetSongsActivity } from '~/actions/song';
 import { openModal } from '~/actions/ui';
 
 // Components //
@@ -48,15 +48,15 @@ class List extends Component {
       list: this.state.list.filter(item => item.id !== id),
     });
 
-    this.props.setSongActivity(id, false);
-    this.props.removeItem(id);
+    this.props.updateSong(id, { isSelected: false });
+    this.props.removeItemFromSelected(id);
   }
 
   saveList = () => {
     const curDate = moment().toISOString();
     const order = this.state.list.map(item => item.id);
 
-    this.props.addOrderToList(curDate, order);
+    this.props.addListToHistory(curDate, order);
     this.props.resetSongsActivity(curDate, order);
     this.props.openModal('showSuccess');
   }
@@ -82,4 +82,4 @@ const mapStateToProps = state => ({
   order: state.order.current,
 });
 
-export default connect(mapStateToProps, { removeItem, addOrderToList, setSongActivity, updateSong, resetSongsActivity, openModal })(List);
+export default connect(mapStateToProps, { removeItemFromSelected, addListToHistory, updateSong, resetSongsActivity, openModal })(List);

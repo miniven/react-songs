@@ -1,4 +1,4 @@
-import { SET_SONGS, SET_SONG_ACTIVITY, RESET_SONGS_ACTIVITY, ADD_SONG, UPDATE_SONG, UPDATE_MULTIPLE_SONGS, DELETE_SONG } from '~/types/song';
+import { SET_SONGS, RESET_SONGS_ACTIVITY, ADD_SONG, UPDATE_SONG, UPDATE_MULTIPLE_SONGS, DELETE_SONG } from '~/types/song';
 import { DB_SONG_KEYS } from '~/constants';
 
 export const songReducer = (state = [], { type, data, id, isSelected, lastChosen, chosenList }) => {
@@ -7,14 +7,6 @@ export const songReducer = (state = [], { type, data, id, isSelected, lastChosen
   switch (type) {
     case SET_SONGS:
       return data;
-    case SET_SONG_ACTIVITY:
-      return state.map((item) => {
-        if (item.id !== id) {
-          return item;
-        };
-
-        return { ...item, isSelected };
-      });
     case ADD_SONG:
       return [
         ...state,
