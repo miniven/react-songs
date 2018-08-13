@@ -7,11 +7,6 @@ import { SortableHandle } from 'react-sortable-hoc';
 
 import './SongButton.css';
 
-// Actions //
-
-import { setSongActivity, updateSong } from '~/actions/song';
-import { removeItem, removeItemFromOrder } from '~/actions/order';
-
 // Constants //
 
 import { NEW_STATE_PERIOD } from '~/constants';
@@ -23,34 +18,13 @@ import Label from '~/components/Label/Label';
 import IconButton from '~/components/IconButton/IconButton';
 
 class SongButton extends Component {
-  setSongActivity = () => {
-    this.props.setSongActivity(this.props.data.id, false);
-    this.props.removeItem(this.props.data.id);
-  }
-
-  removeItemFromOrder = () => {
-    // Убираем песню из списка и ищем, когда она исполнялась последний раз
-    const { [this.props.historyID]: current, ...restPrevOrders } = this.props.prevOrders; // Все списки, кроме текущего
-    const lastChosen = Object.keys(restPrevOrders).find(key => restPrevOrders[key].includes(this.props.data.id)); // Когда последний раз был выбран
-
-    if (this.props.prevOrders[this.props.historyID].length > 1) {
-      this.props.removeItemFromOrder(this.props.historyID, this.props.data.id);
-      this.props.updateSong(this.props.data.id, { lastChosen });
-    }
-  }
-
   render() {
     const {
       className,
       data,
       authors,
-      setSongActivity,
-      updateSong,
-      removeItem,
-      removeItemFromOrder,
+      onRemoveItem,
       editable,
-      historyID,
-      prevOrders,
       ...restProps
     } = this.props;
 
@@ -66,7 +40,7 @@ class SongButton extends Component {
             <InfoText mod='author' value={authors[author]} />
             { isNew && <Label className='song-button__label' type='new' /> }
           </div>
-          { editable && <IconButton className='song-button__close' onClick={historyID ? this.removeItemFromOrder : this.setSongActivity} type='close' /> }
+          { editable && <IconButton className='song-button__close' onClick={() => onRemoveItem(this.props.data.id)} type='close' /> }
         </div>
         { editable && <DragHandle className='song-button__handle' /> }
       </div>
@@ -76,7 +50,6 @@ class SongButton extends Component {
 
 const mapStateToProps = state => ({
   authors: state.authors,
-  prevOrders: state.order.previous,
 });
 
-export default connect(mapStateToProps, { setSongActivity, updateSong, removeItem, removeItemFromOrder })(SongButton);
+export default connect(mapStateToProps, {  })(SongButton);

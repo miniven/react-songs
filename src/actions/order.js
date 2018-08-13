@@ -14,11 +14,10 @@ export const changeOrder = (oldIndex, newIndex) => ({
   newIndex,
 });
 
-export const changeHistoryOrder = (date, oldIndex, newIndex) => ({
+export const changeHistoryOrder = (date, data) => ({
   type: CHANGE_HISTORY_ORDER,
-  oldIndex,
-  newIndex,
   date,
+  data,
 });
 
 export const addItem = (id) => ({

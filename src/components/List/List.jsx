@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { arrayMove } from 'react-sortable-hoc';
 
 // Styles //
 
@@ -12,8 +13,8 @@ import { getOrderedSongs } from '~/reducers/songReducer';
 
 // Actions //
 
-import { changeOrder, addOrderToList } from '~/actions/order';
-import { resetSongsActivity } from '~/actions/song';
+import { removeItem, addOrderToList } from '~/actions/order';
+import { setSongActivity, updateSong, resetSongsActivity } from '~/actions/song';
 import { openModal } from '~/actions/ui';
 
 // Components //
@@ -23,15 +24,40 @@ import Button from '~/components/Button/Button';
 import SortableSongList from '~/components/SortableSongList/SortableSongList';
 
 class List extends Component {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const lastAdded = nextProps.orderedData[nextProps.orderedData.length - 1];
+    const shouldLastBeAdded = nextProps.orderedData.length > prevState.list.length;
+
+    return {
+      list: shouldLastBeAdded ? [...prevState.list, lastAdded] : prevState.list,
+    }
+  }
+
+  state = {
+    list: this.props.orderedData,
+  }
+
   onSortEnd = ({ oldIndex, newIndex }) => {
-    this.props.changeOrder(oldIndex, newIndex);
+    this.setState({
+      list: arrayMove(this.state.list, oldIndex, newIndex),
+    });
+  }
+
+  onRemoveItem = (id) => {
+    this.setState({
+      list: this.state.list.filter(item => item.id !== id),
+    });
+
+    this.props.setSongActivity(id, false);
+    this.props.removeItem(id);
   }
 
   saveList = () => {
     const curDate = moment().toISOString();
+    const order = this.state.list.map(item => item.id);
 
-    this.props.addOrderToList(curDate, this.props.order);
-    this.props.resetSongsActivity(curDate, this.props.order);
+    this.props.addOrderToList(curDate, order);
+    this.props.resetSongsActivity(curDate, order);
     this.props.openModal('showSuccess');
   }
 
@@ -44,7 +70,7 @@ class List extends Component {
 
     return (
       <Fragment>
-        <SortableSongList list={orderedData} onSortEnd={this.onSortEnd} className={className ? className : ''} />
+        <SortableSongList list={this.state.list} onSortEnd={this.onSortEnd} onRemoveItem={this.onRemoveItem} className={className ? className : ''} />
         <Button className='sidebar__button' mods={['green', 'block']} onClick={this.saveList}>Сохранить</Button>
       </Fragment>
     );
@@ -56,4 +82,4 @@ const mapStateToProps = state => ({
   order: state.order.current,
 });
 
-export default connect(mapStateToProps, { changeOrder, addOrderToList, resetSongsActivity, openModal })(List);
+export default connect(mapStateToProps, { removeItem, addOrderToList, setSongActivity, updateSong, resetSongsActivity, openModal })(List);

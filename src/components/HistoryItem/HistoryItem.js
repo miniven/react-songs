@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import 'moment/locale/ru';
+import { arrayMove } from 'react-sortable-hoc';
 
 // Styles //
 
@@ -9,7 +10,8 @@ import './HistoryItem.css';
 
 // Actions //
 
-import { removeOrderFromList, changeHistoryOrder } from '~/actions/order';
+import { updateSong } from '~/actions/song';
+import { removeOrderFromList, changeHistoryOrder, removeItemFromOrder } from '~/actions/order';
 import { openModal } from '~/actions/ui';
 
 // Components //
@@ -19,13 +21,17 @@ import SongButton from '~/components/SongButton/SongButton';
 import IconButton from '~/components/IconButton/IconButton';
 import SortableSongList from '~/components/SortableSongList/SortableSongList';
 
+moment().locale('ru');
+
 class HistoryItem extends Component {
-  state = {
-    isEditing: false,
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return prevState;
   }
 
-  componentWillMount = () => {
-    moment().locale('ru');
+  state = {
+    isEditing: false,
+    removedFromList: [],
+    list: this.props.history[this.props.date],
   }
 
   toggleEdit = () => {
@@ -34,8 +40,42 @@ class HistoryItem extends Component {
     });
   }
 
+  saveChanges = () => {
+    this.props.changeHistoryOrder(this.props.date, this.state.list);
+    this.toggleEdit();
+
+    // Убираем песню из списка и ищем, когда она исполнялась последний раз
+    const { [this.props.date]: current, ...restHistory } = this.props.history; // Все списки, кроме текущего
+    const isAllowedToRemove = this.props.history[this.props.date].length > 1;
+
+    this.state.removedFromList.forEach(id => {
+      const lastChosen = Object.keys(restHistory).find(key => restHistory[key].includes(id)); // Когда последний раз был выбран
+
+      if (isAllowedToRemove) {
+        this.props.removeItemFromOrder(this.props.date, id);
+        this.props.updateSong(id, { lastChosen });
+      }
+    });
+  }
+
+  resetChanges = () => {
+    this.setState({
+      list: this.props.history[this.props.date],
+    });
+    this.toggleEdit();
+  }
+
   onSortEnd = ({ oldIndex, newIndex }) => {
-    this.props.changeHistoryOrder(this.props.date, oldIndex, newIndex);
+    this.setState({
+      list: arrayMove(this.state.list, oldIndex, newIndex),
+    });
+  }
+  
+  onRemoveItem = id => {
+    this.setState({
+      removedFromList: [...this.state.removedFromList, id],
+      list: this.state.list.filter(item => item !== id),
+    });
   }
 
   findSong = (id) => {
@@ -54,8 +94,8 @@ class HistoryItem extends Component {
     return (
       <div className='history-item'>
         <div className='history-item__box'>
-          { !isEditing && <IconButton className='history-item__button' onClick={this.toggleEdit} type='edit' /> }
-          <IconButton className='history-item__button' onClick={this.showDeleteConfirm} type='delete' />
+          { !isEditing && <IconButton className='history-item__icon' onClick={this.toggleEdit} type='edit' /> }
+          <IconButton className='history-item__icon' onClick={this.showDeleteConfirm} type='delete' />
         </div>
         <div className='history-item__header'>
           <p className='history-item__date'>{ momentDate.format('DD.MM.YYYY') }</p>
@@ -64,9 +104,10 @@ class HistoryItem extends Component {
         {
           isEditing ? (
             <Fragment>
-              <SortableSongList className='history-item__list' list={history[date].map(id => this.findSong(id))} onSortEnd={this.onSortEnd} historyID={date} />
+              <SortableSongList className='history-item__list' list={this.state.list.map(this.findSong)} onSortEnd={this.onSortEnd} onRemoveItem={this.onRemoveItem} />
               <div className='history-item__footer'>
-                <Button mods={['green']} onClick={this.toggleEdit}>Сохранить</Button>
+                <Button className='history-item__button' mods={['green', 'short']} onClick={this.saveChanges}>Сохранить</Button>
+                <Button className='history-item__button' mods={['gray', 'short']} onClick={this.resetChanges}>Отменить</Button>
               </div>
             </Fragment>
           ) : (
@@ -91,4 +132,4 @@ const mapStateToProps = state => ({
   history: state.order.previous,
 })
 
-export default connect(mapStateToProps, { removeOrderFromList, changeHistoryOrder, openModal })(HistoryItem);
+export default connect(mapStateToProps, { updateSong, removeOrderFromList, changeHistoryOrder, removeItemFromOrder, openModal })(HistoryItem);

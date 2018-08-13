@@ -43,12 +43,17 @@
     }
   }
 
+  &__icon,
   &__button {
     margin-right: 10px;
 
     &:last-child {
       margin-right: 0;
     }
+  }
+
+  &__button {
+    flex: 1;
   }
 
   &__header {
@@ -101,6 +106,7 @@
   }
 
   &__footer {
+    display: flex;
     padding: 15px;
     text-align: center;
   }

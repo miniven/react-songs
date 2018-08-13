@@ -35,6 +35,11 @@
     font-size: 0.7rem;
   }
 
+  &--short {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
   &--purple {
     color: var(--color-purple);
     border-color: var(--color-purple);
@@ -84,6 +89,16 @@
   &--gray {
     color: var(--color-semi-dark);
     border-color: var(--color-semi-dark);
+  }
+
+  &--light-gray {
+    color: #a5a5a5;
+    border-color: #a5a5a5;
+
+    &:hover,
+    &:focus {
+      border-color: color(#a5a5a5 alpha(70%));
+    }
   }
 
   &--dark {
