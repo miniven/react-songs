@@ -47,28 +47,33 @@ class SongItem extends Component {
           </div>
         </header>
         <div className='song-item__content'>
-          <div className='song-item__info'>
-            <div className='row'>
-              <div className='col-xs-12 col-md-3'>
-                <InfoText className='song-item__text' mod='author' value={authors[author]} />
+          {
+            (authors[author] || genres[genre]) && (
+              <div className='song-item__info'>
+                <div className='row'>
+                  {
+                    authors[author] && (
+                      <div className='col-xs-12 col-md-3'>
+                        <InfoText className='song-item__text' mod='author' value={authors[author]} />
+                      </div>
+                    )
+                  }
+                  {
+                    genres[genre] && (
+                      <div className='col-xs-12 col-md-3'>
+                        <InfoText className='song-item__text' mod='genre' value={genres[genre]} />
+                      </div>
+                    )
+                  }
+                </div>
               </div>
-              <div className='col-xs-12 col-md-3'>
-                <InfoText className='song-item__text' mod='genre' value={genres[genre]} />
-              </div>
-              {
-                lastDate && (
-                  <div className='col-xs-12 col-md-3'>
-                    <InfoText className='song-item__text' mod='date' value={lastDate} />
-                  </div>
-                )
-              }
-            </div>
-          </div>
+            )
+          }
           {
             (isNew || isRecent) && (
               <div className='song-item__label-box'>
                 { isNew && <Label className='song-item__label' type='new' /> }
-                { isRecent && <Label className='song-item__label' type='recent' /> }
+                { isRecent && <Label className='song-item__label' type='recent' value={lastDate}/> }
               </div>
             )
           }
