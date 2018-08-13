@@ -10,7 +10,7 @@ import './HistoryItem.css';
 
 // Actions //
 
-import { updateSong } from '~/actions/song';
+import { updateMultipleSongs } from '~/actions/song';
 import { removeOrderFromList, changeHistoryOrder } from '~/actions/order';
 import { openModal } from '~/actions/ui';
 
@@ -43,7 +43,7 @@ class HistoryItem extends Component {
 
   saveChanges = () => {
     const { list, removedFromList } = this.state;
-    const { changeHistoryOrder, removeOrderFromList, updateSong, date } = this.props;
+    const { changeHistoryOrder, removeOrderFromList, updateMultipleSongs, date } = this.props;
     const { [date]: current, ...restHistory } = this.props.history; // Все списки, кроме текущего
 
     if (list.length > 0) {
@@ -52,11 +52,12 @@ class HistoryItem extends Component {
       removeOrderFromList(date);
     }
 
-    removedFromList.forEach(id => {
-      const lastChosen = Object.keys(restHistory).find(key => restHistory[key].includes(id)); // Когда последний раз был выбран
+    const dataToUpdate = removedFromList.reduce((result, songID) => ({
+      ...result,
+      [songID]: { lastChosen: Object.keys(restHistory).find(key => restHistory[key].includes(songID)) },
+    }), {});
 
-      updateSong(id, { lastChosen });
-    });
+    updateMultipleSongs(dataToUpdate);
 
     this.toggleEdit();
   }
@@ -136,4 +137,4 @@ const mapStateToProps = state => ({
   history: state.order.previous,
 })
 
-export default connect(mapStateToProps, { updateSong, removeOrderFromList, changeHistoryOrder, openModal })(HistoryItem);
+export default connect(mapStateToProps, { updateMultipleSongs, removeOrderFromList, changeHistoryOrder, openModal })(HistoryItem);
