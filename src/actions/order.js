@@ -5,7 +5,7 @@ import {
   ADD_ORDER_TO_LIST,
   REMOVE_ORDER_FROM_LIST,
   CHANGE_HISTORY_ORDER,
-  REMOVE_ITEM_FROM_ORDER
+  REMOVE_ITEM_FROM_ORDER,
 } from '~/types/order';
 
 export const changeOrder = (oldIndex, newIndex) => ({
@@ -45,4 +45,4 @@ export const removeItemFromOrder = (date, id) => ({
   type: REMOVE_ITEM_FROM_ORDER,
   date,
   id,
-})
+});

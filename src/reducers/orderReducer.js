@@ -4,7 +4,7 @@ import {
   ADD_ORDER_TO_LIST,
   REMOVE_ORDER_FROM_LIST,
   CHANGE_HISTORY_ORDER,
-  REMOVE_ITEM_FROM_ORDER
+  REMOVE_ITEM_FROM_ORDER,
 } from '~/types/order';
 import { DELETE_SONG } from '~/types/song';
 

@@ -11,7 +11,7 @@ import './HistoryItem.css';
 // Actions //
 
 import { updateSong } from '~/actions/song';
-import { removeOrderFromList, changeHistoryOrder, removeItemFromOrder } from '~/actions/order';
+import { removeOrderFromList, changeHistoryOrder } from '~/actions/order';
 import { openModal } from '~/actions/ui';
 
 // Components //
@@ -36,30 +36,34 @@ class HistoryItem extends Component {
 
   toggleEdit = () => {
     this.setState({
+      removedFromList: [],
       isEditing: !this.state.isEditing,
     });
   }
 
   saveChanges = () => {
-    this.props.changeHistoryOrder(this.props.date, this.state.list);
-    this.toggleEdit();
+    const { list, removedFromList } = this.state;
+    const { changeHistoryOrder, removeOrderFromList, updateSong, date } = this.props;
+    const { [date]: current, ...restHistory } = this.props.history; // Все списки, кроме текущего
 
-    // Убираем песню из списка и ищем, когда она исполнялась последний раз
-    const { [this.props.date]: current, ...restHistory } = this.props.history; // Все списки, кроме текущего
-    const isAllowedToRemove = this.props.history[this.props.date].length > 1;
+    if (list.length > 0) {
+      changeHistoryOrder(date, list);
+    } else {
+      removeOrderFromList(date);
+    }
 
-    this.state.removedFromList.forEach(id => {
+    removedFromList.forEach(id => {
       const lastChosen = Object.keys(restHistory).find(key => restHistory[key].includes(id)); // Когда последний раз был выбран
 
-      if (isAllowedToRemove) {
-        this.props.removeItemFromOrder(this.props.date, id);
-        this.props.updateSong(id, { lastChosen });
-      }
+      updateSong(id, { lastChosen });
     });
+
+    this.toggleEdit();
   }
 
   resetChanges = () => {
     this.setState({
+      removedFromList: [],
       list: this.props.history[this.props.date],
     });
     this.toggleEdit();
@@ -132,4 +136,4 @@ const mapStateToProps = state => ({
   history: state.order.previous,
 })
 
-export default connect(mapStateToProps, { updateSong, removeOrderFromList, changeHistoryOrder, removeItemFromOrder, openModal })(HistoryItem);
+export default connect(mapStateToProps, { updateSong, removeOrderFromList, changeHistoryOrder, openModal })(HistoryItem);
