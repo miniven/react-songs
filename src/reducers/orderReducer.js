@@ -8,17 +8,23 @@ import {
 
 import { DELETE_SONG } from '~/types/song';
 
-const previousOrders = (state = {}, { type, id, data }) => {
+const previousOrders = (state = {}, { type, id, date, data }) => {
   switch (type) {
     case CHANGE_HISTORY_ITEM:
       return {
         ...state,
-        [id]: data,
+        [id]: {
+          ...state[id],
+          list: data,
+        },
       };
     case ADD_LIST_TO_HISTORY:
       return {
-        [id]: data,
         ...state,
+        [id]: {
+          date,
+          list: data,
+        },
       };
     case REMOVE_LIST_FROM_HISTORY:
       const { [id]: removedPrevious, ...restPrevious } = state;
@@ -28,10 +34,13 @@ const previousOrders = (state = {}, { type, id, data }) => {
       // Сначала удаляем те списки, которые содержат удаляемую песню и длина которых равна 1
       // Затем проходим по всем спискам и удаляем песню
       return Object.keys(state)
-        .filter(key => state[key].includes(id) ? state[key].length > 1 : true)
+        .filter(key => state[key].list.includes(id) ? state[key].list.length > 1 : true)
         .reduce((result, key) => {
           return {
-            [key]: state[key].filter(val => val !== id),
+            [key]: {
+              ...state[key],
+              list: state[key].list.filter(val => val !== id),
+            },
             ...result,
           };
         }, {});
@@ -74,7 +83,7 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
     case ADD_LIST_TO_HISTORY:
       return {
         ...state,
-        previous: previousOrders(state.previous, { type, id, data }),
+        previous: previousOrders(state.previous, { type, id, date, data }),
         current: [],
       };
     case REMOVE_LIST_FROM_HISTORY:

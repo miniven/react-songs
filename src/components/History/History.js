@@ -21,10 +21,10 @@ class History extends Component {
     return (
       <div className='row'>
         {
-          Object.keys(history).map((date) => {
+          Object.keys(history).reverse().map((listID) => {
             return (
-              <div key={date} className='col-xs col-md-3'>
-                <HistoryItem date={date} />
+              <div key={listID} className='col-xs col-md-3'>
+                <HistoryItem listID={listID} />
               </div>
             )
           })

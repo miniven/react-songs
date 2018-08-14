@@ -1,7 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import short from 'short-uuid';
 import { arrayMove } from 'react-sortable-hoc';
+import DatePicker from 'react-datepicker';
 
 // Styles //
 
@@ -34,6 +36,7 @@ class List extends Component {
   }
 
   state = {
+    date: moment(),
     list: this.props.orderedData,
   }
 
@@ -52,12 +55,19 @@ class List extends Component {
     this.props.removeItemFromSelected(id);
   }
 
+  setDate = date => {
+    this.setState({
+      date,
+    });
+  }
+
   saveList = () => {
-    const curDate = moment().toISOString();
+    const translator = short();
+    const date = this.state.date.toISOString();
     const order = this.state.list.map(item => item.id);
 
-    this.props.addListToHistory(curDate, order);
-    this.props.resetSongsActivity(curDate, order);
+    this.props.addListToHistory(translator.new(), date, order);
+    this.props.resetSongsActivity(date, order);
     this.props.openModal('showSuccess');
   }
 
@@ -69,10 +79,18 @@ class List extends Component {
     }
 
     return (
-      <Fragment>
+      <form className='form'>
+        <label className='form__field'>
+          <p className='form__label'>Дата</p>
+          <DatePicker
+            className='form__input'
+            selected={this.state.date}
+            onChange={this.setDate}
+          />
+        </label>
         <SortableSongList list={this.state.list} onSortEnd={this.onSortEnd} onRemoveItem={this.onRemoveItem} className={className ? className : ''} />
         <Button className='sidebar__button' mods={['green', 'block']} onClick={this.saveList}>Сохранить</Button>
-      </Fragment>
+      </form>
     );
   }
 };

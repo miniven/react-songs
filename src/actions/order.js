@@ -22,9 +22,10 @@ export const removeItemFromSelected = (id) => ({
   id,
 });
 
-export const addListToHistory = (id, data) => ({
+export const addListToHistory = (id, date, data) => ({
   type: ADD_LIST_TO_HISTORY,
   id,
+  date,
   data,
 })
 

@@ -16,9 +16,9 @@ export class ConfirmOrderDelete extends Component {
     // Изменяем дату последнего исполнения песен списка и потом удаляем список
     const { [this.props.orderID]: current, ...restPrevOrders } = this.props.prevOrders;
 
-    const dataToUpdate = current.reduce((result, songID) => ({
+    const dataToUpdate = current.list.reduce((result, songID) => ({
       ...result,
-      [songID]: { lastChosen: Object.keys(restPrevOrders).find(key => restPrevOrders[key].includes(songID)) },
+      [songID]: { lastChosen: Object.keys(restPrevOrders).find(key => restPrevOrders[key].list.includes(songID)) },
     }), {});
 
     this.props.updateMultipleSongs(dataToUpdate);

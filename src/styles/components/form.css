@@ -6,6 +6,7 @@
     position: relative;
     display: block;
     margin-bottom: 15px;
+    text-align: left;
 
     &--invalid {
       .form__label {
@@ -15,6 +16,11 @@
       .form__input {
         border-color: var(--color-red);
       }
+    }
+
+    .react-datepicker-wrapper,
+    .react-datepicker__input-container {
+      width: 100%;
     }
   }
 

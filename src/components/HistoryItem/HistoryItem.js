@@ -31,7 +31,7 @@ class HistoryItem extends Component {
   state = {
     isEditing: false,
     removedFromList: [],
-    list: this.props.history[this.props.date],
+    list: this.props.history[this.props.listID].list,
   }
 
   toggleEdit = () => {
@@ -43,18 +43,18 @@ class HistoryItem extends Component {
 
   saveChanges = () => {
     const { list, removedFromList } = this.state;
-    const { changeHistoryItem, removeListFromHistory, updateMultipleSongs, date } = this.props;
-    const { [date]: current, ...restHistory } = this.props.history; // Все списки, кроме текущего
+    const { changeHistoryItem, removeListFromHistory, updateMultipleSongs, listID } = this.props;
+    const { [listID]: current, ...restHistory } = this.props.history; // Все списки, кроме текущего
 
     if (list.length > 0) {
-      changeHistoryItem(date, list);
+      changeHistoryItem(listID, list);
     } else {
-      removeListFromHistory(date);
+      removeListFromHistory(listID);
     }
 
     const dataToUpdate = removedFromList.reduce((result, songID) => ({
       ...result,
-      [songID]: { lastChosen: Object.keys(restHistory).find(key => restHistory[key].includes(songID)) },
+      [songID]: { lastChosen: Object.keys(restHistory).find(key => restHistory[key].list.includes(songID)) },
     }), {});
 
     updateMultipleSongs(dataToUpdate);
@@ -65,7 +65,7 @@ class HistoryItem extends Component {
   resetChanges = () => {
     this.setState({
       removedFromList: [],
-      list: this.props.history[this.props.date],
+      list: this.props.history[this.props.listID].list,
     });
     this.toggleEdit();
   }
@@ -88,13 +88,13 @@ class HistoryItem extends Component {
   }
 
   showDeleteConfirm = () => {
-    this.props.openModal('deleteOrder', this.props.date);
+    this.props.openModal('deleteOrder', this.props.listID);
   }
 
   render() {
-    const { date, history } = this.props;
+    const { listID, history } = this.props;
     const { isEditing } = this.state;
-    const momentDate = moment(date);
+    const momentDate = moment(history[listID].date);
 
     return (
       <div className='history-item'>
@@ -117,8 +117,9 @@ class HistoryItem extends Component {
             </Fragment>
           ) : (
             <ul className='history-item__list'>
+              {console.log(history)}
               {
-                history[date].map(id => (
+                history[listID].list.map(id => (
                   <li className='history-item__list-item' key={id}>
                     <SongButton className='list__button' data={this.findSong(id)} />
                   </li>
