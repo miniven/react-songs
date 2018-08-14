@@ -117,7 +117,6 @@ class HistoryItem extends Component {
             </Fragment>
           ) : (
             <ul className='history-item__list'>
-              {console.log(history)}
               {
                 history[listID].list.map(id => (
                   <li className='history-item__list-item' key={id}>

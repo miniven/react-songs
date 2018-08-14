@@ -33,7 +33,7 @@ class SongItem extends Component {
     const { className, data, genres, authors } = this.props;
     const { title, author, genre, lastChosen, created, id } = data;
 
-    const lastDate = lastChosen && moment(lastChosen).format('DD.MM.YYYY');
+    const lastDate = lastChosen && moment(lastChosen);
     const isNew = moment().dayOfYear() - moment(created).dayOfYear() <= NEW_STATE_PERIOD;
     const isRecent = lastChosen && moment().dayOfYear() - moment(lastChosen).dayOfYear() <= NEW_STATE_PERIOD;
 
@@ -73,7 +73,7 @@ class SongItem extends Component {
             (isNew || isRecent) && (
               <div className='song-item__label-box'>
                 { isNew && <Label className='song-item__label' type='new' /> }
-                { isRecent && <Label className='song-item__label' type='recent' value={lastDate}/> }
+                { isRecent && <Label className='song-item__label' type='recent' date={lastDate}/> }
               </div>
             )
           }
