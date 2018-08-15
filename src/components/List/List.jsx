@@ -61,7 +61,9 @@ class List extends Component {
     });
   }
 
-  saveList = () => {
+  saveList = (event) => {
+    event.preventDefault();
+
     const translator = short();
     const date = this.state.date.toISOString();
     const order = this.state.list.map(item => item.id);
@@ -89,7 +91,7 @@ class List extends Component {
           />
         </label>
         <SortableSongList list={this.state.list} onSortEnd={this.onSortEnd} onRemoveItem={this.onRemoveItem} className={className ? className : ''} />
-        <Button className='sidebar__button' mods={['green', 'block']}>Сохранить</Button>
+        <Button type='submit' className='sidebar__button' mods={['green', 'block']}>Сохранить</Button>
       </form>
     );
   }
