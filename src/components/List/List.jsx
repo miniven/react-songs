@@ -79,7 +79,7 @@ class List extends Component {
     }
 
     return (
-      <form className='form'>
+      <form className='form' onSubmit={this.saveList}>
         <label className='form__field'>
           <p className='form__label'>Дата</p>
           <DatePicker
@@ -89,7 +89,7 @@ class List extends Component {
           />
         </label>
         <SortableSongList list={this.state.list} onSortEnd={this.onSortEnd} onRemoveItem={this.onRemoveItem} className={className ? className : ''} />
-        <Button className='sidebar__button' mods={['green', 'block']} onClick={this.saveList}>Сохранить</Button>
+        <Button className='sidebar__button' mods={['green', 'block']}>Сохранить</Button>
       </form>
     );
   }
