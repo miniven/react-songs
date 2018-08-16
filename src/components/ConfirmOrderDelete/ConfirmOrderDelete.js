@@ -7,22 +7,31 @@ import { updateMultipleSongs } from '~/actions/song';
 import { removeListFromHistory } from '~/actions/order';
 import { closeModal } from '~/actions/ui';
 
+// Selectors //
+
+import { getListsBeforeRemoving } from '~/selectors/order';
+
 // Components //
 
 import Button from '~/components/Button/Button';
 
 export class ConfirmOrderDelete extends Component {
   removeListFromHistory = () => {
-    // Изменяем дату последнего исполнения песен списка и потом удаляем список
-    const { [this.props.orderID]: current, ...restPrevOrders } = this.props.prevOrders;
+    const { listToRemove, listsBeforeRemoving, orderID } = this.props;
 
-    const dataToUpdate = current.list.reduce((result, songID) => ({
-      ...result,
-      [songID]: { lastChosen: Object.keys(restPrevOrders).find(key => restPrevOrders[key].list.includes(songID)) },
-    }), {});
+    // Изменяем дату последнего исполнения песен списка и потом удаляем список
+    const dataToUpdate = listToRemove.list.reduce((result, songID) => {
+      const lastChosenID = Object.keys(listsBeforeRemoving).find(key => listsBeforeRemoving[key].list.includes(songID));
+      const lastChosenList = listsBeforeRemoving[lastChosenID];
+
+      return {
+        ...result,
+        [songID]: { lastChosen: lastChosenList ? lastChosenList.date : false },
+      };
+    }, {});
 
     this.props.updateMultipleSongs(dataToUpdate);
-    this.props.removeListFromHistory(this.props.orderID);
+    this.props.removeListFromHistory(orderID);
     this.props.closeModal();
   }
 
@@ -38,8 +47,9 @@ export class ConfirmOrderDelete extends Component {
   }
 };
 
-const mapStateToProps = state => ({
-  prevOrders: state.order.previous,
+const mapStateToProps = (state, props) => ({
+  listToRemove: state.order.previous[props.orderID],
+  listsBeforeRemoving: getListsBeforeRemoving(state.order.previous, props.orderID),
 });
 
 export default connect(mapStateToProps, { updateMultipleSongs, removeListFromHistory, closeModal })(ConfirmOrderDelete);
