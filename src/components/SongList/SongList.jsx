@@ -7,7 +7,7 @@ import { MEDIA_MD } from '~/constants';
 
 // Selectors //
 
-import { getUnselectedSongs, getSortedSongs } from '~/reducers/songReducer';
+import { getSortedSongs } from '~/selectors/song';
 
 
 // Actions //
@@ -103,7 +103,7 @@ class SongList extends Component {
 };
 
 const mapStateToProps = state => ({
-  data: getSortedSongs(getUnselectedSongs(state.songs), state.sorting),
+  data: getSortedSongs(state),
 });
 
 export default connect(mapStateToProps, { openModal })(SongList);

@@ -9,7 +9,7 @@ import { MEDIA_MD } from '~/constants';
 
 // Selectors //
 
-import { getSelectedAmount } from '~/reducers/songReducer';
+import { getSelectedAmount } from '~/selectors/song';
 
 // Styles //
 
@@ -51,7 +51,7 @@ class Navbar extends Component {
 };
 
 const mapStateToProps = state => ({
-  selectedAmount: getSelectedAmount(state.songs),
+  selectedAmount: getSelectedAmount(state),
 });
 
 export default withRouter(connect(mapStateToProps)(Navbar));

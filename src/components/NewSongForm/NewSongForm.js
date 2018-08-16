@@ -32,7 +32,7 @@ class NewSongForm extends Component {
       addAuthor(authorIDToSend, author);
     }
 
-    addSong({ ...values, id: translator.new(), created: moment().toISOString(), author: authorIDToSend });
+    addSong(translator.new(), { ...values, created: moment().toISOString(), author: authorIDToSend });
     closeModal();
   }
 

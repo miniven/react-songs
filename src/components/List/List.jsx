@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import short from 'short-uuid';
@@ -11,7 +11,7 @@ import './List.css';
 
 // Selectors //
 
-import { getOrderedSongs } from '~/reducers/songReducer';
+import { getOrderedSongs } from '~/selectors/song';
 
 // Actions //
 
@@ -25,7 +25,7 @@ import Message from '~/components/Message/Message';
 import Button from '~/components/Button/Button';
 import SortableSongList from '~/components/SortableSongList/SortableSongList';
 
-class List extends Component {
+class List extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     const lastAdded = nextProps.orderedData[nextProps.orderedData.length - 1];
     const shouldLastBeAdded = nextProps.orderedData.length > prevState.list.length;
@@ -98,7 +98,7 @@ class List extends Component {
 };
 
 const mapStateToProps = state => ({
-  orderedData: getOrderedSongs(state.songs, state.order.current),
+  orderedData: getOrderedSongs(state),
   order: state.order.current,
 });
 
