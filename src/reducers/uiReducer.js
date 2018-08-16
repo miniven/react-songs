@@ -19,7 +19,9 @@ const modal = (state, { type, action, id }) => {
   }
 };
 
-export const uiReducer = (state = { modal: { isModalOpen: false } }, { type, action, id }) => {
+export const INITIAL_STATE = { modal: { isModalOpen: false } };
+
+export const uiReducer = (state = INITIAL_STATE, { type, action, id }) => {
   switch (type) {
     case OPEN_MODAL:
       return {
