@@ -25,13 +25,13 @@ import IconButton from '~/components/IconButton/IconButton';
 
 class SongItem extends Component {
   updateSong = () => {
-    this.props.updateSong(this.props.data.id, { isSelected: true });
-    this.props.addItemToSelected(this.props.data.id);
+    this.props.updateSong(this.props.data._id, { isSelected: true });
+    this.props.addItemToSelected(this.props.data._id);
   }
 
   render() {
     const { className, data, genres, authors } = this.props;
-    const { title, author, genre, lastChosen, created, id } = data;
+    const { title, author, genre, lastChosen, created, _id } = data;
 
     const lastDate = lastChosen && moment(lastChosen);
     const isNew = moment().dayOfYear() - moment(created).dayOfYear() <= NEW_STATE_PERIOD;
@@ -42,8 +42,8 @@ class SongItem extends Component {
         <header className='song-item__header'>
           <h3 className='song-item__title'>{title}</h3>
           <div className='song-item__controls'>
-            <IconButton className='song-item__control' onClick={() => this.props.openModal('edit', id)} type='edit' />
-            <IconButton className='song-item__control' onClick={() => this.props.openModal('delete', id)} type='delete' />
+            <IconButton className='song-item__control' onClick={() => this.props.openModal('edit', _id)} type='edit' />
+            <IconButton className='song-item__control' onClick={() => this.props.openModal('delete', _id)} type='delete' />
           </div>
         </header>
         <div className='song-item__content'>

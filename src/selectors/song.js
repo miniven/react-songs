@@ -21,7 +21,7 @@ export const getOrderedSongs = createSelector(
     state => state.order.current,
   ],
   (songs, order) => {
-    return order.map((id, index) => songs.find(item => String(item.id) === String(id)));
+    return order.map((id, index) => songs.find(item => String(item._id) === String(id)));
   }
 );
 

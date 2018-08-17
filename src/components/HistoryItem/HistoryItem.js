@@ -84,7 +84,7 @@ class HistoryItem extends Component {
   }
 
   findSong = (id) => {
-    return this.props.songs.find(song => song.id === id);
+    return this.props.songs.find(song => song._id === id);
   }
 
   showDeleteConfirm = () => {

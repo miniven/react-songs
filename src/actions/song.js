@@ -9,11 +9,21 @@ export const setSongs = data => ({
 export const fetchSongs = () => dispatch => {
   return API.songs
     .fetch()
-    .then((data) => {
-      dispatch(setSongs(data));
-    })
+    .then(data => dispatch(setSongs(data)))
     .catch(err => console.log(err));
 };
+
+export const addSongOnServer = data => dispatch => {
+  return API.songs
+    .create(data)
+    .then(resData => dispatch(addSong(resData)))
+    .catch(err => console.log(err));
+};
+
+export const addSong = (data) => ({
+  type: ADD_SONG,
+  data,
+});
 
 export const resetSongsActivity = (lastChosen, chosenList) => ({
   type: RESET_SONGS_ACTIVITY,
@@ -21,14 +31,15 @@ export const resetSongsActivity = (lastChosen, chosenList) => ({
   chosenList,
 });
 
-export const addSong = (data) => ({
-  type: ADD_SONG,
-  data,
-});
+export const updateSongOnServer = (data) => dispatch => {
+  return API.songs
+    .update(data)
+    .then(() => dispatch(updateSong(data)))
+    .catch(err => console.log(err));
+};
 
-export const updateSong = (id, data) => ({
+export const updateSong = data => ({
   type: UPDATE_SONG,
-  id,
   data,
 });
 
@@ -36,6 +47,13 @@ export const updateMultipleSongs = data => ({
   type: UPDATE_MULTIPLE_SONGS,
   data,
 });
+
+export const deleteSongOnServer = id => dispatch => {
+  return API.songs
+    .delete(id)
+    .then(data => dispatch(deleteSong(id)))
+    .catch(err => console.log(err));
+};
 
 export const deleteSong = id => ({
   type: DELETE_SONG,

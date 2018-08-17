@@ -11,7 +11,7 @@ import Button from '~/components/Button/Button';
 
 // Actions //
 
-import { addSong, updateSong } from '~/actions/song';
+import { addSong, updateSongOnServer } from '~/actions/song';
 import { addAuthor } from '~/actions/author';
 import { closeModal } from '~/actions/ui';
 
@@ -22,8 +22,8 @@ class EditSongForm extends Component {
 
   handleSubmit = (values) => {
     const translator = short();
-    const { songID, authors, songs, addAuthor, updateSong, closeModal } = this.props;
-    const { title, author: authorID } = songs.find(song => song.id === songID);
+    const { songID, authors, songs, addAuthor, updateSongOnServer, closeModal } = this.props;
+    const { title, author: authorID } = songs.find(song => song._id === songID);
     
     const currentAuthor = values.author || authors[authorID];
     const currentTitle = values.title || title;
@@ -34,7 +34,8 @@ class EditSongForm extends Component {
       addAuthor(authorIDToSend, currentAuthor);
     }
 
-    updateSong(songID, {
+    updateSongOnServer({
+      _id: songID,
       title: currentTitle,
       author: (currentAuthor === '' ? null : authorIDToSend),
       genre: values.genre,
@@ -55,7 +56,7 @@ class EditSongForm extends Component {
 
   render() {
     const { authors, songs, genres, songID } = this.props;
-    const { title, author: authorID, genre: genreID } = songs.find(song => song.id === songID);
+    const { title, author: authorID, genre: genreID } = songs.find(song => song._id === songID);
 
     return (
       <Formik
@@ -126,4 +127,4 @@ const mapStateToProps = state => ({
   authors: state.authors,
 })
 
-export default connect(mapStateToProps, { addSong, updateSong, addAuthor, closeModal })(EditSongForm);
+export default connect(mapStateToProps, { addSong, updateSongOnServer, addAuthor, closeModal })(EditSongForm);

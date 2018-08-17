@@ -23,9 +23,9 @@ app.get('/api/songs/:id', SongsController.getByID);
 
 app.post('/api/songs/create', SongsController.create);
 
-app.put('/api/songs/update/', SongsController.update);
+app.post('/api/songs/update/', SongsController.update);
 
-app.delete('/api/songs/delete/:id', SongsController.deleteByID);
+app.post('/api/songs/delete/:id', SongsController.deleteByID);
 
 db.connect('mongodb://localhost:27017', 'setlist_api', (err) => {
   if (err) {

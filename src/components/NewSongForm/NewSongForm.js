@@ -11,7 +11,7 @@ import Button from '~/components/Button/Button';
 
 // Actions //
 
-import { addSong } from '~/actions/song';
+import { addSongOnServer } from '~/actions/song';
 import { addAuthor } from '~/actions/author';
 import { closeModal } from '~/actions/ui';
 
@@ -23,7 +23,7 @@ class NewSongForm extends Component {
   handleSubmit = (values) => {
     const translator = short();
     const { author } = values;
-    const { authors, addSong, addAuthor, closeModal } = this.props;
+    const { authors, addSongOnServer, addAuthor, closeModal } = this.props;
 
     const authorID = Object.keys(authors).find(key => authors[key] === author);
     const authorIDToSend = authorID || translator.new();
@@ -32,7 +32,7 @@ class NewSongForm extends Component {
       addAuthor(authorIDToSend, author);
     }
 
-    addSong(translator.new(), { ...values, created: moment().toISOString(), author: authorIDToSend });
+    addSongOnServer({ ...values, created: moment().toISOString(), author: authorIDToSend });
     closeModal();
   }
 
@@ -116,4 +116,4 @@ const mapStateToProps = state => ({
   authors: state.authors,
 });
 
-export default connect(mapStateToProps, { addSong, addAuthor, closeModal })(NewSongForm);
+export default connect(mapStateToProps, { addSongOnServer, addAuthor, closeModal })(NewSongForm);

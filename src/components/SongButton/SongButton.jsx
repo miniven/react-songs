@@ -42,7 +42,7 @@ class SongButton extends Component {
             }
             { isNew && <Label className='song-button__label' type='new' /> }
           </div>
-          { editable && <IconButton className='song-button__close' onClick={() => onRemoveItem(this.props.data.id)} type='close' /> }
+          { editable && <IconButton className='song-button__close' onClick={() => onRemoveItem(this.props.data._id)} type='close' /> }
         </div>
         { editable && <DragHandle className='song-button__handle' /> }
       </div>

@@ -48,7 +48,7 @@ class List extends PureComponent {
 
   onRemoveItem = (id) => {
     this.setState({
-      list: this.state.list.filter(item => item.id !== id),
+      list: this.state.list.filter(item => item._id !== id),
     });
 
     this.props.updateSong(id, { isSelected: false });
@@ -66,7 +66,7 @@ class List extends PureComponent {
 
     const translator = short();
     const date = this.state.date.toISOString();
-    const order = this.state.list.map(item => item.id);
+    const order = this.state.list.map(item => item._id);
 
     this.props.addListToHistory(translator.new(), date, order);
     this.props.resetSongsActivity(date, order);

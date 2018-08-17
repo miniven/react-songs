@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 // Actions //
 
-import { deleteSong } from '~/actions/song';
+import { deleteSongOnServer } from '~/actions/song';
 import { closeModal } from '~/actions/ui';
 
 // Components //
@@ -12,7 +12,7 @@ import Button from '~/components/Button/Button';
 
 export class ConfirmSongDelete extends Component {
   deleteSong = () => {
-    this.props.deleteSong(this.props.songID);
+    this.props.deleteSongOnServer(this.props.songID);
     this.props.closeModal();
   }
 
@@ -28,4 +28,4 @@ export class ConfirmSongDelete extends Component {
   }
 };
 
-export default connect(null, { deleteSong, closeModal })(ConfirmSongDelete);
+export default connect(null, { deleteSongOnServer, closeModal })(ConfirmSongDelete);
