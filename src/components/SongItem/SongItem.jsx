@@ -25,7 +25,7 @@ import IconButton from '~/components/IconButton/IconButton';
 
 class SongItem extends Component {
   updateSong = () => {
-    this.props.updateSong(this.props.data._id, { isSelected: true });
+    this.props.updateSong({ _id: this.props.data._id, isSelected: true });
     this.props.addItemToSelected(this.props.data._id);
   }
 

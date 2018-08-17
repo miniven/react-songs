@@ -13,7 +13,6 @@ import { getSortedSongs } from '~/selectors/song';
 // Actions //
 
 import { openModal } from '~/actions/ui';
-import { fetchSongs } from '~/actions/song';
 
 // Components //
 
@@ -35,10 +34,6 @@ class SongList extends Component {
       title: '',
       genre: 'all',
     }
-  }
-
-  componentDidMount = () => {
-    this.props.fetchSongs();
   }
 
   handleInput = ({ target }) => {
@@ -111,4 +106,4 @@ const mapStateToProps = state => ({
   data: getSortedSongs(state),
 });
 
-export default connect(mapStateToProps, { openModal, fetchSongs })(SongList);
+export default connect(mapStateToProps, { openModal })(SongList);

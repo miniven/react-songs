@@ -10,7 +10,7 @@ export const getByID = (id, callback) => {
 };
 
 export const create = (data, callback) => {
-  db.get().collection('songs').insert(data, callback);
+  db.get().collection('songs').insertOne(data, callback);
 };
 
 export const update = (data, callback) => {

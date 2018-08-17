@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import * as db from './db/';
 import * as SongsController from './controllers/songs';
+import * as AuthorsController from './controllers/authors';
 
 const app = express();
 
@@ -17,15 +18,25 @@ app.get('/', (req, res) => {
   res.send('API');
 });
 
+// Songs //
+
 app.get('/api/songs', SongsController.getAll);
 
 app.get('/api/songs/:id', SongsController.getByID);
 
-app.post('/api/songs/create', SongsController.create);
+app.post('/api/songs/create/', SongsController.create);
 
 app.post('/api/songs/update/', SongsController.update);
 
 app.post('/api/songs/delete/:id', SongsController.deleteByID);
+
+// Authors //
+
+app.get('/api/authors', AuthorsController.getAll);
+
+app.post('/api/authors/create/', AuthorsController.create);
+
+app.post('/api/authors/delete/:id', AuthorsController.deleteByID);
 
 db.connect('mongodb://localhost:27017', 'setlist_api', (err) => {
   if (err) {

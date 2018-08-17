@@ -19,14 +19,11 @@ import App from '~/components/App/App';
 
 import rootReducer from '~/reducers/';
 import genres from '~/genres.json';
-import authors from '~/authors.json';
 import { setGenres } from '~/actions/genre';
-import { setAuthors } from '~/actions/author';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 store.dispatch(setGenres(genres));
-store.dispatch(setAuthors(authors));
 
 ReactDOM.render(
   <Provider store={store}>

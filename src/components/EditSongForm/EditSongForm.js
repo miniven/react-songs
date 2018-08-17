@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Formik  } from 'formik';
-import short from 'short-uuid';
-// import moment from 'moment';
 
 // Components //
 
@@ -12,7 +10,7 @@ import Button from '~/components/Button/Button';
 // Actions //
 
 import { addSong, updateSongOnServer } from '~/actions/song';
-import { addAuthor } from '~/actions/author';
+import { addAuthorOnServer } from '~/actions/author';
 import { closeModal } from '~/actions/ui';
 
 class EditSongForm extends Component {
@@ -21,25 +19,32 @@ class EditSongForm extends Component {
   }
 
   handleSubmit = (values) => {
-    const translator = short();
-    const { songID, authors, songs, addAuthor, updateSongOnServer, closeModal } = this.props;
+    const { songID, authors, songs, addAuthorOnServer, updateSongOnServer, closeModal } = this.props;
     const { title, author: authorID } = songs.find(song => song._id === songID);
     
     const currentAuthor = values.author || authors[authorID];
     const currentTitle = values.title || title;
+    // Проверяем, есть ли введенный автор в сторе
     const currentAuthorID = Object.keys(authors).find(key => authors[key] === currentAuthor);
-    const authorIDToSend = currentAuthorID || translator.new();
 
     if (!currentAuthorID && currentAuthor !== '') {
-      addAuthor(authorIDToSend, currentAuthor);
+      addAuthorOnServer(currentAuthor)
+        .then(data => {
+          updateSongOnServer({
+            _id: songID,
+            title: currentTitle,
+            author: data._id,
+            genre: values.genre,
+          });
+        });
+    } else {
+      updateSongOnServer({
+        _id: songID,
+        title: currentTitle,
+        author: (currentAuthor === '' ? null : currentAuthorID),
+        genre: values.genre,
+      });
     }
-
-    updateSongOnServer({
-      _id: songID,
-      title: currentTitle,
-      author: (currentAuthor === '' ? null : authorIDToSend),
-      genre: values.genre,
-    });
 
     closeModal();
   }
@@ -127,4 +132,4 @@ const mapStateToProps = state => ({
   authors: state.authors,
 })
 
-export default connect(mapStateToProps, { addSong, updateSongOnServer, addAuthor, closeModal })(EditSongForm);
+export default connect(mapStateToProps, { addSong, updateSongOnServer, addAuthorOnServer, closeModal })(EditSongForm);

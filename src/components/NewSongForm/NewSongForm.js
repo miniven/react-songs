@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Formik  } from 'formik';
-import short from 'short-uuid';
 import moment from 'moment';
 
 // Components //
@@ -12,7 +11,7 @@ import Button from '~/components/Button/Button';
 // Actions //
 
 import { addSongOnServer } from '~/actions/song';
-import { addAuthor } from '~/actions/author';
+import { addAuthorOnServer } from '~/actions/author';
 import { closeModal } from '~/actions/ui';
 
 class NewSongForm extends Component {
@@ -21,18 +20,20 @@ class NewSongForm extends Component {
   }
 
   handleSubmit = (values) => {
-    const translator = short();
     const { author } = values;
-    const { authors, addSongOnServer, addAuthor, closeModal } = this.props;
+    const { authors, addSongOnServer, addAuthorOnServer, closeModal } = this.props;
 
+    // Ищем, существует ли автор с таким именем
     const authorID = Object.keys(authors).find(key => authors[key] === author);
-    const authorIDToSend = authorID || translator.new();
 
     if (!authorID) {
-      addAuthor(authorIDToSend, author);
+      // Если автора нет, то создаем на сервере, получаем в ответ его ID и записываем песню
+      addAuthorOnServer(author)
+        .then(data => addSongOnServer({ ...values, created: moment().toISOString(), author: data._id }))
+    } else {
+      addSongOnServer({ ...values, created: moment().toISOString(), author: authorID });
     }
 
-    addSongOnServer({ ...values, created: moment().toISOString(), author: authorIDToSend });
     closeModal();
   }
 
@@ -116,4 +117,4 @@ const mapStateToProps = state => ({
   authors: state.authors,
 });
 
-export default connect(mapStateToProps, { addSongOnServer, addAuthor, closeModal })(NewSongForm);
+export default connect(mapStateToProps, { addSongOnServer, addAuthorOnServer, closeModal })(NewSongForm);
