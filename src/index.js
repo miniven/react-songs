@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
 // Styles //
 
@@ -17,16 +18,13 @@ import App from '~/components/App/App';
 // Redux //
 
 import rootReducer from '~/reducers/';
-import songs from '~/songs.json';
 import genres from '~/genres.json';
 import authors from '~/authors.json';
-import { setSongs } from '~/actions/song';
 import { setGenres } from '~/actions/genre';
 import { setAuthors } from '~/actions/author';
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
-store.dispatch(setSongs(songs));
 store.dispatch(setGenres(genres));
 store.dispatch(setAuthors(authors));
 

@@ -1,9 +1,19 @@
+import API from '~/api/';
 import { SET_SONGS, RESET_SONGS_ACTIVITY, ADD_SONG, UPDATE_SONG, UPDATE_MULTIPLE_SONGS, DELETE_SONG } from '~/types/song';
 
 export const setSongs = data => ({
   type: SET_SONGS,
   data,
 });
+
+export const fetchSongs = () => dispatch => {
+  return API.songs
+    .fetch()
+    .then((data) => {
+      dispatch(setSongs(data));
+    })
+    .catch(err => console.log(err));
+};
 
 export const resetSongsActivity = (lastChosen, chosenList) => ({
   type: RESET_SONGS_ACTIVITY,
