@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import short from 'short-uuid';
 import { arrayMove } from 'react-sortable-hoc';
 import DatePicker from 'react-datepicker';
 
@@ -15,7 +14,7 @@ import { getOrderedSongs } from '~/selectors/song';
 
 // Actions //
 
-import { removeItemFromSelected, addListToHistory } from '~/actions/order';
+import { removeItemFromSelected, addListToHistoryOnServer } from '~/actions/order';
 import { updateSong, resetSongsActivity } from '~/actions/song';
 import { openModal } from '~/actions/ui';
 
@@ -64,12 +63,11 @@ class List extends PureComponent {
   saveList = (event) => {
     event.preventDefault();
 
-    const translator = short();
     const date = this.state.date.toISOString();
-    const order = this.state.list.map(item => item._id);
+    const list = this.state.list.map(item => item._id);
 
-    this.props.addListToHistory(translator.new(), date, order);
-    this.props.resetSongsActivity(date, order);
+    this.props.addListToHistoryOnServer({ date, list });
+    this.props.resetSongsActivity(date, list);
     this.props.openModal('showSuccess');
   }
 
@@ -102,4 +100,5 @@ const mapStateToProps = state => ({
   order: state.order.current,
 });
 
-export default connect(mapStateToProps, { removeItemFromSelected, addListToHistory, updateSong, resetSongsActivity, openModal })(List);
+export default connect(mapStateToProps, { removeItemFromSelected, addListToHistoryOnServer, updateSong, resetSongsActivity, openModal })(List);
+

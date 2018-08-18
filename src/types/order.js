@@ -3,3 +3,4 @@ export const ADD_ITEM_TO_SELECTED      = 'ADD_ITEM_TO_SELECTED';
 export const REMOVE_ITEM_FROM_SELECTED = 'REMOVE_ITEM';
 export const ADD_LIST_TO_HISTORY       = 'ADD_LIST_TO_HISTORY';
 export const REMOVE_LIST_FROM_HISTORY  = 'REMOVE_LIST_FROM_HISTORY';
+export const SET_HISTORY               = 'SET_HISTORY';

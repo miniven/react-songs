@@ -15,6 +15,7 @@ import { MEDIA_MD } from '~/constants';
 
 import { fetchSongs } from '~/actions/song';
 import { fetchAuthors } from '~/actions/author';
+import { fetchHistory } from '~/actions/order';
 
 // Components //
 
@@ -32,6 +33,7 @@ class App extends Component {
   componentDidMount = () => {
     this.props.fetchSongs();
     this.props.fetchAuthors();
+    this.props.fetchHistory();
   }
 
   render() {
@@ -55,4 +57,4 @@ class App extends Component {
   }
 };
 
-export default connect(null, { fetchSongs, fetchAuthors })(App);
+export default connect(null, { fetchSongs, fetchAuthors, fetchHistory })(App);

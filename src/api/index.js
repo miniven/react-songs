@@ -13,4 +13,9 @@ export default {
     fetch: () => axios.get(`${root}/api/authors/`).then(res => res.data),
     create: name => axios.post(`${root}/api/authors/create/`, { name }).then(res => res.data),
   },
+  history: {
+    fetch: () => axios.get(`${root}/api/history/`).then(res => res.data),
+    create: data => axios.post(`${root}/api/history/create/`, data).then(res => res.data),
+    delete: id => axios.post(`${root}/api/history/delete/${id}`).then(res => res.data),
+  },
 };

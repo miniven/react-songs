@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // Actions //
 
 import { updateMultipleSongs } from '~/actions/song';
-import { removeListFromHistory } from '~/actions/order';
+import { removeListFromHistoryOnServer } from '~/actions/order';
 import { closeModal } from '~/actions/ui';
 
 // Selectors //
@@ -31,7 +31,7 @@ export class ConfirmOrderDelete extends Component {
     }, {});
 
     this.props.updateMultipleSongs(dataToUpdate);
-    this.props.removeListFromHistory(orderID);
+    this.props.removeListFromHistoryOnServer(orderID);
     this.props.closeModal();
   }
 
@@ -52,4 +52,4 @@ const mapStateToProps = (state, props) => ({
   listsBeforeRemoving: getListsBeforeRemoving(state.order.previous, props.orderID),
 });
 
-export default connect(mapStateToProps, { updateMultipleSongs, removeListFromHistory, closeModal })(ConfirmOrderDelete);
+export default connect(mapStateToProps, { updateMultipleSongs, removeListFromHistoryOnServer, closeModal })(ConfirmOrderDelete);

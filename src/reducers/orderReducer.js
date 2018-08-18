@@ -1,4 +1,5 @@
 import {
+  SET_HISTORY,
   CHANGE_HISTORY_ITEM,
   ADD_ITEM_TO_SELECTED,
   REMOVE_ITEM_FROM_SELECTED,
@@ -10,6 +11,8 @@ import { DELETE_SONG } from '~/types/song';
 
 const previousOrders = (state = {}, { type, id, date, data }) => {
   switch (type) {
+    case SET_HISTORY:
+      return data;
     case CHANGE_HISTORY_ITEM:
       return {
         ...state,
@@ -21,10 +24,7 @@ const previousOrders = (state = {}, { type, id, date, data }) => {
     case ADD_LIST_TO_HISTORY:
       return {
         ...state,
-        [id]: {
-          date,
-          list: data,
-        },
+        [id]: data,
       };
     case REMOVE_LIST_FROM_HISTORY:
       const { [id]: removedPrevious, ...restPrevious } = state;
@@ -65,6 +65,11 @@ const currentOrder = (state = [], { type, id }) => {
 
 export const orderReducer = (state = { previous: {}, current: [] }, { type, id, data, date }) => {
   switch (type) {
+    case SET_HISTORY:
+      return {
+        ...state,
+        previous: previousOrders(state.previou, { type, data }),
+      };
     case CHANGE_HISTORY_ITEM:
       return {
         ...state,
@@ -83,7 +88,7 @@ export const orderReducer = (state = { previous: {}, current: [] }, { type, id, 
     case ADD_LIST_TO_HISTORY:
       return {
         ...state,
-        previous: previousOrders(state.previous, { type, id, date, data }),
+        previous: previousOrders(state.previous, { type, id, data }),
         current: [],
       };
     case REMOVE_LIST_FROM_HISTORY:

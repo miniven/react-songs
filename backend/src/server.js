@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import * as db from './db/';
 import * as SongsController from './controllers/songs';
 import * as AuthorsController from './controllers/authors';
+import * as HistoryController from './controllers/history';
 
 const app = express();
 
@@ -37,6 +38,16 @@ app.get('/api/authors', AuthorsController.getAll);
 app.post('/api/authors/create/', AuthorsController.create);
 
 app.post('/api/authors/delete/:id', AuthorsController.deleteByID);
+
+// History //
+
+app.get('/api/history', HistoryController.getAll);
+
+app.post('/api/history/create/', HistoryController.create);
+
+app.post('/api/history/delete/:id', HistoryController.deleteByID);
+
+// Connection //
 
 db.connect('mongodb://localhost:27017', 'setlist_api', (err) => {
   if (err) {
