@@ -49,11 +49,10 @@ export const updateMultipleSongs = data => ({
 });
 
 export const updateMultipleSongsOnServer = data => dispatch => {
-  console.log(data);
-  // return API.songs
-  //   .updateMultiple(data)
-  //   .then(() => dispatch(updateMultipleSongs))
-  //   .catch(err => console.log(err));
+  return API.songs
+    .updateMultiple(data)
+    .then(() => dispatch(updateMultipleSongs))
+    .catch(err => console.log(err));
 };
 
 export const deleteSongOnServer = id => dispatch => {
