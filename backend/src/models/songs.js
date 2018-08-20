@@ -23,7 +23,7 @@ export const updateMultiple = (data, callback) => {
   const ids = Object.keys(data);
 
   ids.forEach((id) => {
-    db.get().collection('songs').updateOne({ _id: id}, { $set: { lastChosen: ids[id] } });
+    db.get().collection('songs').updateOne({ _id: ObjectID(id)}, { $set: data[id] }, callback);
   });
 }
 
