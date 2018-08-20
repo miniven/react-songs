@@ -31,6 +31,11 @@ export const resetSongsActivity = (lastChosen, chosenList) => ({
   chosenList,
 });
 
+export const updateSong = data => ({
+  type: UPDATE_SONG,
+  data,
+});
+
 export const updateSongOnServer = (data) => dispatch => {
   return API.songs
     .update(data)
@@ -38,15 +43,18 @@ export const updateSongOnServer = (data) => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const updateSong = data => ({
-  type: UPDATE_SONG,
-  data,
-});
-
 export const updateMultipleSongs = data => ({
   type: UPDATE_MULTIPLE_SONGS,
   data,
 });
+
+export const updateMultipleSongsOnServer = data => dispatch => {
+  console.log(data);
+  // return API.songs
+  //   .updateMultiple(data)
+  //   .then(() => dispatch(updateMultipleSongs))
+  //   .catch(err => console.log(err));
+};
 
 export const deleteSongOnServer = id => dispatch => {
   return API.songs

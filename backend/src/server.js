@@ -29,6 +29,8 @@ app.post('/api/songs/create/', SongsController.create);
 
 app.post('/api/songs/update/', SongsController.update);
 
+app.post('/api/songs/update_multiple/', SongsController.updateMultiple);
+
 app.post('/api/songs/delete/:id', SongsController.deleteByID);
 
 // Authors //

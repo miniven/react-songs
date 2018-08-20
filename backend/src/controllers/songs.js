@@ -44,6 +44,17 @@ export const update = (req, res) => {
   });
 };
 
+export const updateMultiple = (req, res) => {
+  Songs.updateMultiple(req.body, (err) => {
+    if (err) {
+      console.log(err);
+      return res.sendStatus(500);
+    }
+
+    res.sendStatus(200);
+  })
+}
+
 export const deleteByID = (req, res) => {
   Songs.deleteByID(req.params.id, (err) => {
     if (err) {

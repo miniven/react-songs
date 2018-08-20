@@ -10,7 +10,7 @@ import './HistoryItem.css';
 
 // Actions //
 
-import { updateMultipleSongs } from '~/actions/song';
+import { updateMultipleSongsOnServer } from '~/actions/song';
 import { removeListFromHistoryOnServer, changeHistoryItem } from '~/actions/order';
 import { openModal } from '~/actions/ui';
 
@@ -43,7 +43,7 @@ class HistoryItem extends Component {
 
   saveChanges = () => {
     const { list, removedFromList } = this.state;
-    const { changeHistoryItem, removeListFromHistoryOnServer, updateMultipleSongs, listID } = this.props;
+    const { changeHistoryItem, removeListFromHistoryOnServer, updateMultipleSongsOnServer, listID } = this.props;
     const { [listID]: current, ...restHistory } = this.props.history; // Все списки, кроме текущего
 
     if (list.length > 0) {
@@ -57,7 +57,7 @@ class HistoryItem extends Component {
       [songID]: { lastChosen: Object.keys(restHistory).find(key => restHistory[key].list.includes(songID)) },
     }), {});
 
-    updateMultipleSongs(dataToUpdate);
+    updateMultipleSongsOnServer(dataToUpdate);
 
     this.toggleEdit();
   }
@@ -137,4 +137,4 @@ const mapStateToProps = state => ({
   history: state.order.previous,
 })
 
-export default connect(mapStateToProps, { updateMultipleSongs, removeListFromHistoryOnServer, changeHistoryItem, openModal })(HistoryItem);
+export default connect(mapStateToProps, { updateMultipleSongsOnServer, removeListFromHistoryOnServer, changeHistoryItem, openModal })(HistoryItem);

@@ -15,7 +15,16 @@ export const create = (data, callback) => {
 
 export const update = (data, callback) => {
   const { _id, ...dataToUpdate } = data;
+
   db.get().collection('songs').updateOne({ _id: ObjectID(data._id) }, { $set: dataToUpdate }, callback);
+}
+
+export const updateMultiple = (data, callback) => {
+  const ids = Object.keys(data);
+
+  ids.forEach((id) => {
+    db.get().collection('songs').updateOne({ _id: id}, { $set: { lastChosen: ids[id] } });
+  });
 }
 
 export const deleteByID = (id, callback) => {
