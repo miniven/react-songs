@@ -47,6 +47,8 @@ app.get('/api/history', HistoryController.getAll);
 
 app.post('/api/history/create/', HistoryController.create);
 
+app.post('/api/history/delete_from_history/:id', HistoryController.deleteFromHistory);
+
 app.post('/api/history/delete/:id', HistoryController.deleteByID);
 
 // Connection //

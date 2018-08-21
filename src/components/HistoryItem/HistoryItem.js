@@ -44,7 +44,7 @@ class HistoryItem extends Component {
   saveChanges = () => {
     const { list, removedFromList } = this.state;
     const { changeHistoryItem, removeListFromHistoryOnServer, updateMultipleSongsOnServer, listID } = this.props;
-    const { [listID]: current, ...restHistory } = this.props.history; // Все списки, кроме текущего
+    const { [listID]: current, ...listsBeforeRemoving } = this.props.history; // Все списки, кроме текущего
 
     if (list.length > 0) {
       changeHistoryItem(listID, list);
@@ -52,10 +52,15 @@ class HistoryItem extends Component {
       removeListFromHistoryOnServer(listID);
     }
 
-    const dataToUpdate = removedFromList.reduce((result, songID) => ({
-      ...result,
-      [songID]: { lastChosen: Object.keys(restHistory).find(key => restHistory[key].list.includes(songID)) || false },
-    }), {});
+    const dataToUpdate = removedFromList.reduce((result, songID) => {
+      const lastChosenID = Object.keys(listsBeforeRemoving).find(key => listsBeforeRemoving[key].list.includes(songID));
+      const lastChosenList = listsBeforeRemoving[lastChosenID];
+
+      return {
+        ...result,
+        [songID]: { lastChosen: lastChosenList ? lastChosenList.date : false },
+      };
+    }, {});
 
     updateMultipleSongsOnServer(dataToUpdate);
 

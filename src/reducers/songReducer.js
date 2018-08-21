@@ -7,13 +7,13 @@ const song = (state = {}, { type, data, chosenList, lastChosen }) => {
     case UPDATE_SONG:
       return { ...state, ...data };
     case RESET_SONGS_ACTIVITY:
-      return chosenList.includes(state._id) ? { ...state, isSelected: false, lastChosen } : state;
+      return chosenList.includes(state._id) ? { ...state, isSelected: false } : state;
     default:
       return state;
   }
 };
 
-export const songReducer = (state = [], { type, data, id, isSelected, lastChosen, chosenList }) => {
+export const songReducer = (state = [], { type, data, id, isSelected, chosenList }) => {
   let currentSongIndex;
 
   switch (type) {
@@ -42,7 +42,7 @@ export const songReducer = (state = [], { type, data, id, isSelected, lastChosen
         ...state.slice(currentSongIndex + 1),
       ];
     case RESET_SONGS_ACTIVITY:
-      return state.map(item => song(item, { type, chosenList, lastChosen }));
+      return state.map(item => song(item, { type, chosenList }));
     default:
       return state;
   }

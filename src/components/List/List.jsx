@@ -15,7 +15,7 @@ import { getOrderedSongs } from '~/selectors/song';
 // Actions //
 
 import { removeItemFromSelected, addListToHistoryOnServer } from '~/actions/order';
-import { updateSong, resetSongsActivity } from '~/actions/song';
+import { updateSong, updateMultipleSongsOnServer, resetSongsActivity } from '~/actions/song';
 import { openModal } from '~/actions/ui';
 
 // Components //
@@ -66,8 +66,17 @@ class List extends PureComponent {
     const date = this.state.date.toISOString();
     const list = this.state.list.map(item => item._id);
 
+    // Изменяем дату последнего исполнения песен списка
+    const dataToUpdate = this.state.list.reduce((result, song) => {
+      return {
+        ...result,
+        [song._id]: { lastChosen: date },
+      };
+    }, {});
+
     this.props.addListToHistoryOnServer({ date, list });
-    this.props.resetSongsActivity(date, list);
+    this.props.updateMultipleSongsOnServer(dataToUpdate);
+    this.props.resetSongsActivity(list);
     this.props.openModal('showSuccess');
   }
 
@@ -100,5 +109,5 @@ const mapStateToProps = state => ({
   order: state.order.current,
 });
 
-export default connect(mapStateToProps, { removeItemFromSelected, addListToHistoryOnServer, updateSong, resetSongsActivity, openModal })(List);
+export default connect(mapStateToProps, { removeItemFromSelected, addListToHistoryOnServer, updateSong, updateMultipleSongsOnServer, resetSongsActivity, openModal })(List);
 

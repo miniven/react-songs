@@ -18,6 +18,7 @@ export default {
   history: {
     fetch: () => axios.get(`${root}/api/history/`).then(res => res.data),
     create: data => axios.post(`${root}/api/history/create/`, data).then(res => res.data),
+    deleteFromHistory: id => axios.post(`${root}/api/history/delete_from_history/${id}`).then(res => res.data),
     delete: id => axios.post(`${root}/api/history/delete/${id}`).then(res => res.data),
   },
 };

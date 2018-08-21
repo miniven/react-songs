@@ -2,7 +2,6 @@ import * as History from '../models/history';
 
 
 export const getAll = (req, res) => {
-  console.log(History);
   History.getAll((err, docs) => {
       if (err) {
         console.log(err);
@@ -21,6 +20,17 @@ export const create = (req, res) => {
       }
 
       res.send(req.body);
+  });
+};
+
+export const deleteFromHistory = (req, res) => {
+  History.deleteFromHistory(req.params.id, (err) => {
+    if (err) {
+      console.log(err);
+      return res.sendStatus(500);
+    }
+
+    res.sendStatus(200);
   });
 };
 
