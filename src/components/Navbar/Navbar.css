@@ -36,7 +36,7 @@
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: auto 60%;
+    background-size: auto 50%;
     border: none;
     border-bottom: 3px solid transparent;
 
@@ -45,10 +45,6 @@
       height: auto;
       margin: 0 15px;
       border-width: 2px;
-    }
-
-    &--active {
-      border-color: var(--color-secondary);
     }
 
     &--home {
@@ -73,6 +69,10 @@
       @media (--screen-md) {
         background-image: none;
       }
+    }
+
+    &--active {
+      border-color: var(--color-secondary);
     }
   }
 

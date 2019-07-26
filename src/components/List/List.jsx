@@ -15,7 +15,7 @@ import { getOrderedSongs } from '~/selectors/song';
 // Actions //
 
 import { removeItemFromSelected, addListToHistoryOnServer } from '~/actions/order';
-import { updateSong, updateMultipleSongsOnServer, resetSongsActivity } from '~/actions/song';
+import { updateSong, updateSongsOnServer, resetSongsActivity } from '~/actions/song';
 import { openModal } from '~/actions/ui';
 
 // Components //
@@ -75,7 +75,7 @@ class List extends PureComponent {
     }, {});
 
     this.props.addListToHistoryOnServer({ date, list });
-    this.props.updateMultipleSongsOnServer(dataToUpdate);
+    this.props.updateSongsOnServer(dataToUpdate);
     this.props.resetSongsActivity(list);
     this.props.openModal('showSuccess');
   }
@@ -109,5 +109,5 @@ const mapStateToProps = state => ({
   order: state.order.current,
 });
 
-export default connect(mapStateToProps, { removeItemFromSelected, addListToHistoryOnServer, updateSong, updateMultipleSongsOnServer, resetSongsActivity, openModal })(List);
+export default connect(mapStateToProps, { removeItemFromSelected, addListToHistoryOnServer, updateSong, updateSongsOnServer, resetSongsActivity, openModal })(List);
 

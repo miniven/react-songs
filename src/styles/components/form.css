@@ -63,6 +63,8 @@
     }
 
     .Select-placeholder {
+      color: color(var(--color-secondary) alpha(30%));
+      font-weight: 600;
       line-height: 2.9em;
     }
 
@@ -152,5 +154,11 @@
   &__footer {
     margin-top: 15px;
     text-align: center;
+
+    &--align {
+      &--left {
+        text-align: left;
+      }
+    }
   }
 }

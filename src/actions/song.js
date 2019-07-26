@@ -42,28 +42,23 @@ export const updateSongOnServer = (data) => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const updateMultipleSongs = data => ({
+export const updateSongs = data => ({
   type: UPDATE_MULTIPLE_SONGS,
   data,
 });
 
-export const updateMultipleSongsOnServer = data => dispatch => {
+export const updateSongsOnServer = data => dispatch => {
   return API.songs
     .updateMultiple(data)
-    .then(() => dispatch(updateMultipleSongs(data)))
-    .catch(err => console.log(err));
+      .then(() => dispatch(updateSongs(data)))
+      .catch(err => console.log(err));
 };
 
 export const deleteSongOnServer = id => dispatch => {
-  return API.history
-    .deleteFromHistory(id)
-    .then(() => {
-      return API.songs
-        .delete(id)
-        .then(data => dispatch(deleteSong(id)))
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
+    return API.songs
+      .delete(id)
+      .then(data => dispatch(deleteSong(id)))
+      .catch(err => console.log(err));
 };
 
 export const deleteSong = id => ({

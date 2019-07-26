@@ -18,7 +18,7 @@ class SongListPage extends Component {
       <div className='container'>
         <TopLine>
           <h2 className='top-line__title title'>Список песен</h2>
-          <Button className='top-line__button' mods={['filled-purple']} onClick={() => this.props.openModal()}>Добавить песню</Button>
+          <Button className='top-line__button' mods={['filled-purple']} to="/create">Добавить песню</Button>
         </TopLine>
         <SongList />
         <ModalDialog />

@@ -22,6 +22,7 @@ import { fetchHistory } from '~/actions/order';
 import SongListPage from '~/pages/SongListPage';
 import NoMatchPage from '~/pages/NoMatchPage';
 import HistoryPage from '~/pages/HistoryPage';
+import CreateSongPage from '~/pages/CreateSongPage';
 import SelectedSongsPage from '~/pages/SelectedSongsPage';
 import Navbar from '~/components/Navbar/Navbar';
 
@@ -47,6 +48,7 @@ class App extends Component {
             <Route exact path='/' component={SongListPage} />
             <Route exact path='/history' component={HistoryPage} />
             <Route exact path='/selected' component={SelectedSongsPage} />
+            <Route exact path='/create' component={CreateSongPage} />
             <Media query={MEDIA_MD}>
               { matches => !matches && <Route component={NoMatchPage} /> }
             </Media>

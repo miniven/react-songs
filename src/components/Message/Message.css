@@ -11,4 +11,10 @@
   text-align: left;
   background-color: color(#ffffff a(40%));
   border-radius: 4px;
+
+  &--success {
+    color: color(var(--color-green) blackness(35%));
+    background-color: color(var(--color-green) a(10%));
+    border: 1px solid color(var(--color-green) a(10%));
+  }
 }

@@ -31,6 +31,11 @@ class Navbar extends Component {
                 <p className='navbar__text'>История</p>
               </NavLink>
             </li>
+            <li className='navbar__item'>
+              <NavLink to='/create' exact className='navbar__link navbar__link--create' activeClassName='navbar__link--active'>
+                <p className='navbar__text'>Добавить песню</p>
+              </NavLink>
+            </li>
             <Media query={MEDIA_MD}>
               {
                 matches => !matches && (
